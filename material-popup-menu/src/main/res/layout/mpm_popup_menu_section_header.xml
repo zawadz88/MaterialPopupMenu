@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    tools:theme="@style/Widget.MPM.Menu">
+
+    <View
+        android:id="@+id/mpm_popup_menu_section_separator"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/mpm_popup_menu_item_section_separator_height"
+        android:layout_marginBottom="@dimen/mpm_popup_menu_item_section_separator_margin_vertical"
+        android:layout_marginTop="@dimen/mpm_popup_menu_item_section_separator_margin_vertical"
+        android:background="?attr/mpm_separatorColor"
+        tools:visibility="visible" />
+
+    <TextView
+        android:id="@+id/mpm_popup_menu_section_header_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/mpm_popup_menu_item_section_label_margin_bottom"
+        android:layout_marginEnd="@dimen/mpm_popup_menu_item_padding_horizontal"
+        android:layout_marginLeft="@dimen/mpm_popup_menu_item_padding_horizontal"
+        android:layout_marginRight="@dimen/mpm_popup_menu_item_padding_horizontal"
+        android:layout_marginStart="@dimen/mpm_popup_menu_item_padding_horizontal"
+        android:ellipsize="end"
+        android:lines="1"
+        android:textColor="?attr/mpm_secondaryTextColor"
+        android:textSize="@dimen/mpm_popup_menu_item_section_label_text_size"
+        tools:text="Header"
+        tools:visibility="visible" />
+
+</LinearLayout>

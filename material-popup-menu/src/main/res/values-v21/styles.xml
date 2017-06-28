@@ -1,0 +1,7 @@
+<resources>
+
+    <style name="Widget.MPM.Item" parent="">
+        <item name="android:background">?android:attr/listChoiceBackgroundIndicator</item>
+    </style>
+
+</resources>

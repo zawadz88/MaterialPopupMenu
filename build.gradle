@@ -1,16 +1,20 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 
 buildscript {
-    ext.KOTLIN_VERSION = '1.1.2-5'
+    ext.KOTLIN_VERSION = '1.1.3-2'
+    ext.ANDROID_GRADLE_PLUGIN_VERSION = '2.3.3'
+    ext.DOKKA_VERSION = '0.9.15'
+    ext.BINTRAY_VERSION = '1.5'
+    ext.MAVEN_GRADLE_VERSION = '1.5'
     repositories {
         jcenter()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:2.3.3'
+        classpath "com.android.tools.build:gradle:$ANDROID_GRADLE_PLUGIN_VERSION"
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$KOTLIN_VERSION"
-
-        // NOTE: Do not place your application dependencies here; they belong
-        // in the individual module build.gradle files
+        classpath "org.jetbrains.dokka:dokka-android-gradle-plugin:$DOKKA_VERSION"
+        classpath "com.jfrog.bintray.gradle:gradle-bintray-plugin:$BINTRAY_VERSION"
+        classpath "com.github.dcendents:android-maven-gradle-plugin:$MAVEN_GRADLE_VERSION"
     }
 }
 
@@ -18,6 +22,24 @@ allprojects {
     repositories {
         jcenter()
         google()
+    }
+}
+
+
+configure(allprojects) {
+    ext {
+        ANDROID_MIN_SDK_VERSION         = 16
+        ANDROID_TARGET_SDK_VERSION      = 25
+        ANDROID_COMPILE_SDK_VERSION     = 25
+        ANDROID_BUILD_TOOLS_VERSION     = '25.0.2'
+
+        ANDROID_SUPPORT_LIBRARY_VERSION = '25.4.0'
+        CONSTRAINT_LAYOUT_VERSION       = '1.0.2'
+        BUTTERKNIFE_VERSION             = '8.7.0'
+
+        JUNIT_VERSION                   = '4.12'
+        HAMCREST_VERSION                = '1.3'
+        ROBOLECTRIC_VERSION             = '3.3.1'
     }
 }
 

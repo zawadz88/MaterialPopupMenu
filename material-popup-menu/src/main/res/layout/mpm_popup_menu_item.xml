@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    style="@style/Widget.MPM.Item"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/mpm_popup_menu_item_height"
+    android:clickable="true"
+    android:gravity="center_vertical"
+    android:orientation="horizontal"
+    android:paddingEnd="@dimen/mpm_popup_menu_item_padding_horizontal"
+    android:paddingLeft="@dimen/mpm_popup_menu_item_padding_horizontal"
+    android:paddingRight="@dimen/mpm_popup_menu_item_padding_horizontal"
+    android:paddingStart="@dimen/mpm_popup_menu_item_padding_horizontal"
+    tools:ignore="UseCompoundDrawables"
+    tools:theme="@style/Widget.MPM.Menu">
+
+    <ImageView
+        android:id="@+id/mpm_popup_menu_item_icon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/mpm_popup_menu_item_icon_margin_end"
+        android:layout_marginRight="@dimen/mpm_popup_menu_item_icon_margin_end"
+        android:tint="?attr/mpm_activeIconColor"
+        android:visibility="gone"
+        tools:src="@drawable/abc_ic_voice_search_api_material"
+        tools:visibility="visible"
+        tools:ignore="PrivateResource" />
+
+    <TextView
+        android:id="@+id/mpm_popup_menu_item_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ellipsize="end"
+        android:lines="1"
+        android:textColor="?attr/mpm_primaryTextColor"
+        android:textSize="@dimen/mpm_popup_menu_item_label_text_size"
+        tools:text="Preview" />
+
+</LinearLayout>

@@ -1,0 +1,90 @@
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+apply plugin: 'org.jetbrains.dokka-android'
+
+android {
+    compileSdkVersion ANDROID_COMPILE_SDK_VERSION
+    buildToolsVersion ANDROID_BUILD_TOOLS_VERSION
+    defaultConfig {
+        minSdkVersion ANDROID_MIN_SDK_VERSION
+        targetSdkVersion ANDROID_TARGET_SDK_VERSION
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+        }
+    }
+}
+
+dependencies {
+
+    compile "com.android.support:appcompat-v7:$ANDROID_SUPPORT_LIBRARY_VERSION"
+    compile "com.android.support:recyclerview-v7:$ANDROID_SUPPORT_LIBRARY_VERSION"
+
+    compile "org.jetbrains.kotlin:kotlin-stdlib-jre7:$KOTLIN_VERSION"
+
+    testCompile "junit:junit:$JUNIT_VERSION"
+    testCompile "org.hamcrest:hamcrest-core:$HAMCREST_VERSION"
+    testCompile "org.hamcrest:hamcrest-library:$HAMCREST_VERSION"
+    testCompile "org.hamcrest:hamcrest-integration:$HAMCREST_VERSION"
+    testCompile("org.robolectric:robolectric:$ROBOLECTRIC_VERSION") {
+        exclude group: 'commons-logging', module: 'commons-logging'
+        exclude group: 'org.apache.httpcomponents', module: 'httpclient'
+    }
+}
+
+task dokkaJavadoc(type: org.jetbrains.dokka.gradle.DokkaAndroidTask) {
+    delete "$buildDir/docs"
+
+    outputFormat = 'javadoc'
+    outputDirectory = "$buildDir/docs"
+
+    externalDocumentationLink {
+        url = new URL("https://developer.android.com/reference/")
+    }
+
+    // Always recreate documentation
+    outputs.upToDateWhen { return false }
+}
+
+afterEvaluate {
+    if (project.hasProperty("javadocJar")) {
+        tasks.javadocJar.dependsOn dokkaJavadoc
+    }
+}
+
+ext {
+    bintrayRepo = 'maven'
+    bintrayName = 'material-popup-menu'
+
+    publishedGroupId = 'com.github.zawadz88.materialpopupmenu'
+    libraryName = 'Material Popup Menu'
+    artifact = 'materialpopupmenu'
+
+    libraryDescription = 'Showing Material popup menus programatically made easy'
+
+    siteUrl = 'https://github.com/zawadz88/MaterialPopupMenu'
+    gitUrl = 'https://github.com/zawadz88/MaterialPopupMenu.git'
+
+    libraryVersion = '1.0.0'
+
+    developerId = 'zawadz88'
+    developerName = 'Piotr Zawadzki'
+    developerEmail = 'zawadz88@gmail.com'
+
+    licenseName = 'The Apache Software License, Version 2.0'
+    licenseUrl = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+    allLicenses = ["Apache-2.0"]
+}
+
+
+tasks.withType(Javadoc) {
+    excludes = ['**/*.kt']
+}
+
+// Bintray Upload
+apply from: '../gradle/tools/bintrayv1.gradle'
+apply from: '../gradle/tools/installv1.gradle'

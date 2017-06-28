@@ -1,0 +1,21 @@
+<resources>
+
+    <style name="Widget.MPM.Menu" parent="Widget.AppCompat.PopupMenu.Overflow">
+        <item name="mpm_primaryTextColor">@color/mpm_black_87_opacity</item>
+        <item name="mpm_secondaryTextColor">@color/mpm_black_54_opacity</item>
+        <item name="mpm_activeIconColor">@color/mpm_black_54_opacity</item>
+        <item name="mpm_separatorColor">@color/mpm_black_12_opacity</item>
+    </style>
+
+    <style name="Widget.MPM.Menu.Dark">
+        <item name="mpm_primaryTextColor">@color/mpm_white</item>
+        <item name="mpm_secondaryTextColor">@color/mpm_white_70_opacity</item>
+        <item name="mpm_activeIconColor">@color/mpm_white</item>
+        <item name="mpm_separatorColor">@color/mpm_white_12_opacity</item>
+    </style>
+
+    <style name="Widget.MPM.Item" parent="">
+        <item name="android:background">?attr/listChoiceBackgroundIndicator</item>
+    </style>
+
+</resources>

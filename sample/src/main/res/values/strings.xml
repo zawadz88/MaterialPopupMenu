@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">Material Popup Menu</string>
+    <string name="more">More</string>
+    <string name="light_activity">Light Activity</string>
+    <string name="dark_activity">Dark Activity</string>
+    <string name="two_sections_with_section_titles">Two sections with titles</string>
+    <string name="single_section_with_icons">Single section with icons</string>
+    <string name="single_section_without_icons">Single section without icons</string>
+    <string name="two_sections_without_titles">Two sections without titles</string>
+    <string name="conditional_items">Conditional items</string>
+    <string name="show_copy_item">Show Copy in popup menu</string>
+    <string name="show_share_section">Show Share section</string>
+</resources>

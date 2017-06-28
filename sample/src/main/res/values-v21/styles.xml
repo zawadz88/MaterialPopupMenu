@@ -1,0 +1,7 @@
+<resources>
+
+    <style name="Base.TitleLabel" parent="TextAppearance.AppCompat">
+        <item name="android:background">?android:selectableItemBackground</item>
+    </style>
+
+</resources>
