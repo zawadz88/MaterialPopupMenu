@@ -62,7 +62,7 @@ ext {
 
     publishedGroupId = 'com.github.zawadz88.materialpopupmenu'
     libraryName = 'Material Popup Menu'
-    artifact = 'materialpopupmenu'
+    artifact = 'material-popup-menu'
 
     libraryDescription = 'Showing Material popup menus programatically made easy'
 
