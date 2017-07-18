@@ -4,7 +4,7 @@
 
 # Material Popup Menu [![CircleCI](https://circleci.com/gh/zawadz88/MaterialPopupMenu.svg?style=svg)](https://circleci.com/gh/zawadz88/MaterialPopupMenu)
 
-This library allows to create simple popup menus programmatically with a nice [type-safe builder syntax in Kotlin](https://kotlinlang.org/docs/reference/type-safe-builders.html).
+This library allows to create simple popup menus programmatically with a nice [type-safe builder syntax in Kotlin](https://kotlinlang.org/docs/reference/type-safe-builders.html). Menus can be divided into separate sections with optional headers and contain icons.
 
 <img src ="./art/sample_sections_light.png" width="360" />&nbsp;&nbsp;<img src ="./art/sample_toolbar_dark.png" width="360" />
 
