@@ -85,6 +85,9 @@ To create a popup menu with 2 sections and a section title in the second one:
 * Section headers
 * Light and dark styles
 
+## Documentation
+HTML documentation of the current version of the library is available [here](https://zawadz88.github.io/MaterialPopupMenu/material-popup-menu/).
+
 ## FAQ
 
 ### I want to use the library but I don't know Kotlin
