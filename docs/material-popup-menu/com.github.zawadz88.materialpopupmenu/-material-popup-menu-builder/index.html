@@ -1,0 +1,102 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>MaterialPopupMenuBuilder - material-popup-menu</title>
+<link rel="stylesheet" href="../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">material-popup-menu</a>&nbsp;/&nbsp;<a href="../index.html">com.github.zawadz88.materialpopupmenu</a>&nbsp;/&nbsp;<a href=".">MaterialPopupMenuBuilder</a><br/>
+<br/>
+<h1>MaterialPopupMenuBuilder</h1>
+<code><span class="keyword">class </span><span class="identifier">MaterialPopupMenuBuilder</span></code>
+<p>Builder for creating a <a href="../-material-popup-menu/index.html">MaterialPopupMenu</a>.</p>
+<p>The <a href="../-material-popup-menu/index.html">MaterialPopupMenu</a> must have at least one section.
+All sections must also have at least one item and each item must have a non-null label set.</p>
+<p><strong>Author</strong><br/>
+Piotr Zawadzki</p>
+<h3>Types</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="-item-holder/index.html">ItemHolder</a></p>
+</td>
+<td>
+<code><span class="keyword">class </span><span class="identifier">ItemHolder</span></code>
+<p>Holds section item info for the builder. This gets converted to <a href="#">MaterialPopupMenu.PopupMenuItem</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-section-holder/index.html">SectionHolder</a></p>
+</td>
+<td>
+<code><span class="keyword">class </span><span class="identifier">SectionHolder</span></code>
+<p>Holds section info for the builder. This gets converted to <a href="#">MaterialPopupMenu.PopupMenuSection</a>.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Constructors</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="-init-.html">&lt;init&gt;</a></p>
+</td>
+<td>
+<code><span class="identifier">MaterialPopupMenuBuilder</span><span class="symbol">(</span><span class="symbol">)</span></code>
+<p>Builder for creating a <a href="../-material-popup-menu/index.html">MaterialPopupMenu</a>.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Properties</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="dropdown-gravity.html">dropdownGravity</a></p>
+</td>
+<td>
+<code><span class="keyword">var </span><span class="identifier">dropdownGravity</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a></code>
+<p>Gravity of the dropdown list. This is commonly used to
+set gravity to START or END for alignment with the anchor.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="style.html">style</a></p>
+</td>
+<td>
+<code><span class="keyword">var </span><span class="identifier">style</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a></code>
+<p>Style of the popup menu. Default is <a href="#">R.style.Widget_MPM_Menu</a>.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="build.html">build</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">build</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="../-material-popup-menu/index.html"><span class="identifier">MaterialPopupMenu</span></a></code>
+<p>Creates a <a href="../-material-popup-menu/index.html">MaterialPopupMenu</a> with the already configured params.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="section.html">section</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">section</span><span class="symbol">(</span><span class="identifier" id="com.github.zawadz88.materialpopupmenu.MaterialPopupMenuBuilder$section(kotlin.Function1((com.github.zawadz88.materialpopupmenu.MaterialPopupMenuBuilder.SectionHolder, kotlin.Unit)))/init">init</span><span class="symbol">:</span>&nbsp;<a href="-section-holder/index.html"><span class="identifier">SectionHolder</span></a><span class="symbol">.</span><span class="symbol">(</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code>
+<p>Adds a new section to the popup menu.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

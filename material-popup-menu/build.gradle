@@ -36,6 +36,10 @@ dependencies {
     }
 }
 
+dokka {
+    outputDirectory = "$rootDir/docs"
+}
+
 task dokkaJavadoc(type: org.jetbrains.dokka.gradle.DokkaAndroidTask) {
     delete "$buildDir/docs"
 
