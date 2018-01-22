@@ -1,8 +1,10 @@
 package com.github.zawadz88.materialpopupmenu.sample
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.support.v4.content.ContextCompat
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.SwitchCompat
 import android.support.v7.widget.Toolbar
@@ -17,6 +19,7 @@ import butterknife.OnClick
 import com.github.zawadz88.materialpopupmenu.popupMenu
 import com.github.zawadz88.materialpopupmenu.popupMenuBuilder
 
+@SuppressLint("PrivateResource")
 class DarkActivity : AppCompatActivity() {
 
     @BindView(R.id.toolbar)
@@ -193,6 +196,46 @@ class DarkActivity : AppCompatActivity() {
                 item {
                     label = "Share"
                     icon = R.drawable.abc_ic_menu_share_mtrl_alpha
+                    callback = {
+                        shareUrl()
+                    }
+                }
+            }
+        }
+
+        popupMenu.show(this@DarkActivity, view)
+    }
+
+    @OnClick(R.id.coloredLabelsTextView)
+    fun onColoredLabelsClicked(view: View) {
+        val popupMenu = popupMenu {
+            style = R.style.Widget_MPM_Menu_Dark
+            section {
+                item {
+                    label = "Copy"
+                    labelColor = ContextCompat.getColor(this@DarkActivity, R.color.red)
+                    icon = R.drawable.abc_ic_menu_copy_mtrl_am_alpha
+                    iconColor = ContextCompat.getColor(this@DarkActivity, R.color.dark_red)
+                    callback = {
+                        Toast.makeText(this@DarkActivity, "Copied!", Toast.LENGTH_SHORT).show()
+                    }
+                }
+                item {
+                    label = "Paste"
+                    labelColor = ContextCompat.getColor(this@DarkActivity, R.color.red)
+                    icon = R.drawable.abc_ic_menu_paste_mtrl_am_alpha
+                    iconColor = ContextCompat.getColor(this@DarkActivity, R.color.dark_red)
+                    callback = {
+                        Toast.makeText(this@DarkActivity, "Text pasted!", Toast.LENGTH_SHORT).show()
+                    }
+                }
+            }
+            section {
+                item {
+                    label = "Share"
+                    labelColor = ContextCompat.getColor(this@DarkActivity, R.color.green)
+                    icon = R.drawable.abc_ic_menu_share_mtrl_alpha
+                    iconColor = ContextCompat.getColor(this@DarkActivity, R.color.dark_green)
                     callback = {
                         shareUrl()
                     }

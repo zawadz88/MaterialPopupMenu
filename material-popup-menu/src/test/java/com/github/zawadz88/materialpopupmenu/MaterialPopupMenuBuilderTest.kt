@@ -150,10 +150,12 @@ class MaterialPopupMenuBuilderTest {
             section {
                 item {
                     label = ITEM_LABEL
+                    labelColor = ITEM_LABEL_TEXT_COLOR
                 }
                 item {
                     label = ITEM_LABEL2
                     icon = ITEM_ICON
+                    iconColor = ITEM_ICON_TINT_COLOR
                 }
                 item {
                     label = ITEM_LABEL3
@@ -168,9 +170,11 @@ class MaterialPopupMenuBuilderTest {
         assertThat("Invalid item count", section.items, hasSize(3))
         val firstItem = section.items[0]
         assertEquals("Invalid item label", ITEM_LABEL, firstItem.label)
+        assertEquals("Invalid item label text color", ITEM_LABEL_TEXT_COLOR, firstItem.labelColor)
         val secondItem = section.items[1]
         assertEquals("Invalid item label", ITEM_LABEL2, secondItem.label)
         assertEquals("Invalid item icon", ITEM_ICON, secondItem.icon)
+        assertEquals("Invalid item item icon", ITEM_ICON_TINT_COLOR, secondItem.iconColor)
         val thirdItem = section.items[2]
         assertEquals("Invalid item label", ITEM_LABEL3, thirdItem.label)
         assertEquals("Invalid item callback", customCallback, thirdItem.callback)
@@ -189,7 +193,7 @@ class MaterialPopupMenuBuilderTest {
         assertThat("Should contain a single section", popupMenu.sections, hasSize(1))
         val section = popupMenu.sections[0]
         assertThat("Should contain a single item", section.items, hasSize(1))
-        val (_, _, callback) = section.items[0]
+        val (_, _, _, _, callback) = section.items[0]
 
         //when
         callback()
@@ -202,6 +206,8 @@ class MaterialPopupMenuBuilderTest {
         val ITEM_LABEL = "item label"
         val ITEM_LABEL2 = "item label2"
         val ITEM_LABEL3 = "item label3"
+        val ITEM_LABEL_TEXT_COLOR = 123
+        val ITEM_ICON_TINT_COLOR = 888
         val ITEM_ICON = -1
         val SECTION_TITLE = "section title"
         val SECTION_TITLE2 = "section title2"

@@ -1,13 +1,15 @@
 package com.github.zawadz88.materialpopupmenu.internal
 
+import android.annotation.SuppressLint
 import android.content.Context
+import android.content.res.ColorStateList
 import android.support.annotation.StyleRes
 import android.support.v7.view.ContextThemeWrapper
+import android.support.v7.widget.AppCompatImageView
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
 import android.widget.TextView
 import com.github.zawadz88.materialpopupmenu.MaterialPopupMenu
 import com.github.zawadz88.materialpopupmenu.R
@@ -15,13 +17,15 @@ import com.github.zawadz88.materialpopupmenu.R
 
 /**
  * RecyclerView adapter used for displaying popup menu items grouped in sections.
+ *
  * @author Piotr Zawadzki
  */
+@SuppressLint("RestrictedApi")
 internal class PopupMenuAdapter(
         context: Context,
         @StyleRes style: Int,
-        val sections: List<MaterialPopupMenu.PopupMenuSection>,
-        val onItemClickedCallback: (MaterialPopupMenu.PopupMenuItem) -> Unit)
+        private val sections: List<MaterialPopupMenu.PopupMenuSection>,
+        private val onItemClickedCallback: (MaterialPopupMenu.PopupMenuItem) -> Unit)
     : SectionedRecyclerViewAdapter<PopupMenuAdapter.SectionHeaderViewHolder, PopupMenuAdapter.ItemViewHolder>() {
 
     private val contextThemeWrapper: ContextThemeWrapper
@@ -69,6 +73,9 @@ internal class PopupMenuAdapter(
             holder.icon.apply {
                 visibility = View.VISIBLE
                 setImageResource(popupMenuItem.icon)
+                if (popupMenuItem.iconColor != 0) {
+                    supportImageTintList = ColorStateList.valueOf(popupMenuItem.iconColor)
+                }
             }
         } else {
             holder.icon.visibility = View.GONE
@@ -77,19 +84,22 @@ internal class PopupMenuAdapter(
             popupMenuItem.callback()
             onItemClickedCallback(popupMenuItem)
         }
+        if (popupMenuItem.labelColor != 0) {
+            holder.label.setTextColor(popupMenuItem.labelColor)
+        }
     }
 
     internal class ItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
-        var label: TextView = itemView.findViewById(R.id.mpm_popup_menu_item_label) as TextView
+        var label: TextView = itemView.findViewById(R.id.mpm_popup_menu_item_label)
 
-        var icon: ImageView = itemView.findViewById(R.id.mpm_popup_menu_item_icon) as ImageView
+        var icon: AppCompatImageView = itemView.findViewById(R.id.mpm_popup_menu_item_icon)
 
     }
 
     internal class SectionHeaderViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
-        var label: TextView = itemView.findViewById(R.id.mpm_popup_menu_section_header_label) as TextView
+        var label: TextView = itemView.findViewById(R.id.mpm_popup_menu_section_header_label)
 
         var separator: View = itemView.findViewById(R.id.mpm_popup_menu_section_separator)
 

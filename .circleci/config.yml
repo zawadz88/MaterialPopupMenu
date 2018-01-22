@@ -34,7 +34,7 @@ jobs:
       # Run the main job command, delegating to Gradle
       - run:
           name: Run Gradle :check command
-          command: ./gradlew check install --continue
+          command: ./gradlew check install --continue --no-daemon
 
       # Store all the downloaded dependencies in the CI cache
       - save_cache:

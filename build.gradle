@@ -3,12 +3,15 @@
 buildscript {
     ext.KOTLIN_VERSION = '1.2.20'
     ext.ANDROID_GRADLE_PLUGIN_VERSION = '3.0.1'
-    ext.DOKKA_VERSION = '0.9.15'
+    ext.DOKKA_VERSION = '0.9.16-eap-2'
     ext.BINTRAY_VERSION = '1.7.3'
     ext.MAVEN_GRADLE_VERSION = '2.0'
     repositories {
         google()
         jcenter()
+        maven {
+            url 'https://dl.bintray.com/kotlin/kotlin-eap'
+        }
     }
     dependencies {
         classpath "com.android.tools.build:gradle:$ANDROID_GRADLE_PLUGIN_VERSION"

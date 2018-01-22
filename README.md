@@ -10,7 +10,7 @@ This library allows to create simple popup menus programmatically with a nice [t
 
 ## Download (from JCenter)
 ```groovy
-compile 'com.github.zawadz88.materialpopupmenu:material-popup-menu:1.0.0'
+compile 'com.github.zawadz88.materialpopupmenu:material-popup-menu:1.1.0'
 ```
 
 ## Getting started
@@ -84,6 +84,7 @@ To create a popup menu with 2 sections and a section title in the second one:
 * Separator between popup menu sections
 * Section headers
 * Light and dark styles
+* Setting item label text color & icon color for each individual item
 
 ## FAQ
 

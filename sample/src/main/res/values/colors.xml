@@ -6,4 +6,9 @@
 
     <color name="lightColorPrimary">#ECEFF1</color>
     <color name="lightColorPrimaryDark">#B0BEC5</color>
+
+    <color name="red">#FF0000</color>
+    <color name="dark_red">#b70f0f</color>
+    <color name="green">#00FF00</color>
+    <color name="dark_green">#0fa30f</color>
 </resources>
