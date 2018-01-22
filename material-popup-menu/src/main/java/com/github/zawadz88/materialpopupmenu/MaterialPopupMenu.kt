@@ -1,6 +1,7 @@
 package com.github.zawadz88.materialpopupmenu
 
 import android.content.Context
+import android.support.annotation.ColorInt
 import android.support.annotation.DrawableRes
 import android.support.annotation.StyleRes
 import android.support.annotation.UiThread
@@ -19,7 +20,7 @@ import com.github.zawadz88.materialpopupmenu.internal.PopupMenuAdapter
  * @author Piotr Zawadzki
  */
 class MaterialPopupMenu internal constructor(
-        internal @StyleRes val style: Int,
+        @StyleRes internal val style: Int,
         internal val dropdownGravity: Int,
         internal val sections: List<PopupMenuSection>) {
 
@@ -48,7 +49,9 @@ class MaterialPopupMenu internal constructor(
 
     internal data class PopupMenuItem(
             val label: String,
+            @ColorInt val labelColor: Int,
             @DrawableRes val icon: Int,
+            @ColorInt val iconColor: Int,
             val callback: () -> Unit
     )
 

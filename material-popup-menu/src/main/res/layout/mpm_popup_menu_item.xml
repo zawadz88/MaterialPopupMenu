@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="@dimen/mpm_popup_menu_item_height"
     android:clickable="true"
+    android:focusable="true"
     android:gravity="center_vertical"
     android:orientation="horizontal"
     android:paddingEnd="@dimen/mpm_popup_menu_item_padding_horizontal"
@@ -14,7 +15,7 @@
     tools:ignore="UseCompoundDrawables"
     tools:theme="@style/Widget.MPM.Menu">
 
-    <ImageView
+    <android.support.v7.widget.AppCompatImageView
         android:id="@+id/mpm_popup_menu_item_icon"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -22,9 +23,9 @@
         android:layout_marginRight="@dimen/mpm_popup_menu_item_icon_margin_end"
         android:tint="?attr/mpm_activeIconColor"
         android:visibility="gone"
+        tools:ignore="PrivateResource"
         tools:src="@drawable/abc_ic_voice_search_api_material"
-        tools:visibility="visible"
-        tools:ignore="PrivateResource" />
+        tools:visibility="visible" />
 
     <TextView
         android:id="@+id/mpm_popup_menu_item_label"

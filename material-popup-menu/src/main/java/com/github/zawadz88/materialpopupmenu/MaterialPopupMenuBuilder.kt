@@ -1,5 +1,7 @@
 package com.github.zawadz88.materialpopupmenu
 
+import android.support.annotation.ColorInt
+import android.support.annotation.DrawableRes
 import android.view.Gravity
 
 /**
@@ -29,7 +31,7 @@ class MaterialPopupMenuBuilder {
      */
     var dropdownGravity: Int = Gravity.NO_GRAVITY
 
-    internal val sectionHolderList = arrayListOf<SectionHolder>()
+    private val sectionHolderList = arrayListOf<SectionHolder>()
 
     /**
      * Adds a new section to the popup menu.
@@ -70,7 +72,7 @@ class MaterialPopupMenuBuilder {
          */
         var title: String? = null
 
-        internal val itemsHolderList = arrayListOf<ItemHolder>()
+        private val itemsHolderList = arrayListOf<ItemHolder>()
 
         /**
          * Adds an item to the section.
@@ -88,7 +90,10 @@ class MaterialPopupMenuBuilder {
 
         internal fun convertToPopupMenuSection(): MaterialPopupMenu.PopupMenuSection {
             check(itemsHolderList.isNotEmpty(), { "Section '$this' has no items!" })
-            return MaterialPopupMenu.PopupMenuSection(title, itemsHolderList.map { it.convertToPopupMenuItem() })
+            return MaterialPopupMenu.PopupMenuSection(
+                    title = title,
+                    items = itemsHolderList.map { it.convertToPopupMenuItem() }
+            )
         }
 
     }
@@ -105,12 +110,28 @@ class MaterialPopupMenuBuilder {
         var label: String? = null
 
         /**
+         * Optional text color of the label. If not set or 0 the default color will be used.
+         */
+        @ColorInt
+        var labelColor: Int = 0
+
+        /**
          * Optional icon to be displayed together with the label.
          *
          * This must be a valid drawable resource ID if set.
          * *0* Means that no icon should be displayed.
          */
+        @DrawableRes
         var icon: Int = 0
+
+        /**
+         * Optional icon tint color.
+         *
+         * This must be a valid color Int if set.
+         * *0* Means that default tinting will be applied.
+         */
+        @ColorInt
+        var iconColor: Int = 0
 
         /**
          * Callback to be invoked once an item gets selected.
@@ -118,14 +139,16 @@ class MaterialPopupMenuBuilder {
         var callback: () -> Unit = {}
 
         override fun toString(): String {
-            return "ItemHolder(label=$label, icon=$icon, callback=$callback)"
+            return "ItemHolder(label=$label, labelColor=$labelColor, icon=$icon, iconColor=$iconColor, callback=$callback)"
         }
 
         internal fun convertToPopupMenuItem(): MaterialPopupMenu.PopupMenuItem {
             return MaterialPopupMenu.PopupMenuItem(
-                    checkNotNull(label, { "Item '$this' does not have a label" }),
-                    icon,
-                    callback)
+                    label = checkNotNull(label, { "Item '$this' does not have a label" }),
+                    labelColor = labelColor,
+                    icon = icon,
+                    iconColor = iconColor,
+                    callback = callback)
         }
 
     }
