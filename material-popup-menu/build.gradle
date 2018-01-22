@@ -13,6 +13,7 @@ android {
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
+        debug {}
         release {
             minifyEnabled false
         }
@@ -21,16 +22,16 @@ android {
 
 dependencies {
 
-    compile "com.android.support:appcompat-v7:$ANDROID_SUPPORT_LIBRARY_VERSION"
-    compile "com.android.support:recyclerview-v7:$ANDROID_SUPPORT_LIBRARY_VERSION"
+    api "com.android.support:appcompat-v7:$ANDROID_SUPPORT_LIBRARY_VERSION"
+    api "com.android.support:recyclerview-v7:$ANDROID_SUPPORT_LIBRARY_VERSION"
 
-    compile "org.jetbrains.kotlin:kotlin-stdlib-jre7:$KOTLIN_VERSION"
+    api "org.jetbrains.kotlin:kotlin-stdlib-jre7:$KOTLIN_VERSION"
 
-    testCompile "junit:junit:$JUNIT_VERSION"
-    testCompile "org.hamcrest:hamcrest-core:$HAMCREST_VERSION"
-    testCompile "org.hamcrest:hamcrest-library:$HAMCREST_VERSION"
-    testCompile "org.hamcrest:hamcrest-integration:$HAMCREST_VERSION"
-    testCompile("org.robolectric:robolectric:$ROBOLECTRIC_VERSION") {
+    testImplementation "junit:junit:$JUNIT_VERSION"
+    testImplementation "org.hamcrest:hamcrest-core:$HAMCREST_VERSION"
+    testImplementation "org.hamcrest:hamcrest-library:$HAMCREST_VERSION"
+    testImplementation "org.hamcrest:hamcrest-integration:$HAMCREST_VERSION"
+    testImplementation("org.robolectric:robolectric:$ROBOLECTRIC_VERSION") {
         exclude group: 'commons-logging', module: 'commons-logging'
         exclude group: 'org.apache.httpcomponents', module: 'httpclient'
     }
@@ -92,3 +93,6 @@ tasks.withType(Javadoc) {
 // Bintray Upload
 apply from: '../gradle/tools/bintrayv1.gradle'
 apply from: '../gradle/tools/installv1.gradle'
+
+
+install.mustRunAfter check

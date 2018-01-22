@@ -23,12 +23,23 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
+        debug {
+        }
     }
 }
 
 dependencies {
-    compile project(':material-popup-menu')
-    compile "com.android.support.constraint:constraint-layout:$CONSTRAINT_LAYOUT_VERSION"
-    compile "com.jakewharton:butterknife:$BUTTERKNIFE_VERSION"
+
+    implementation project(':material-popup-menu')
+    implementation "com.android.support.constraint:constraint-layout:$CONSTRAINT_LAYOUT_VERSION"
+    implementation "com.jakewharton:butterknife:$BUTTERKNIFE_VERSION"
     kapt "com.jakewharton:butterknife-compiler:$BUTTERKNIFE_VERSION"
+    implementation("com.android.support:support-annotations:$ANDROID_SUPPORT_LIBRARY_VERSION") {
+        force = true
+    }
+    implementation("com.android.support:support-compat:$ANDROID_SUPPORT_LIBRARY_VERSION") {
+        force = true
+    }
 }
+
+

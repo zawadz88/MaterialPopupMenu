@@ -5,18 +5,18 @@ jobs:
     working_directory: ~/mpm
 
     docker:
-      - image: circleci/android:api-25-alpha
+      - image: circleci/android:api-27-alpha
 
     environment:
       ANDROID_HOME: /opt/android/sdk
-      ANDROID_BUILD_TOOLS: 25.0.2
+      ANDROID_BUILD_TOOLS: 27.0.3
 
     steps:
       - checkout
 
       # Restore cached dependencies (if any)
       - restore_cache:
-          key: jars-{{ checksum "build.gradle" }}-{{ checksum  "material-popup-menu/build.gradle" }}
+          key: jars-{{ checksum "build.gradle" }}-{{ checksum  "material-popup-menu/build.gradle" }}-{{ checksum  "sample/build.gradle" }}
 
       # Prepare the container for the build
       - run:
@@ -34,7 +34,7 @@ jobs:
       # Run the main job command, delegating to Gradle
       - run:
           name: Run Gradle :check command
-          command: ./gradlew check --continue
+          command: ./gradlew check install --continue
 
       # Store all the downloaded dependencies in the CI cache
       - save_cache:
@@ -48,12 +48,15 @@ jobs:
 
             # Gradle dependencies
             - ~/.gradle
-          key: jars-{{ checksum "build.gradle" }}-{{ checksum  "material-popup-menu/build.gradle" }}
+          key: jars-{{ checksum "build.gradle" }}-{{ checksum  "material-popup-menu/build.gradle" }}-{{ checksum  "sample/build.gradle" }}
 
       # Collect static analysis reports as build artifacts
       - store_artifacts:
           path: material-popup-menu/build/reports
-          destination: reports
+          destination: library-reports
+      - store_artifacts:
+          path: sample/build/reports
+          destination: sample-reports
 
       # Collect JUnit test results
       - store_test_results:
