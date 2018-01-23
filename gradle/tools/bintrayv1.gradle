@@ -2,37 +2,6 @@ apply plugin: 'com.jfrog.bintray'
 
 version = libraryVersion
 
-if (project.hasProperty("android")) { // Android libraries
-    task sourcesJar(type: Jar) {
-        classifier = 'sources'
-        from android.sourceSets.main.java.srcDirs
-    }
-
-    task javadoc(type: Javadoc) {
-        source = android.sourceSets.main.java.srcDirs
-        classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
-    }
-} else { // Java libraries
-    task sourcesJar(type: Jar, dependsOn: classes) {
-        classifier = 'sources'
-        from sourceSets.main.allSource
-    }
-}
-
-task javadocJar(type: Jar, dependsOn: javadoc) {
-
-    // Always recreate documentation
-    outputs.upToDateWhen { return false }
-
-    classifier = 'javadoc'
-    from new File("$buildDir/docs")
-}
-
-artifacts {
-    archives javadocJar
-    archives sourcesJar
-}
-
 // Bintray
 Properties properties = new Properties()
 properties.load(project.rootProject.file('local.properties').newDataInputStream())
@@ -41,7 +10,8 @@ bintray {
     user = properties.getProperty("bintray.user")
     key = properties.getProperty("bintray.apikey")
 
-    configurations = ['archives']
+    publications = ['MyPublication']
+
     pkg {
         repo = bintrayRepo
         name = bintrayName

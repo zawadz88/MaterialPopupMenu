@@ -16,4 +16,4 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Added
 Initial release of the library.
 
-[1.1.0]: https://github.com/zawadz88/android-material-stepper/compare/1.0.0...1.1.0
+[1.1.0]: https://github.com/zawadz88/MaterialPopupMenu/compare/1.0.0...1.1.0

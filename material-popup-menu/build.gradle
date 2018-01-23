@@ -1,6 +1,7 @@
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 apply plugin: 'org.jetbrains.dokka-android'
+apply plugin: 'maven-publish'
 
 android {
     compileSdkVersion ANDROID_COMPILE_SDK_VERSION
@@ -90,9 +91,83 @@ tasks.withType(Javadoc) {
     excludes = ['**/*.kt']
 }
 
+task sourcesJar(type: Jar) {
+    classifier = 'sources'
+    from android.sourceSets.main.java.srcDirs
+}
+
+task javadoc(type: Javadoc) {
+    source = android.sourceSets.main.java.srcDirs
+    classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
+}
+
+task javadocJar(type: Jar, dependsOn: javadoc) {
+
+    // Always recreate documentation
+    outputs.upToDateWhen { return false }
+
+    classifier = 'javadoc'
+    from new File("$buildDir/docs")
+}
+
+publishing {
+    publications {
+        MyPublication(MavenPublication) {
+
+            artifact sourcesJar
+            artifact javadocJar
+            artifact("$buildDir/outputs/aar/material-popup-menu-release.aar")
+
+            groupId publishedGroupId
+            artifactId artifact
+
+            pom {
+                packaging 'aar'
+                withXml {
+
+                    asNode().appendNode('name', libraryName)
+
+                    asNode().appendNode('description', libraryDescription)
+
+                    asNode().appendNode('url', siteUrl)
+
+                    // License
+                    def licensesNode = asNode().appendNode('licenses')
+                    def licenseNode = licensesNode.appendNode('license')
+                    licenseNode.appendNode('name', licenseName)
+                    licenseNode.appendNode('url', licenseUrl)
+
+                    // Developer
+                    def developersNode = asNode().appendNode('developers')
+                    def developerNode = developersNode.appendNode('developer')
+                    developerNode.appendNode('id', developerId)
+                    developerNode.appendNode('name', developerName)
+                    developerNode.appendNode('email', developerEmail)
+
+                    // Git
+                    def scmNode = asNode().appendNode('scm')
+                    scmNode.appendNode('connection', gitUrl)
+                    scmNode.appendNode('developerConnection', gitUrl)
+                    scmNode.appendNode('url', siteUrl)
+
+                    def dependenciesNode = asNode().appendNode('dependencies')
+
+                    // Iterate over the implementation dependencies (we don't want the test ones), adding a <dependency> node for each
+                    configurations.implementation.allDependencies.each {
+                        // Ensure dependencies such as fileTree are not included.
+                        if (it.name != 'unspecified') {
+                            def dependencyNode = dependenciesNode.appendNode('dependency')
+                            dependencyNode.appendNode('groupId', it.group)
+                            dependencyNode.appendNode('artifactId', it.name)
+                            dependencyNode.appendNode('version', it.version)
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
 // Bintray Upload
 apply from: '../gradle/tools/bintrayv1.gradle'
-apply from: '../gradle/tools/installv1.gradle'
 
-
-install.mustRunAfter check
+publishToMavenLocal.dependsOn 'assembleRelease'
