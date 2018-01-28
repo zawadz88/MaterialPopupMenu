@@ -11,4 +11,6 @@
     <string name="conditional_items">Conditional items</string>
     <string name="show_copy_item">Show Copy in popup menu</string>
     <string name="show_share_section">Show Share section</string>
+    <string name="custom_items">Custom items</string>
+    <string name="custom_item_label">Enabled</string>
 </resources>

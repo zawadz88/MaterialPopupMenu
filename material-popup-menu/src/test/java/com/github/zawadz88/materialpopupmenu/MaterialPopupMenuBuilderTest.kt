@@ -1,8 +1,10 @@
 package com.github.zawadz88.materialpopupmenu
 
 import android.view.Gravity
+import android.view.View
 import org.hamcrest.MatcherAssert.assertThat
 import org.hamcrest.Matchers.hasSize
+import org.hamcrest.Matchers.instanceOf
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNull
 import org.junit.Test
@@ -20,7 +22,7 @@ class MaterialPopupMenuBuilderTest {
     @Test(expected = IllegalStateException::class)
     fun `Building a popup menu with a single empty section should throw an exception`() {
         popupMenu {
-            section {  }
+            section { }
         }
     }
 
@@ -32,7 +34,7 @@ class MaterialPopupMenuBuilderTest {
                     label = ITEM_LABEL
                 }
             }
-            section {  }
+            section { }
         }
     }
 
@@ -40,7 +42,16 @@ class MaterialPopupMenuBuilderTest {
     fun `Building a popup menu with an empty item in section should throw an exception`() {
         popupMenu {
             section {
-                item {  }
+                item { }
+            }
+        }
+    }
+
+    @Test(expected = IllegalStateException::class)
+    fun `Building a popup menu with an empty custom item in section should throw an exception`() {
+        popupMenu {
+            section {
+                customItem { }
             }
         }
     }
@@ -52,7 +63,7 @@ class MaterialPopupMenuBuilderTest {
                 item {
                     label = ITEM_LABEL
                 }
-                item {  }
+                item { }
             }
         }
     }
@@ -75,9 +86,11 @@ class MaterialPopupMenuBuilderTest {
         val (title, items) = popupMenu.sections[0]
         assertNull("Section title should be null", title)
         assertThat("Should contain a single item", items, hasSize(1))
-        val (label, icon) = items[0]
-        assertEquals("Invalid item label", ITEM_LABEL, label)
-        assertEquals("Item icon should not be set", 0, icon)
+        val item = items[0]
+        assertThat(item, instanceOf(MaterialPopupMenu.PopupMenuItem::class.java))
+        val popupMenuItem = item as MaterialPopupMenu.PopupMenuItem
+        assertEquals("Invalid item label", ITEM_LABEL, popupMenuItem.label)
+        assertEquals("Item icon should not be set", 0, popupMenuItem.icon)
     }
 
     @Test
@@ -169,15 +182,61 @@ class MaterialPopupMenuBuilderTest {
         val section = popupMenu.sections[0]
         assertThat("Invalid item count", section.items, hasSize(3))
         val firstItem = section.items[0]
-        assertEquals("Invalid item label", ITEM_LABEL, firstItem.label)
-        assertEquals("Invalid item label text color", ITEM_LABEL_TEXT_COLOR, firstItem.labelColor)
+        assertThat(firstItem, instanceOf(MaterialPopupMenu.PopupMenuItem::class.java))
+        val firstPopupMenuItem = firstItem as MaterialPopupMenu.PopupMenuItem
+        assertEquals("Invalid item label", ITEM_LABEL, firstPopupMenuItem.label)
+        assertEquals("Invalid item label text color", ITEM_LABEL_TEXT_COLOR, firstPopupMenuItem.labelColor)
         val secondItem = section.items[1]
-        assertEquals("Invalid item label", ITEM_LABEL2, secondItem.label)
-        assertEquals("Invalid item icon", ITEM_ICON, secondItem.icon)
-        assertEquals("Invalid item item icon", ITEM_ICON_TINT_COLOR, secondItem.iconColor)
+        assertThat(secondItem, instanceOf(MaterialPopupMenu.PopupMenuItem::class.java))
+        val secondPopupMenuItem = secondItem as MaterialPopupMenu.PopupMenuItem
+        assertEquals("Invalid item label", ITEM_LABEL2, secondPopupMenuItem.label)
+        assertEquals("Invalid item icon", ITEM_ICON, secondPopupMenuItem.icon)
+        assertEquals("Invalid item item icon", ITEM_ICON_TINT_COLOR, secondPopupMenuItem.iconColor)
         val thirdItem = section.items[2]
-        assertEquals("Invalid item label", ITEM_LABEL3, thirdItem.label)
-        assertEquals("Invalid item callback", customCallback, thirdItem.callback)
+        assertThat(thirdItem, instanceOf(MaterialPopupMenu.PopupMenuItem::class.java))
+        val thirdPopupMenuItem = thirdItem as MaterialPopupMenu.PopupMenuItem
+        assertEquals("Invalid item label", ITEM_LABEL3, thirdPopupMenuItem.label)
+        assertEquals("Invalid item callback", customCallback, thirdPopupMenuItem.callback)
+    }
+
+
+    @Test
+    fun `Should build a popup menu with multiple custom items`() {
+        //given
+        val customCallback = {}
+        val customViewBoundCallback: (View) -> Unit = {}
+
+        //when
+        val popupMenu = popupMenu {
+            section {
+                customItem {
+                    layoutResId = CUSTOM_ITEM_LAYOUT
+                    callback = customCallback
+                }
+                customItem {
+                    layoutResId = CUSTOM_ITEM_LAYOUT
+                    viewBoundCallback = customViewBoundCallback
+                    callback = customCallback
+                }
+            }
+        }
+
+        //then
+        assertThat("Should contain a single section", popupMenu.sections, hasSize(1))
+        val section = popupMenu.sections[0]
+        assertThat("Invalid item count", section.items, hasSize(2))
+
+        val firstItem = section.items[0]
+        assertThat(firstItem, instanceOf(MaterialPopupMenu.PopupMenuCustomItem::class.java))
+        val firstPopupMenuItem = firstItem as MaterialPopupMenu.PopupMenuCustomItem
+        assertEquals("Invalid item layout ID", CUSTOM_ITEM_LAYOUT, firstPopupMenuItem.layoutResId)
+        assertEquals("Invalid item callback", customCallback, firstPopupMenuItem.callback)
+        val secondItem = section.items[1]
+        assertThat(secondItem, instanceOf(MaterialPopupMenu.PopupMenuCustomItem::class.java))
+        val secondPopupMenuItem = secondItem as MaterialPopupMenu.PopupMenuCustomItem
+        assertEquals("Invalid item layout ID", CUSTOM_ITEM_LAYOUT, secondPopupMenuItem.layoutResId)
+        assertEquals("Invalid item callback", customCallback, secondPopupMenuItem.callback)
+        assertEquals("Invalid item view bound callback", customViewBoundCallback, secondPopupMenuItem.viewBoundCallback)
     }
 
     @Test
@@ -193,7 +252,10 @@ class MaterialPopupMenuBuilderTest {
         assertThat("Should contain a single section", popupMenu.sections, hasSize(1))
         val section = popupMenu.sections[0]
         assertThat("Should contain a single item", section.items, hasSize(1))
-        val (_, _, _, _, callback) = section.items[0]
+        val item = section.items[0]
+        assertThat(item, instanceOf(MaterialPopupMenu.PopupMenuItem::class.java))
+        val popupMenuItem = item as MaterialPopupMenu.PopupMenuItem
+        val (_, _, _, _, callback) = popupMenuItem
 
         //when
         callback()
@@ -209,6 +271,7 @@ class MaterialPopupMenuBuilderTest {
         val ITEM_LABEL_TEXT_COLOR = 123
         val ITEM_ICON_TINT_COLOR = 888
         val ITEM_ICON = -1
+        val CUSTOM_ITEM_LAYOUT = 555
         val SECTION_TITLE = "section title"
         val SECTION_TITLE2 = "section title2"
     }

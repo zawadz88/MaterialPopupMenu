@@ -2,7 +2,9 @@ package com.github.zawadz88.materialpopupmenu
 
 import android.support.annotation.ColorInt
 import android.support.annotation.DrawableRes
+import android.support.annotation.LayoutRes
 import android.view.Gravity
+import android.view.View
 
 /**
  * Builder for creating a [MaterialPopupMenu].
@@ -72,7 +74,7 @@ class MaterialPopupMenuBuilder {
          */
         var title: String? = null
 
-        private val itemsHolderList = arrayListOf<ItemHolder>()
+        private val itemsHolderList = arrayListOf<AbstractItemHolder>()
 
         /**
          * Adds an item to the section.
@@ -80,6 +82,16 @@ class MaterialPopupMenuBuilder {
          */
         fun item(init: ItemHolder.() -> Unit) {
             val item = ItemHolder()
+            item.init()
+            itemsHolderList.add(item)
+        }
+
+        /**
+         * Adds a custom item to the section.
+         * @param init block containing custom item definition
+         */
+        fun customItem(init: CustomItemHolder.() -> Unit) {
+            val item = CustomItemHolder()
             item.init()
             itemsHolderList.add(item)
         }
@@ -102,7 +114,7 @@ class MaterialPopupMenuBuilder {
      * Holds section item info for the builder. This gets converted to [MaterialPopupMenu.PopupMenuItem].
      */
     @PopupMenuMarker
-    class ItemHolder {
+    class ItemHolder : AbstractItemHolder() {
 
         /**
          * Item label. This is a required field and must not be *null*.
@@ -133,16 +145,11 @@ class MaterialPopupMenuBuilder {
         @ColorInt
         var iconColor: Int = 0
 
-        /**
-         * Callback to be invoked once an item gets selected.
-         */
-        var callback: () -> Unit = {}
-
         override fun toString(): String {
             return "ItemHolder(label=$label, labelColor=$labelColor, icon=$icon, iconColor=$iconColor, callback=$callback)"
         }
 
-        internal fun convertToPopupMenuItem(): MaterialPopupMenu.PopupMenuItem {
+        override fun convertToPopupMenuItem(): MaterialPopupMenu.PopupMenuItem {
             return MaterialPopupMenu.PopupMenuItem(
                     label = checkNotNull(label, { "Item '$this' does not have a label" }),
                     labelColor = labelColor,
@@ -150,6 +157,46 @@ class MaterialPopupMenuBuilder {
                     iconColor = iconColor,
                     callback = callback)
         }
+
+    }
+
+    /**
+     * Holds section custom item info for the builder. This gets converted to [MaterialPopupMenu.PopupMenuCustomItem].
+     */
+    @PopupMenuMarker
+    class CustomItemHolder : AbstractItemHolder() {
+
+        /**
+         * Layout ID of the view to be used for this item.
+         */
+        @LayoutRes
+        var layoutResId: Int = 0
+
+        var viewBoundCallback: (View) -> Unit = {}
+
+        override fun toString(): String {
+            return "CustomItemHolder(layoutResId=$layoutResId, viewBoundCallback=$viewBoundCallback, callback=$callback)"
+        }
+
+        override fun convertToPopupMenuItem(): MaterialPopupMenu.PopupMenuCustomItem {
+            check(layoutResId != 0, { "Layout resource ID must be set for a custom item!" })
+            return MaterialPopupMenu.PopupMenuCustomItem(
+                    layoutResId = layoutResId,
+                    viewBoundCallback = viewBoundCallback,
+                    callback = callback)
+        }
+
+    }
+
+    @PopupMenuMarker
+    abstract class AbstractItemHolder {
+
+        /**
+         * Callback to be invoked once an item gets selected.
+         */
+        var callback: () -> Unit = {}
+
+        internal abstract fun convertToPopupMenuItem(): MaterialPopupMenu.AbstractPopupMenuItem
 
     }
 

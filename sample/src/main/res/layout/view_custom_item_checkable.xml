@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    style="@style/Widget.MPM.Item"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/mpm_popup_menu_item_height"
+    android:clickable="true"
+    android:focusable="true"
+    android:gravity="center_vertical"
+    android:orientation="horizontal"
+    android:paddingEnd="@dimen/mpm_popup_menu_item_padding_horizontal"
+    android:paddingLeft="@dimen/mpm_popup_menu_item_padding_horizontal"
+    android:paddingRight="@dimen/mpm_popup_menu_item_padding_horizontal"
+    android:paddingStart="@dimen/mpm_popup_menu_item_padding_horizontal"
+    tools:ignore="UseCompoundDrawables"
+    tools:theme="@style/Widget.MPM.Menu">
+
+    <TextView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:ellipsize="end"
+        android:lines="1"
+        android:text="@string/custom_item_label"
+        android:textColor="?attr/mpm_primaryTextColor"
+        android:textSize="@dimen/mpm_popup_menu_item_label_text_size" />
+
+    <CheckBox
+        android:id="@+id/customItemCheckbox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@null"
+        android:clickable="false"
+        android:focusable="false" />
+
+</LinearLayout>

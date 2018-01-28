@@ -12,6 +12,7 @@ import android.view.Gravity
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import android.widget.CheckBox
 import android.widget.Toast
 import butterknife.BindView
 import butterknife.ButterKnife
@@ -239,6 +240,38 @@ class DarkActivity : AppCompatActivity() {
                     callback = {
                         shareUrl()
                     }
+                }
+            }
+        }
+
+        popupMenu.show(this@DarkActivity, view)
+    }
+
+    @OnClick(R.id.customItemsTextView)
+    fun onCustomItemsClicked(view: View) {
+        val popupMenu = popupMenu {
+            style = R.style.Widget_MPM_Menu_Dark
+            dropdownGravity = Gravity.END
+            section {
+                item {
+                    label = "Copy"
+                    icon = R.drawable.abc_ic_menu_copy_mtrl_am_alpha
+                    callback = {
+                        Toast.makeText(this@DarkActivity, "Copied!", Toast.LENGTH_SHORT).show()
+                    }
+                }
+                customItem {
+                    layoutResId = R.layout.view_custom_item_checkable
+                    viewBoundCallback = { view ->
+                        val checkBox: CheckBox = view.findViewById(R.id.customItemCheckbox)
+                        checkBox.isChecked = true
+                    }
+                    callback = {
+                        Toast.makeText(this@DarkActivity, "Disabled!", Toast.LENGTH_SHORT).show()
+                    }
+                }
+                customItem {
+                    layoutResId = R.layout.view_custom_item_large
                 }
             }
         }

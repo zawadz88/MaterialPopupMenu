@@ -52,25 +52,21 @@ abstract class SectionedRecyclerViewAdapter<H : RecyclerView.ViewHolder, VH : Re
     }
 
     private fun countItems(): Int {
-        var count = 0
         val sections = sectionCount
 
-        for (i in 0..sections - 1) {
-            count += getItemCountForSection(i) + 1
-        }
-        return count
+        return (0 until sections).sumBy { getItemCountForSection(it) + 1 }
     }
 
     private fun precomputeIndices() {
         val sections = sectionCount
         var index = 0
 
-        for (i in 0..sections - 1) {
+        for (i in 0 until sections) {
             setPrecomputedItem(index, true, i, 0)
             index++
 
 
-            for (j in 0..getItemCountForSection(i) - 1) {
+            for (j in 0 until getItemCountForSection(i)) {
                 setPrecomputedItem(index, false, i, j)
                 index++
             }
@@ -123,35 +119,35 @@ abstract class SectionedRecyclerViewAdapter<H : RecyclerView.ViewHolder, VH : Re
         val section = sectionForPosition!![position]
         val index = positionWithinSection!![position]
 
-        if (isSectionHeaderPosition(position)) {
-            return getSectionHeaderViewType(section)
+        return if (isSectionHeaderPosition(position)) {
+            getSectionHeaderViewType(section)
         } else {
-            return getSectionItemViewType(section, index)
+            getSectionItemViewType(section, index)
         }
 
     }
 
     @Suppress("UNUSED_PARAMETER")
-    protected fun getSectionHeaderViewType(section: Int): Int {
+    private fun getSectionHeaderViewType(section: Int): Int {
         return TYPE_SECTION_HEADER
     }
 
     @Suppress("UNUSED_PARAMETER")
-    protected fun getSectionItemViewType(section: Int, position: Int): Int {
+    protected open fun getSectionItemViewType(section: Int, position: Int): Int {
         return TYPE_ITEM
     }
 
     /**
      * Returns true if the argument position corresponds to a header
      */
-    fun isSectionHeaderPosition(position: Int): Boolean {
+    private fun isSectionHeaderPosition(position: Int): Boolean {
         if (isHeader == null) {
             setupIndices()
         }
         return isHeader!![position]
     }
 
-    protected fun isSectionHeaderViewType(viewType: Int): Boolean {
+    private fun isSectionHeaderViewType(viewType: Int): Boolean {
         return viewType == TYPE_SECTION_HEADER
     }
 
@@ -187,8 +183,8 @@ abstract class SectionedRecyclerViewAdapter<H : RecyclerView.ViewHolder, VH : Re
 
     companion object {
 
-        internal val TYPE_SECTION_HEADER = -1
-        internal val TYPE_ITEM = -2
+        internal const val TYPE_SECTION_HEADER = -1
+        internal const val TYPE_ITEM = -2
     }
 
 }
