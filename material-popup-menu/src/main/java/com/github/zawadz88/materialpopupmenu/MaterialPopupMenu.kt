@@ -1,10 +1,7 @@
 package com.github.zawadz88.materialpopupmenu
 
 import android.content.Context
-import android.support.annotation.ColorInt
-import android.support.annotation.DrawableRes
-import android.support.annotation.StyleRes
-import android.support.annotation.UiThread
+import android.support.annotation.*
 import android.support.v7.widget.MaterialRecyclerViewPopupWindow
 import android.view.View
 import com.github.zawadz88.materialpopupmenu.internal.PopupMenuAdapter
@@ -44,7 +41,7 @@ class MaterialPopupMenu internal constructor(
 
     internal data class PopupMenuSection(
             val title: String?,
-            val items: List<PopupMenuItem>
+            val items: List<AbstractPopupMenuItem>
     )
 
     internal data class PopupMenuItem(
@@ -52,7 +49,18 @@ class MaterialPopupMenu internal constructor(
             @ColorInt val labelColor: Int,
             @DrawableRes val icon: Int,
             @ColorInt val iconColor: Int,
-            val callback: () -> Unit
+            override val callback: () -> Unit
+    ) : AbstractPopupMenuItem(callback)
+
+    internal data class PopupMenuCustomItem(
+            @LayoutRes val layoutResId: Int,
+            val viewBoundCallback: (View) -> Unit,
+            override val callback: () -> Unit
+    ) : AbstractPopupMenuItem(callback)
+
+
+    internal abstract class AbstractPopupMenuItem(
+            open val callback: () -> Unit
     )
 
 }

@@ -1,5 +1,6 @@
 package android.support.v7.widget
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.graphics.Rect
 import android.support.annotation.StyleRes
@@ -22,6 +23,7 @@ import java.lang.reflect.Method
  *
  * @see ListPopupWindow
  */
+@SuppressLint("PrivateResource")
 class MaterialRecyclerViewPopupWindow(
         private val context: Context,
         private var dropDownGravity: Int,
@@ -104,11 +106,11 @@ class MaterialRecyclerViewPopupWindow(
      */
     fun setContentWidth(width: Int) {
         val popupBackground = popup.background
-        if (popupBackground != null) {
+        dropDownWidth = if (popupBackground != null) {
             popupBackground.getPadding(tempRect)
-            dropDownWidth = tempRect.left + tempRect.right + width
+            tempRect.left + tempRect.right + width
         } else {
-            dropDownWidth = width
+            width
         }
     }
 
@@ -223,7 +225,7 @@ class MaterialRecyclerViewPopupWindow(
         var returnedHeight = 0
 
         val count = adapter?.itemCount ?: 0
-        for (i in 0..count - 1) {
+        for (i in 0 until count) {
             val positionType = adapter!!.getItemViewType(i)
 
             val vh = adapter!!.createViewHolder(parent, positionType)
@@ -299,7 +301,7 @@ class MaterialRecyclerViewPopupWindow(
         val widthMeasureSpec = View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED)
         val heightMeasureSpec = View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED)
         val count = adapter.itemCount
-        for (i in 0..count - 1) {
+        for (i in 0 until count) {
             val positionType = adapter.getItemViewType(i)
 
             val vh = adapter.createViewHolder(parent, positionType)

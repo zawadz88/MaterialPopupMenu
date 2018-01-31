@@ -8,7 +8,7 @@
 <a href="../../../index.html">material-popup-menu</a>&nbsp;/&nbsp;<a href="../../index.html">com.github.zawadz88.materialpopupmenu</a>&nbsp;/&nbsp;<a href="../index.html">MaterialPopupMenuBuilder</a>&nbsp;/&nbsp;<a href="./index.html">ItemHolder</a><br/>
 <br/>
 <h1>ItemHolder</h1>
-<code><span class="keyword">class </span><span class="identifier">ItemHolder</span></code>
+<code><span class="keyword">class </span><span class="identifier">ItemHolder</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="../-abstract-item-holder/index.html"><span class="identifier">AbstractItemHolder</span></a></code>
 <p>Holds section item info for the builder. This gets converted to <a href="#">MaterialPopupMenu.PopupMenuItem</a>.</p>
 <h3>Constructors</h3>
 <table>
@@ -27,15 +27,6 @@
 <h3>Properties</h3>
 <table>
 <tbody>
-<tr>
-<td>
-<p><a href="callback.html">callback</a></p>
-</td>
-<td>
-<code><span class="keyword">var </span><span class="identifier">callback</span><span class="symbol">: </span><span class="symbol">(</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code>
-<p>Callback to be invoked once an item gets selected.</p>
-</td>
-</tr>
 <tr>
 <td>
 <p><a href="icon.html">icon</a></p>
@@ -70,6 +61,20 @@
 <td>
 <code><span class="keyword">var </span><span class="identifier">labelColor</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a></code>
 <p>Optional text color of the label. If not set or 0 the default color will be used.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Inherited Properties</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="../-abstract-item-holder/callback.html">callback</a></p>
+</td>
+<td>
+<code><span class="keyword">var </span><span class="identifier">callback</span><span class="symbol">: </span><span class="symbol">(</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code>
+<p>Callback to be invoked once an item gets selected.</p>
 </td>
 </tr>
 </tbody>
