@@ -10,7 +10,7 @@ This library allows to create simple popup menus programmatically with a nice [t
 
 ## Download (from JCenter)
 ```groovy
-compile 'com.github.zawadz88.materialpopupmenu:material-popup-menu:1.1.0'
+compile 'com.github.zawadz88.materialpopupmenu:material-popup-menu:1.2.0'
 ```
 
 ## Getting started
@@ -84,7 +84,44 @@ To create a popup menu with 2 sections and a section title in the second one:
 * Separator between popup menu sections
 * Section headers
 * Light and dark styles
+* Custom view items
 * Setting item label text color & icon color for each individual item
+
+## Custom views
+<img src ="./art/sample_custom_items.png" width="360" />
+
+You can use your own layouts for displaying the items in each section alongside the default layouts provided by the library. E.g.:
+```kotlin
+    fun onCustomItemsClicked(view: View) {
+        val popupMenu = popupMenu {
+            dropdownGravity = Gravity.END
+            section {
+                item {
+                    label = "Copy"
+                    icon = R.drawable.abc_ic_menu_copy_mtrl_am_alpha
+                    callback = {
+                        Toast.makeText(this@LightActivity, "Copied!", Toast.LENGTH_SHORT).show()
+                    }
+                }
+                customItem {
+                    layoutResId = R.layout.view_custom_item_checkable
+                    viewBoundCallback = { view ->
+                        val checkBox: CheckBox = view.findViewById(R.id.customItemCheckbox)
+                        checkBox.isChecked = true
+                    }
+                    callback = {
+                        Toast.makeText(this@LightActivity, "Disabled!", Toast.LENGTH_SHORT).show()
+                    }
+                }
+                customItem {
+                    layoutResId = R.layout.view_custom_item_large
+                }
+            }
+        }
+
+        popupMenu.show(this@LightActivity, view)
+    }
+```
 
 ## Documentation
 HTML documentation of the current version of the library is available [here](https://zawadz88.github.io/MaterialPopupMenu/material-popup-menu/).
@@ -98,6 +135,5 @@ Check out the [official documentation](https://kotlinlang.org/docs/reference/bas
 ## TODOs:
 * add Espresso tests
 * add an option to change the offsets and popup width
-* add custom view support
 * add item selection
 * refactor measuring

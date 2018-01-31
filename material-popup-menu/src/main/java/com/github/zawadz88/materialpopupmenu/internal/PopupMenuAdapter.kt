@@ -80,41 +80,17 @@ internal class PopupMenuAdapter(
 
     override fun onBindItemViewHolder(holder: AbstractItemViewHolder, section: Int, position: Int) {
         val popupMenuItem = sections[section].items[position]
-        if (holder is ItemViewHolder) {
-            onBindDefaultItemViewHolder(holder, popupMenuItem as MaterialPopupMenu.PopupMenuItem)
-        } else if (holder is CustomItemViewHolder) {
-            onBindDefaultItemViewHolder(holder, popupMenuItem as MaterialPopupMenu.PopupMenuCustomItem)
-        }
-
+        holder.bindItem(popupMenuItem)
         holder.itemView.setOnClickListener {
             popupMenuItem.callback()
             onItemClickedCallback(popupMenuItem)
         }
     }
 
-    private fun onBindDefaultItemViewHolder(holder: CustomItemViewHolder, popupMenuItem: MaterialPopupMenu.PopupMenuCustomItem) {
-        popupMenuItem.viewBoundCallback.invoke(holder.itemView)
-    }
+    internal abstract class AbstractItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
-    private fun onBindDefaultItemViewHolder(holder: ItemViewHolder, popupMenuItem: MaterialPopupMenu.PopupMenuItem) {
-        holder.label.text = popupMenuItem.label
-        if (popupMenuItem.icon != 0) {
-            holder.icon.apply {
-                visibility = View.VISIBLE
-                setImageResource(popupMenuItem.icon)
-                if (popupMenuItem.iconColor != 0) {
-                    supportImageTintList = ColorStateList.valueOf(popupMenuItem.iconColor)
-                }
-            }
-        } else {
-            holder.icon.visibility = View.GONE
-        }
-        if (popupMenuItem.labelColor != 0) {
-            holder.label.setTextColor(popupMenuItem.labelColor)
-        }
+        abstract fun bindItem(popupMenuItem: MaterialPopupMenu.AbstractPopupMenuItem)
     }
-
-    internal abstract class AbstractItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
 
     internal class ItemViewHolder(itemView: View) : AbstractItemViewHolder(itemView) {
 
@@ -122,9 +98,34 @@ internal class PopupMenuAdapter(
 
         var icon: AppCompatImageView = itemView.findViewById(R.id.mpm_popup_menu_item_icon)
 
+        override fun bindItem(popupMenuItem: MaterialPopupMenu.AbstractPopupMenuItem) {
+            val castedPopupMenuItem = popupMenuItem as MaterialPopupMenu.PopupMenuItem
+            label.text = castedPopupMenuItem.label
+            if (castedPopupMenuItem.icon != 0) {
+                icon.apply {
+                    visibility = View.VISIBLE
+                    setImageResource(castedPopupMenuItem.icon)
+                    if (castedPopupMenuItem.iconColor != 0) {
+                        supportImageTintList = ColorStateList.valueOf(castedPopupMenuItem.iconColor)
+                    }
+                }
+            } else {
+                icon.visibility = View.GONE
+            }
+            if (castedPopupMenuItem.labelColor != 0) {
+                label.setTextColor(castedPopupMenuItem.labelColor)
+            }
+        }
+
     }
 
-    internal class CustomItemViewHolder(itemView: View) : AbstractItemViewHolder(itemView)
+    internal class CustomItemViewHolder(itemView: View) : AbstractItemViewHolder(itemView) {
+
+        override fun bindItem(popupMenuItem: MaterialPopupMenu.AbstractPopupMenuItem) {
+            val popupMenuCustomItem = popupMenuItem as MaterialPopupMenu.PopupMenuCustomItem
+            popupMenuCustomItem.viewBoundCallback.invoke(itemView)
+        }
+    }
 
     internal class SectionHeaderViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 

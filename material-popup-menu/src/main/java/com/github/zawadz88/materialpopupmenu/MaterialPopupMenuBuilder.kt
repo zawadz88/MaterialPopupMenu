@@ -172,6 +172,10 @@ class MaterialPopupMenuBuilder {
         @LayoutRes
         var layoutResId: Int = 0
 
+        /**
+         * Callback to be invoked once the custom item view gets created and bound.
+         * It is to be used when some views inside need to be updated once inflated.
+         */
         var viewBoundCallback: (View) -> Unit = {}
 
         override fun toString(): String {
