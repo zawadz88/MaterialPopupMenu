@@ -126,6 +126,11 @@ You can use your own layouts for displaying the items in each section alongside 
 ## Documentation
 HTML documentation of the current version of the library is available [here](https://zawadz88.github.io/MaterialPopupMenu/material-popup-menu/).
 
+## Third Party Bindings
+
+### React Native
+You may now use this library with [React Native](https://github.com/facebook/react-native) via the module [here](https://github.com/prscX/react-native-popover-menu)
+
 ## FAQ
 
 ### I want to use the library but I don't know Kotlin
