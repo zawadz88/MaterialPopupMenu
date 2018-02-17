@@ -61,7 +61,7 @@ class LightActivity : AppCompatActivity() {
                     }
                     item {
                         label = "Paste"
-                        icon = R.drawable.abc_ic_menu_paste_mtrl_am_alpha
+                        iconDrawable = ContextCompat.getDrawable(this@LightActivity, R.drawable.abc_ic_menu_paste_mtrl_am_alpha)
                     }
                 }
                 section {

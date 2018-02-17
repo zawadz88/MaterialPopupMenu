@@ -1,7 +1,9 @@
 package com.github.zawadz88.materialpopupmenu
 
+import android.graphics.drawable.Drawable
 import android.view.Gravity
 import android.view.View
+import com.nhaarman.mockito_kotlin.mock
 import org.hamcrest.MatcherAssert.assertThat
 import org.hamcrest.Matchers.hasSize
 import org.hamcrest.Matchers.instanceOf
@@ -154,6 +156,30 @@ class MaterialPopupMenuBuilderTest {
     }
 
     @Test
+    fun `Should build a popup menu with a Drawable icon`() {
+        //when
+        val popupMenu = popupMenu {
+            section {
+                item {
+                    label = ITEM_LABEL
+                    iconDrawable = ITEM_ICON_DRAWABLE
+                }
+            }
+        }
+
+        //then
+        assertThat("Should contain one section", popupMenu.sections, hasSize(1))
+        val section = popupMenu.sections[0]
+        assertThat("Should contain a single item", section.items, hasSize(1))
+        val item = section.items[0]
+        assertThat(item, instanceOf(MaterialPopupMenu.PopupMenuItem::class.java))
+        val popupMenuItem = item as MaterialPopupMenu.PopupMenuItem
+        assertEquals("Invalid item label", ITEM_LABEL, popupMenuItem.label)
+        assertEquals("Invalid item icon drawable", ITEM_ICON_DRAWABLE, popupMenuItem.iconDrawable)
+
+    }
+
+    @Test
     fun `Should build a popup menu with multiple items`() {
         //given
         val customCallback = {}
@@ -191,7 +217,7 @@ class MaterialPopupMenuBuilderTest {
         val secondPopupMenuItem = secondItem as MaterialPopupMenu.PopupMenuItem
         assertEquals("Invalid item label", ITEM_LABEL2, secondPopupMenuItem.label)
         assertEquals("Invalid item icon", ITEM_ICON, secondPopupMenuItem.icon)
-        assertEquals("Invalid item item icon", ITEM_ICON_TINT_COLOR, secondPopupMenuItem.iconColor)
+        assertEquals("Invalid item icon tint color", ITEM_ICON_TINT_COLOR, secondPopupMenuItem.iconColor)
         val thirdItem = section.items[2]
         assertThat(thirdItem, instanceOf(MaterialPopupMenu.PopupMenuItem::class.java))
         val thirdPopupMenuItem = thirdItem as MaterialPopupMenu.PopupMenuItem
@@ -255,7 +281,7 @@ class MaterialPopupMenuBuilderTest {
         val item = section.items[0]
         assertThat(item, instanceOf(MaterialPopupMenu.PopupMenuItem::class.java))
         val popupMenuItem = item as MaterialPopupMenu.PopupMenuItem
-        val (_, _, _, _, callback) = popupMenuItem
+        val (_, _, _, _, _, callback) = popupMenuItem
 
         //when
         callback()
@@ -271,6 +297,7 @@ class MaterialPopupMenuBuilderTest {
         val ITEM_LABEL_TEXT_COLOR = 123
         val ITEM_ICON_TINT_COLOR = 888
         val ITEM_ICON = -1
+        val ITEM_ICON_DRAWABLE: Drawable = mock { }
         val CUSTOM_ITEM_LAYOUT = 555
         val SECTION_TITLE = "section title"
         val SECTION_TITLE2 = "section title2"

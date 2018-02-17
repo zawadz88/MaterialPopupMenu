@@ -32,10 +32,10 @@ dependencies {
     testImplementation "org.hamcrest:hamcrest-core:$HAMCREST_VERSION"
     testImplementation "org.hamcrest:hamcrest-library:$HAMCREST_VERSION"
     testImplementation "org.hamcrest:hamcrest-integration:$HAMCREST_VERSION"
-    testImplementation("org.robolectric:robolectric:$ROBOLECTRIC_VERSION") {
-        exclude group: 'commons-logging', module: 'commons-logging'
-        exclude group: 'org.apache.httpcomponents', module: 'httpclient'
-    }
+    testImplementation "com.nhaarman:mockito-kotlin:$MOCKITO_KOTLIN_VERSION"
+    testImplementation "org.jetbrains.kotlin:kotlin-stdlib-jre7:$KOTLIN_VERSION"
+    testImplementation "org.jetbrains.kotlin:kotlin-stdlib:$KOTLIN_VERSION"
+    testImplementation "org.jetbrains.kotlin:kotlin-reflect:$KOTLIN_VERSION"
 }
 
 dokka {
@@ -75,7 +75,7 @@ ext {
     siteUrl = 'https://github.com/zawadz88/MaterialPopupMenu'
     gitUrl = 'https://github.com/zawadz88/MaterialPopupMenu.git'
 
-    libraryVersion = '1.2.0'
+    libraryVersion = '1.3.0'
 
     developerId = 'zawadz88'
     developerName = 'Piotr Zawadzki'

@@ -10,7 +10,7 @@ This library allows to create simple popup menus programmatically with a nice [t
 
 ## Download (from JCenter)
 ```groovy
-compile 'com.github.zawadz88.materialpopupmenu:material-popup-menu:1.2.0'
+compile 'com.github.zawadz88.materialpopupmenu:material-popup-menu:1.3.0'
 ```
 
 ## Getting started
@@ -29,7 +29,7 @@ To create a popup menu with a single section from an anchor view:
                 }
                 item {
                     label = "Paste"
-                    icon = R.drawable.abc_ic_menu_paste_mtrl_am_alpha //optional
+                    iconDrawable = ContextCompat.getDrawable(this@LightActivity, R.drawable.abc_ic_menu_paste_mtrl_am_alpha) //optional
                     callback = { //optional
                         Toast.makeText(this@LightActivity, "Text pasted!", Toast.LENGTH_SHORT).show()
                     }
