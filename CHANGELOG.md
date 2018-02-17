@@ -24,6 +24,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Added
 Initial release of the library.
 
-[1.2.0]: https://github.com/zawadz88/MaterialPopupMenu/compare/1.2.0...1.3.0
+[1.3.0]: https://github.com/zawadz88/MaterialPopupMenu/compare/1.2.0...1.3.0
 [1.2.0]: https://github.com/zawadz88/MaterialPopupMenu/compare/1.1.0...1.2.0
 [1.1.0]: https://github.com/zawadz88/MaterialPopupMenu/compare/1.0.0...1.1.0
+[1.0.0]: https://github.com/zawadz88/MaterialPopupMenu/tree/1.0.0
