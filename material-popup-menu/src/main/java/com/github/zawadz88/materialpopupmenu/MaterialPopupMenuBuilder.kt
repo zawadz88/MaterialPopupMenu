@@ -1,5 +1,6 @@
 package com.github.zawadz88.materialpopupmenu
 
+import android.graphics.drawable.Drawable
 import android.support.annotation.ColorInt
 import android.support.annotation.DrawableRes
 import android.support.annotation.LayoutRes
@@ -132,9 +133,24 @@ class MaterialPopupMenuBuilder {
          *
          * This must be a valid drawable resource ID if set.
          * *0* Means that no icon should be displayed.
+         *
+         * Alternatively, you can set the drawable using [iconDrawable].
+         *
+         * If both [icon] and [iconDrawable] are set [iconDrawable] will be used.
          */
         @DrawableRes
         var icon: Int = 0
+
+        /**
+         * Optional icon to be displayed together with the label.
+         *
+         * *null* Means that no icon should be displayed.
+         *
+         * Alternatively, you can set the drawable using [icon].
+         *
+         * If both [icon] and [iconDrawable] are set [iconDrawable] will be used.
+         */
+        var iconDrawable: Drawable? = null
 
         /**
          * Optional icon tint color.
@@ -146,7 +162,7 @@ class MaterialPopupMenuBuilder {
         var iconColor: Int = 0
 
         override fun toString(): String {
-            return "ItemHolder(label=$label, labelColor=$labelColor, icon=$icon, iconColor=$iconColor, callback=$callback)"
+            return "ItemHolder(label=$label, labelColor=$labelColor, icon=$icon, iconDrawable=$iconDrawable, iconColor=$iconColor, callback=$callback)"
         }
 
         override fun convertToPopupMenuItem(): MaterialPopupMenu.PopupMenuItem {
@@ -154,6 +170,7 @@ class MaterialPopupMenuBuilder {
                     label = checkNotNull(label, { "Item '$this' does not have a label" }),
                     labelColor = labelColor,
                     icon = icon,
+                    iconDrawable = iconDrawable,
                     iconColor = iconColor,
                     callback = callback)
         }
