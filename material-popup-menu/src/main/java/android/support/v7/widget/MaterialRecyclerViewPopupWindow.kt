@@ -5,6 +5,7 @@ import android.content.Context
 import android.graphics.Rect
 import android.support.annotation.StyleRes
 import android.support.v4.widget.PopupWindowCompat
+import android.support.v7.view.ContextThemeWrapper
 import android.util.Log
 import android.view.View
 import android.view.ViewGroup
@@ -23,9 +24,9 @@ import java.lang.reflect.Method
  *
  * @see ListPopupWindow
  */
-@SuppressLint("PrivateResource")
+@SuppressLint("PrivateResource,RestrictedApi")
 class MaterialRecyclerViewPopupWindow(
-        private val context: Context,
+        context: Context,
         private var dropDownGravity: Int,
         @StyleRes defStyleRes: Int) {
 
@@ -81,21 +82,35 @@ class MaterialRecyclerViewPopupWindow(
 
     private val popupWidthUnit: Int
 
+    private val contextThemeWrapper: Context
+
     init {
-        popup = AppCompatPopupWindow(context, null, 0, defStyleRes)
+        contextThemeWrapper = ContextThemeWrapper(context, context.theme)
+        contextThemeWrapper.setTheme(getWrapperTheme(context, defStyleRes))
+
+        popup = AppCompatPopupWindow(contextThemeWrapper, null, 0, defStyleRes)
         popup.inputMethodMode = PopupWindow.INPUT_METHOD_NEEDED
         popup.isFocusable = true
 
-        popupMaxWidth = context.resources.getDimensionPixelSize(R.dimen.mpm_popup_menu_max_width)
-        popupMinWidth = context.resources.getDimensionPixelSize(R.dimen.mpm_popup_menu_min_width)
-        popupWidthUnit = context.resources.getDimensionPixelSize(R.dimen.mpm_popup_menu_width_unit)
+        popupMaxWidth = contextThemeWrapper.resources.getDimensionPixelSize(R.dimen.mpm_popup_menu_max_width)
+        popupMinWidth = contextThemeWrapper.resources.getDimensionPixelSize(R.dimen.mpm_popup_menu_min_width)
+        popupWidthUnit = contextThemeWrapper.resources.getDimensionPixelSize(R.dimen.mpm_popup_menu_width_unit)
 
         val a = context.obtainStyledAttributes(null, android.support.v7.appcompat.R.styleable.ListPopupWindow,
                 0, defStyleRes)
+
         dropDownHorizontalOffset = a.getDimensionPixelOffset(
                 android.support.v7.appcompat.R.styleable.ListPopupWindow_android_dropDownHorizontalOffset, 0)
-
         a.recycle()
+    }
+
+    @StyleRes
+    private fun getWrapperTheme(context: Context, @StyleRes defStyleRes: Int): Int {
+        val a = context.obtainStyledAttributes(null,
+                R.styleable.MaterialRecyclerViewPopupWindow, 0, defStyleRes)
+        val themeResource = a.getResourceId(R.styleable.MaterialRecyclerViewPopupWindow_mpm_theme, 0)
+        a.recycle()
+        return themeResource
     }
 
     /**
@@ -164,9 +179,9 @@ class MaterialRecyclerViewPopupWindow(
     private fun buildDropDown(): Int {
         var otherHeights = 0
 
-        val dropDownList = View.inflate(context, R.layout.mpm_popup_menu, null) as RecyclerView
+        val dropDownList = View.inflate(contextThemeWrapper, R.layout.mpm_popup_menu, null) as RecyclerView
         dropDownList.adapter = adapter
-        dropDownList.layoutManager = LinearLayoutManager(this.context)
+        dropDownList.layoutManager = LinearLayoutManager(this.contextThemeWrapper)
         dropDownList.isFocusable = true
         dropDownList.isFocusableInTouchMode = true
 
@@ -218,7 +233,7 @@ class MaterialRecyclerViewPopupWindow(
      */
     private fun measureHeightOfChildrenCompat(maxHeight: Int): Int {
 
-        val parent = FrameLayout(context)
+        val parent = FrameLayout(contextThemeWrapper)
         val widthMeasureSpec = View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED)
 
         // Include the padding of the list
@@ -295,7 +310,7 @@ class MaterialRecyclerViewPopupWindow(
      */
     private fun measureIndividualMenuWidth(adapter: PopupMenuAdapter): Int {
         adapter.setupIndices()
-        val parent = FrameLayout(context)
+        val parent = FrameLayout(contextThemeWrapper)
         var menuWidth = popupMinWidth
 
         val widthMeasureSpec = View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED)

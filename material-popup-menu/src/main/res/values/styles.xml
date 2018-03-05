@@ -5,6 +5,7 @@
         <item name="mpm_secondaryTextColor">@color/mpm_black_54_opacity</item>
         <item name="mpm_activeIconColor">@color/mpm_black_54_opacity</item>
         <item name="mpm_separatorColor">@color/mpm_black_12_opacity</item>
+        <item name="mpm_theme">@style/Theme.AppCompat.Light</item>
     </style>
 
     <style name="Widget.MPM.Menu.Dark">
@@ -12,6 +13,7 @@
         <item name="mpm_secondaryTextColor">@color/mpm_white_70_opacity</item>
         <item name="mpm_activeIconColor">@color/mpm_white</item>
         <item name="mpm_separatorColor">@color/mpm_white_12_opacity</item>
+        <item name="mpm_theme">@style/Theme.AppCompat</item>
     </style>
 
     <style name="Widget.MPM.Item" parent="">

@@ -7,7 +7,7 @@
     <string name="single_section_with_icons">Single section with icons</string>
     <string name="single_section_without_icons">Single section without icons</string>
     <string name="two_sections_without_titles">Two sections without titles</string>
-    <string name="colored_labels">Colored labels</string>
+    <string name="custom_colors">Custom colors</string>
     <string name="conditional_items">Conditional items</string>
     <string name="show_copy_item">Show Copy in popup menu</string>
     <string name="show_share_section">Show Share section</string>
