@@ -63,11 +63,11 @@
                 app:layout_constraintTop_toBottomOf="@+id/sectionsWithTitlesTextView" />
 
             <TextView
-                android:id="@+id/coloredLabelsTextView"
+                android:id="@+id/customColorsTextView"
                 style="@style/TitleLabel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/colored_labels"
+                android:text="@string/custom_colors"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/sectionsWithoutTitlesTextView" />
 
@@ -87,7 +87,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/conditional_items"
                 app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/coloredLabelsTextView" />
+                app:layout_constraintTop_toBottomOf="@+id/customColorsTextView" />
 
             <TextView
                 android:id="@+id/conditionalItemsCopySubtitleTextView"

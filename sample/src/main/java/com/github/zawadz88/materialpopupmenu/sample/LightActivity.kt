@@ -201,9 +201,10 @@ class LightActivity : AppCompatActivity() {
         popupMenu.show(this@LightActivity, view)
     }
 
-    @OnClick(R.id.coloredLabelsTextView)
-    fun onColoredLabelsClicked(view: View) {
+    @OnClick(R.id.customColorsTextView)
+    fun onCustomColorsClicked(view: View) {
         val popupMenu = popupMenu {
+            style = R.style.Widget_MPM_Menu_CustomBackground
             section {
                 item {
                     label = "Copy"

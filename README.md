@@ -10,7 +10,7 @@ This library allows to create simple popup menus programmatically with a nice [t
 
 ## Download (from JCenter)
 ```groovy
-compile 'com.github.zawadz88.materialpopupmenu:material-popup-menu:1.3.0'
+compile 'com.github.zawadz88.materialpopupmenu:material-popup-menu:1.4.0'
 ```
 
 ## Getting started
@@ -86,6 +86,7 @@ To create a popup menu with 2 sections and a section title in the second one:
 * Light and dark styles
 * Custom view items
 * Setting item label text color & icon color for each individual item
+* Setting custom popup background color
 
 ## Custom views
 <img src ="./art/sample_custom_items.png" width="360" />
@@ -122,6 +123,67 @@ You can use your own layouts for displaying the items in each section alongside 
         popupMenu.show(this@LightActivity, view)
     }
 ```
+
+## Custom colors
+<img src ="./art/sample_custom_colors.png" width="360" />
+
+To achieve the above you need to set `labelColor` and `iconColor` on each item in a section as shown here:
+```kotlin
+    fun onCustomColorsClicked(view: View) {
+        val popupMenu = popupMenu {
+            style = R.style.Widget_MPM_Menu_CustomBackground
+            section {
+                item {
+                    label = "Copy"
+                    labelColor = ContextCompat.getColor(this@LightActivity, R.color.red)
+                    icon = R.drawable.abc_ic_menu_copy_mtrl_am_alpha
+                    iconColor = ContextCompat.getColor(this@LightActivity, R.color.dark_red)
+                    callback = {
+                        Toast.makeText(this@LightActivity, "Copied!", Toast.LENGTH_SHORT).show()
+                    }
+                }
+                item {
+                    label = "Paste"
+                    labelColor = ContextCompat.getColor(this@LightActivity, R.color.red)
+                    icon = R.drawable.abc_ic_menu_paste_mtrl_am_alpha
+                    iconColor = ContextCompat.getColor(this@LightActivity, R.color.dark_red)
+                    callback = {
+                        Toast.makeText(this@LightActivity, "Text pasted!", Toast.LENGTH_SHORT).show()
+                    }
+                }
+            }
+            section {
+                item {
+                    label = "Share"
+                    labelColor = ContextCompat.getColor(this@LightActivity, R.color.green)
+                    icon = R.drawable.abc_ic_menu_share_mtrl_alpha
+                    iconColor = ContextCompat.getColor(this@LightActivity, R.color.dark_green)
+                    callback = {
+                        shareUrl()
+                    }
+                }
+            }
+        }
+
+        popupMenu.show(this@LightActivity, view)
+    }
+```
+
+To change the popup background color you need to create a custom style and pass it under `style` to the popup builder above.
+E.g. to use the primary color you could define the style like this:
+```xml
+<resources>
+    <style name="Widget.MPM.Menu.CustomBackground">
+        <item name="mpm_theme">@style/AppTheme.CustomBackground</item>
+    </style>
+
+    <style name="AppTheme.CustomBackground" parent="Theme.AppCompat">
+        <item name="android:colorBackground">@color/colorPrimary</item>
+    </style>
+</resources>
+```
+
+`mpm_theme` is used to override the default Activity theme.
 
 ## Documentation
 HTML documentation of the current version of the library is available [here](https://zawadz88.github.io/MaterialPopupMenu/material-popup-menu/).
