@@ -31,7 +31,7 @@ internal class PopupMenuAdapter(
     private val contextThemeWrapper: ContextThemeWrapper
 
     init {
-        setHasStableIds(true)
+        setHasStableIds(false)
         contextThemeWrapper = ContextThemeWrapper(context, context.theme)
         contextThemeWrapper.setTheme(style)
     }
