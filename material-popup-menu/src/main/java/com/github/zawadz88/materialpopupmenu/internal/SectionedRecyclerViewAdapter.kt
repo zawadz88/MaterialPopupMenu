@@ -86,28 +86,22 @@ abstract class SectionedRecyclerViewAdapter<H : RecyclerView.ViewHolder, VH : Re
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        val viewHolder: RecyclerView.ViewHolder
-
-        if (isSectionHeaderViewType(viewType)) {
-            viewHolder = onCreateSectionHeaderViewHolder(parent, viewType)
+        return if (isSectionHeaderViewType(viewType)) {
+            onCreateSectionHeaderViewHolder(parent, viewType)
         } else {
-            viewHolder = onCreateItemViewHolder(parent, viewType)
+            onCreateItemViewHolder(parent, viewType)
         }
-
-        return viewHolder
     }
 
     @Suppress("UNCHECKED_CAST")
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         val section = sectionForPosition!![position]
         val index = positionWithinSection!![position]
-
         if (isSectionHeaderPosition(position)) {
             onBindSectionHeaderViewHolder(holder as H, section)
         } else {
             onBindItemViewHolder(holder as VH, section, index)
         }
-
     }
 
     override fun getItemViewType(position: Int): Int {
