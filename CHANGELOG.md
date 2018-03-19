@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+## [1.4.1]
+### Fixed
+- Order of items ruined if menu has to scroll (issue #14)
+
 ## [1.4.0]
 ### Added
 - A way to set background color of the entire popup window
@@ -31,6 +35,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Added
 Initial release of the library.
 
+[1.4.1]: https://github.com/zawadz88/MaterialPopupMenu/compare/1.4.0...1.4.1
 [1.4.0]: https://github.com/zawadz88/MaterialPopupMenu/compare/1.3.0...1.4.0
 [1.3.0]: https://github.com/zawadz88/MaterialPopupMenu/compare/1.2.0...1.3.0
 [1.2.0]: https://github.com/zawadz88/MaterialPopupMenu/compare/1.1.0...1.2.0
