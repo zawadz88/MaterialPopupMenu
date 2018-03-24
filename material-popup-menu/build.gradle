@@ -75,7 +75,7 @@ ext {
     siteUrl = 'https://github.com/zawadz88/MaterialPopupMenu'
     gitUrl = 'https://github.com/zawadz88/MaterialPopupMenu.git'
 
-    libraryVersion = '1.4.1'
+    libraryVersion = '1.4.2'
 
     developerId = 'zawadz88'
     developerName = 'Piotr Zawadzki'
