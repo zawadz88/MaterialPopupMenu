@@ -34,7 +34,7 @@ jobs:
       # Run the main job command, delegating to Gradle
       - run:
           name: Run Gradle :check command
-          command: ./gradlew check publishToMavenLocal --continue --no-daemon
+          command: ./gradlew check publishToMavenLocal --continue --no-daemon --stacktrace
 
       # Store all the downloaded dependencies in the CI cache
       - save_cache:
