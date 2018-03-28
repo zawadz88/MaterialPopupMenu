@@ -85,7 +85,7 @@ class MaterialRecyclerViewPopupWindow(
     private val contextThemeWrapper: Context
 
     init {
-        contextThemeWrapper = ContextThemeWrapper(context, context.theme)
+        contextThemeWrapper = ContextThemeWrapper(context, null)
         contextThemeWrapper.setTheme(getWrapperTheme(context, defStyleRes))
 
         popup = AppCompatPopupWindow(contextThemeWrapper, null, 0, defStyleRes)
