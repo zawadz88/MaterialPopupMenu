@@ -32,7 +32,7 @@ internal class PopupMenuAdapter(
 
     init {
         setHasStableIds(false)
-        contextThemeWrapper = ContextThemeWrapper(context, context.theme)
+        contextThemeWrapper = ContextThemeWrapper(context, null)
         contextThemeWrapper.setTheme(style)
     }
 
