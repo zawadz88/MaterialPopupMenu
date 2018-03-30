@@ -86,7 +86,7 @@ class MaterialRecyclerViewPopupWindow(
 
     init {
         contextThemeWrapper = ContextThemeWrapper(context, null)
-        contextThemeWrapper.setTheme(getWrapperTheme(context, defStyleRes))
+        contextThemeWrapper.setTheme(defStyleRes)
 
         popup = AppCompatPopupWindow(contextThemeWrapper, null, 0, defStyleRes)
         popup.inputMethodMode = PopupWindow.INPUT_METHOD_NEEDED
@@ -102,15 +102,6 @@ class MaterialRecyclerViewPopupWindow(
         dropDownHorizontalOffset = a.getDimensionPixelOffset(
                 android.support.v7.appcompat.R.styleable.ListPopupWindow_android_dropDownHorizontalOffset, 0)
         a.recycle()
-    }
-
-    @StyleRes
-    private fun getWrapperTheme(context: Context, @StyleRes defStyleRes: Int): Int {
-        val a = context.obtainStyledAttributes(null,
-                R.styleable.MaterialRecyclerViewPopupWindow, 0, defStyleRes)
-        val themeResource = a.getResourceId(R.styleable.MaterialRecyclerViewPopupWindow_mpm_theme, 0)
-        a.recycle()
-        return themeResource
     }
 
     /**

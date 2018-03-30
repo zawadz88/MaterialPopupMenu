@@ -9,10 +9,4 @@
 
     <attr name="mpm_separatorColor" format="color|reference" />
 
-    <declare-styleable name="MaterialRecyclerViewPopupWindow">
-
-        <attr name="mpm_theme" format="reference" />
-
-    </declare-styleable>
-
 </resources>

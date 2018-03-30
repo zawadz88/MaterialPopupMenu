@@ -10,7 +10,7 @@ This library allows to create simple popup menus programmatically with a nice [t
 
 ## Download (from JCenter)
 ```groovy
-compile 'com.github.zawadz88.materialpopupmenu:material-popup-menu:1.4.2'
+implementation 'com.github.zawadz88.materialpopupmenu:material-popup-menu:2.0.0'
 ```
 
 ## Getting started
@@ -131,7 +131,7 @@ To achieve the above you need to set `labelColor` and `iconColor` on each item i
 ```kotlin
     fun onCustomColorsClicked(view: View) {
         val popupMenu = popupMenu {
-            style = R.style.Widget_MPM_Menu_CustomBackground
+            style = R.style.Widget_MPM_Menu_Dark_CustomBackground
             section {
                 item {
                     label = "Copy"
@@ -173,17 +173,11 @@ To change the popup background color you need to create a custom style and pass 
 E.g. to use the primary color you could define the style like this:
 ```xml
 <resources>
-    <style name="Widget.MPM.Menu.CustomBackground">
-        <item name="mpm_theme">@style/AppTheme.CustomBackground</item>
-    </style>
-
-    <style name="AppTheme.CustomBackground" parent="Theme.AppCompat">
+    <style name="Widget.MPM.Menu.Dark.CustomBackground">
         <item name="android:colorBackground">@color/colorPrimary</item>
     </style>
 </resources>
 ```
-
-`mpm_theme` is used to override the default Activity theme.
 
 ## Documentation
 HTML documentation of the current version of the library is available [here](https://zawadz88.github.io/MaterialPopupMenu/material-popup-menu/).

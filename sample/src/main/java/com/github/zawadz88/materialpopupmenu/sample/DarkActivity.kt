@@ -210,7 +210,7 @@ class DarkActivity : AppCompatActivity() {
     @OnClick(R.id.customColorsTextView)
     fun onCustomColorsClicked(view: View) {
         val popupMenu = popupMenu {
-            style = R.style.Widget_MPM_Menu_CustomBackground
+            style = R.style.Widget_MPM_Menu_Dark_CustomBackground
             section {
                 item {
                     label = "Copy"
