@@ -22,6 +22,8 @@ class MaterialPopupMenu internal constructor(
         internal val dropdownGravity: Int,
         internal val sections: List<PopupMenuSection>) {
 
+    private var popupWindow: MaterialRecyclerViewPopupWindow? = null
+
     /**
      * Shows a popup menu in the UI.
      *
@@ -38,6 +40,15 @@ class MaterialPopupMenu internal constructor(
         popupWindow.anchorView = anchor
 
         popupWindow.show()
+        this.popupWindow = popupWindow
+    }
+
+    /**
+     * Dismisses the popup window.
+     */
+    @UiThread
+    fun dismiss() {
+        this.popupWindow?.dismiss()
     }
 
     internal data class PopupMenuSection(

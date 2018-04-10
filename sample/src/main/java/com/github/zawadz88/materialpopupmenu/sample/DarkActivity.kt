@@ -40,7 +40,6 @@ class DarkActivity : AppCompatActivity() {
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
-
         val menuInflater = menuInflater
         menuInflater.inflate(R.menu.menu_overflow, menu)
 

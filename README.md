@@ -10,7 +10,7 @@ This library allows to create simple popup menus programmatically with a nice [t
 
 ## Download (from JCenter)
 ```groovy
-implementation 'com.github.zawadz88.materialpopupmenu:material-popup-menu:2.0.0'
+implementation 'com.github.zawadz88.materialpopupmenu:material-popup-menu:2.1.0'
 ```
 
 ## Getting started
