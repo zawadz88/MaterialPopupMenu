@@ -8,7 +8,6 @@
     <dimen name="mpm_popup_menu_item_height">48dp</dimen>
     <dimen name="mpm_popup_menu_item_padding_horizontal">16dp</dimen>
     <dimen name="mpm_popup_menu_item_label_text_size">16sp</dimen>
-    <dimen name="mpm_popup_menu_item_label_padding_bottom">20dp</dimen>
     <dimen name="mpm_popup_menu_item_icon_margin_end">16dp</dimen>
 
     <dimen name="mpm_popup_menu_item_section_label_text_size">14sp</dimen>

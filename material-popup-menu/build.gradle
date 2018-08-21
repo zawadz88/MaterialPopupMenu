@@ -26,14 +26,14 @@ dependencies {
     api "com.android.support:appcompat-v7:$ANDROID_SUPPORT_LIBRARY_VERSION"
     api "com.android.support:recyclerview-v7:$ANDROID_SUPPORT_LIBRARY_VERSION"
 
-    api "org.jetbrains.kotlin:kotlin-stdlib-jre7:$KOTLIN_VERSION"
+    api "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$KOTLIN_VERSION"
 
     testImplementation "junit:junit:$JUNIT_VERSION"
     testImplementation "org.hamcrest:hamcrest-core:$HAMCREST_VERSION"
     testImplementation "org.hamcrest:hamcrest-library:$HAMCREST_VERSION"
     testImplementation "org.hamcrest:hamcrest-integration:$HAMCREST_VERSION"
     testImplementation "com.nhaarman:mockito-kotlin:$MOCKITO_KOTLIN_VERSION"
-    testImplementation "org.jetbrains.kotlin:kotlin-stdlib-jre7:$KOTLIN_VERSION"
+    testImplementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$KOTLIN_VERSION"
     testImplementation "org.jetbrains.kotlin:kotlin-stdlib:$KOTLIN_VERSION"
     testImplementation "org.jetbrains.kotlin:kotlin-reflect:$KOTLIN_VERSION"
 }
@@ -75,7 +75,7 @@ ext {
     siteUrl = 'https://github.com/zawadz88/MaterialPopupMenu'
     gitUrl = 'https://github.com/zawadz88/MaterialPopupMenu.git'
 
-    libraryVersion = '2.1.0'
+    libraryVersion = '2.2.0'
 
     developerId = 'zawadz88'
     developerName = 'Piotr Zawadzki'

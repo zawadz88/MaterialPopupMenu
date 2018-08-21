@@ -241,6 +241,33 @@ class LightActivity : AppCompatActivity() {
         popupMenu.show(this@LightActivity, view)
     }
 
+    @OnClick(R.id.customOffsetsTextView)
+    fun onCustomOffsetsTextViewClicked(view: View) {
+        val popupMenu = popupMenu {
+            style = R.style.Widget_MPM_Menu_CustomOffsets
+            dropdownGravity = Gravity.BOTTOM
+            section {
+                item {
+                    label = "Copy"
+                    callback = {
+                        Toast.makeText(this@LightActivity, "Copied!", Toast.LENGTH_SHORT).show()
+                    }
+                }
+                item {
+                    label = "Paste"
+                    callback = {
+                        Toast.makeText(this@LightActivity, "Text pasted!", Toast.LENGTH_SHORT).show()
+                    }
+                }
+                item {
+                    label = "Select all"
+                }
+            }
+        }
+
+        popupMenu.show(this@LightActivity, view)
+    }
+
     @OnClick(R.id.customItemsTextView)
     fun onCustomItemsClicked(view: View) {
         val popupMenu = popupMenu {

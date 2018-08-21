@@ -9,6 +9,7 @@
     <string name="two_sections_without_titles">Two sections without titles</string>
     <string name="custom_colors">Custom colors</string>
     <string name="conditional_items">Conditional items</string>
+    <string name="custom_offsets">Custom offsets</string>
     <string name="show_copy_item">Show Copy in popup menu</string>
     <string name="show_share_section">Show Share section</string>
     <string name="custom_items">Custom items</string>

@@ -7,6 +7,7 @@ import android.support.annotation.StyleRes
 import android.support.v4.widget.PopupWindowCompat
 import android.support.v7.view.ContextThemeWrapper
 import android.util.Log
+import android.view.Gravity
 import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
@@ -32,7 +33,7 @@ class MaterialRecyclerViewPopupWindow(
 
     companion object {
 
-        private val TAG = "MaterialRVPopupWindow"
+        private const val TAG = "MaterialRVPopupWindow"
 
         private var sClipToWindowEnabledMethod: Method? = null
         private var sGetMaxAvailableHeightMethod: Method? = null
@@ -96,11 +97,11 @@ class MaterialRecyclerViewPopupWindow(
         popupMinWidth = contextThemeWrapper.resources.getDimensionPixelSize(R.dimen.mpm_popup_menu_min_width)
         popupWidthUnit = contextThemeWrapper.resources.getDimensionPixelSize(R.dimen.mpm_popup_menu_width_unit)
 
-        val a = context.obtainStyledAttributes(null, android.support.v7.appcompat.R.styleable.ListPopupWindow,
-                0, defStyleRes)
+        val a = context.obtainStyledAttributes(null, android.support.v7.appcompat.R.styleable.ListPopupWindow, 0, defStyleRes)
 
-        dropDownHorizontalOffset = a.getDimensionPixelOffset(
-                android.support.v7.appcompat.R.styleable.ListPopupWindow_android_dropDownHorizontalOffset, 0)
+        dropDownHorizontalOffset = a.getDimensionPixelOffset(android.support.v7.appcompat.R.styleable.ListPopupWindow_android_dropDownHorizontalOffset, 0)
+        dropDownVerticalOffset = a.getDimensionPixelOffset(android.support.v7.appcompat.R.styleable.ListPopupWindow_android_dropDownVerticalOffset, 0)
+
         a.recycle()
     }
 
@@ -110,7 +111,7 @@ class MaterialRecyclerViewPopupWindow(
 
      * @param width Desired width of content in pixels.
      */
-    fun setContentWidth(width: Int) {
+    private fun setContentWidth(width: Int) {
         val popupBackground = popup.background
         dropDownWidth = if (popupBackground != null) {
             popupBackground.getPadding(tempRect)
@@ -125,12 +126,11 @@ class MaterialRecyclerViewPopupWindow(
      * will recalculate the popupMenu's size and position.
      */
     fun show() {
-        checkNotNull(anchorView, { "Anchor view must be set!" })
+        checkNotNull(anchorView) { "Anchor view must be set!" }
         val height = buildDropDown()
 
         PopupWindowCompat.setWindowLayoutType(popup, WindowManager.LayoutParams.TYPE_APPLICATION_SUB_PANEL)
 
-        val heightSpec = height
         val widthSpec = dropDownWidth
         if (popup.isShowing) {
 
@@ -138,10 +138,11 @@ class MaterialRecyclerViewPopupWindow(
 
             popup.update(anchorView, dropDownHorizontalOffset,
                     dropDownVerticalOffset, widthSpec,
-                    if (heightSpec < 0) -1 else heightSpec)
+                    if (height < 0) -1 else height
+            )
         } else {
             popup.width = widthSpec
-            popup.height = heightSpec
+            popup.height = height
             setPopupClipToScreenEnabled(true)
 
             // use outside touchable to dismiss drop down when touching outside of it, so
@@ -189,10 +190,14 @@ class MaterialRecyclerViewPopupWindow(
 
             // If we don't have an explicit vertical offset, determine one from
             // the window background so that content will line up.
-            dropDownVerticalOffset = -tempRect.top
+            dropDownVerticalOffset -= tempRect.top
         } else {
             tempRect.setEmpty()
             padding = 0
+        }
+
+        if ((dropDownGravity and Gravity.BOTTOM) == Gravity.BOTTOM) {
+            dropDownVerticalOffset += anchorView!!.height
         }
 
         // Max height available on the screen for a popupMenu.
@@ -247,11 +252,11 @@ class MaterialRecyclerViewPopupWindow(
                 itemView.layoutParams = childLp
             }
 
-            if (childLp.height > 0) {
-                heightMeasureSpec = View.MeasureSpec.makeMeasureSpec(childLp.height,
-                        View.MeasureSpec.EXACTLY)
+            heightMeasureSpec = if (childLp.height > 0) {
+                View.MeasureSpec.makeMeasureSpec(childLp.height,
+                    View.MeasureSpec.EXACTLY)
             } else {
-                heightMeasureSpec = View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED)
+                View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED)
             }
             itemView.measure(widthMeasureSpec, heightMeasureSpec)
 
