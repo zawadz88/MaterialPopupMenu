@@ -10,7 +10,7 @@ This library allows to create simple popup menus programmatically with a nice [t
 
 ## Download (from JCenter)
 ```groovy
-implementation 'com.github.zawadz88.materialpopupmenu:material-popup-menu:2.1.0'
+implementation 'com.github.zawadz88.materialpopupmenu:material-popup-menu:2.2.0'
 ```
 
 ## Getting started
@@ -87,6 +87,7 @@ To create a popup menu with 2 sections and a section title in the second one:
 * Custom view items
 * Setting item label text color & icon color for each individual item
 * Setting custom popup background color
+* Adding additional offsets to where the dialog should be shown
 
 ## Custom views
 <img src ="./art/sample_custom_items.png" width="360" />
@@ -195,6 +196,5 @@ Check out the [official documentation](https://kotlinlang.org/docs/reference/bas
 
 ## TODOs:
 * add Espresso tests
-* add an option to change the offsets and popup width
 * add item selection
 * refactor measuring

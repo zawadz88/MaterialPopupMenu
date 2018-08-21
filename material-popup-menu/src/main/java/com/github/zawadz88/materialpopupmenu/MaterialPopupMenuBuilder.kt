@@ -31,6 +31,7 @@ class MaterialPopupMenuBuilder {
     /**
      * Gravity of the dropdown list. This is commonly used to
      * set gravity to START or END for alignment with the anchor.
+     * Setting [Gravity.BOTTOM] will anchor the dropdown list below the view.
      */
     var dropdownGravity: Int = Gravity.NO_GRAVITY
 
