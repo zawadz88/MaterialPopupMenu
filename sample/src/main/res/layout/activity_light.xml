@@ -8,7 +8,7 @@
     tools:context="com.github.zawadz88.materialpopupmenu.sample.LightActivity"
     tools:theme="@style/AppTheme.Light">
 
-    <android.support.v7.widget.Toolbar
+    <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
@@ -21,7 +21,7 @@
         android:layout_height="match_parent"
         android:fillViewport="true">
 
-        <android.support.constraint.ConstraintLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:paddingBottom="16dp">
@@ -33,7 +33,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/single_section_with_icons"
                 app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toBottomOf="parent" />
+                app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/singleSectionWithoutIcons"
@@ -109,7 +109,7 @@
                 app:layout_constraintRight_toLeftOf="@+id/copyConditionalSwitch"
                 app:layout_constraintTop_toBottomOf="@+id/conditionalItemsTextView" />
 
-            <android.support.v7.widget.SwitchCompat
+            <androidx.appcompat.widget.SwitchCompat
                 android:id="@+id/copyConditionalSwitch"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -131,7 +131,7 @@
                 app:layout_constraintRight_toLeftOf="@+id/sectionConditionalSwitch"
                 app:layout_constraintTop_toBottomOf="@+id/conditionalItemsCopySubtitleTextView" />
 
-            <android.support.v7.widget.SwitchCompat
+            <androidx.appcompat.widget.SwitchCompat
                 android:id="@+id/sectionConditionalSwitch"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -141,7 +141,7 @@
                 app:layout_constraintBaseline_toBaselineOf="@+id/conditionalItemsSectionSubtitleTextView"
                 app:layout_constraintRight_toRightOf="parent" />
 
-        </android.support.constraint.ConstraintLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
 
 </LinearLayout>

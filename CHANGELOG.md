@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+## [3.0.0]
+### Changed
+- Migrated to AndroidX package structure (https://developer.android.com/topic/libraries/support-library/androidx-overview)
+- Updated Kotlin to 1.2.71
+
 ## [2.2.0]
 ### Added
 - A way to set custom vertical offsets via android:dropDownVerticalOffset and by setting Gravity.BOTTOM
@@ -57,6 +62,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Added
 Initial release of the library.
 
+[3.0.0]: https://github.com/zawadz88/MaterialPopupMenu/compare/2.2.0...3.0.0
 [2.2.0]: https://github.com/zawadz88/MaterialPopupMenu/compare/2.1.0...2.2.0
 [2.1.0]: https://github.com/zawadz88/MaterialPopupMenu/compare/2.0.0...2.1.0
 [2.0.0]: https://github.com/zawadz88/MaterialPopupMenu/compare/1.4.2...2.0.0

@@ -1,11 +1,11 @@
 package com.github.zawadz88.materialpopupmenu
 
 import android.graphics.drawable.Drawable
-import android.support.annotation.ColorInt
-import android.support.annotation.DrawableRes
-import android.support.annotation.LayoutRes
 import android.view.Gravity
 import android.view.View
+import androidx.annotation.ColorInt
+import androidx.annotation.DrawableRes
+import androidx.annotation.LayoutRes
 
 /**
  * Builder for creating a [MaterialPopupMenu].
@@ -57,7 +57,7 @@ class MaterialPopupMenuBuilder {
      * - see class description for validation details.
      */
     fun build(): MaterialPopupMenu {
-        check(sectionHolderList.isNotEmpty(), { "Popup menu sections cannot be empty!" })
+        check(sectionHolderList.isNotEmpty()) { "Popup menu sections cannot be empty!" }
 
         val sections = sectionHolderList.map { it.convertToPopupMenuSection() }
 
@@ -103,7 +103,7 @@ class MaterialPopupMenuBuilder {
         }
 
         internal fun convertToPopupMenuSection(): MaterialPopupMenu.PopupMenuSection {
-            check(itemsHolderList.isNotEmpty(), { "Section '$this' has no items!" })
+            check(itemsHolderList.isNotEmpty()) { "Section '$this' has no items!" }
             return MaterialPopupMenu.PopupMenuSection(
                     title = title,
                     items = itemsHolderList.map { it.convertToPopupMenuItem() }
@@ -168,7 +168,7 @@ class MaterialPopupMenuBuilder {
 
         override fun convertToPopupMenuItem(): MaterialPopupMenu.PopupMenuItem {
             return MaterialPopupMenu.PopupMenuItem(
-                    label = checkNotNull(label, { "Item '$this' does not have a label" }),
+                    label = checkNotNull(label) { "Item '$this' does not have a label" },
                     labelColor = labelColor,
                     icon = icon,
                     iconDrawable = iconDrawable,
@@ -201,7 +201,7 @@ class MaterialPopupMenuBuilder {
         }
 
         override fun convertToPopupMenuItem(): MaterialPopupMenu.PopupMenuCustomItem {
-            check(layoutResId != 0, { "Layout resource ID must be set for a custom item!" })
+            check(layoutResId != 0) { "Layout resource ID must be set for a custom item!" }
             return MaterialPopupMenu.PopupMenuCustomItem(
                     layoutResId = layoutResId,
                     viewBoundCallback = viewBoundCallback,
