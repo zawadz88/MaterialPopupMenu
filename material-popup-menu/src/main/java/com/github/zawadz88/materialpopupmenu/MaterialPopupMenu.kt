@@ -2,9 +2,13 @@ package com.github.zawadz88.materialpopupmenu
 
 import android.content.Context
 import android.graphics.drawable.Drawable
-import android.support.annotation.*
-import android.support.v7.widget.MaterialRecyclerViewPopupWindow
+import androidx.appcompat.widget.MaterialRecyclerViewPopupWindow
 import android.view.View
+import androidx.annotation.ColorInt
+import androidx.annotation.DrawableRes
+import androidx.annotation.LayoutRes
+import androidx.annotation.StyleRes
+import androidx.annotation.UiThread
 import com.github.zawadz88.materialpopupmenu.internal.PopupMenuAdapter
 
 

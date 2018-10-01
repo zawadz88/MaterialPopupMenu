@@ -1,11 +1,8 @@
-package android.support.v7.widget
+package androidx.appcompat.widget
 
 import android.annotation.SuppressLint
 import android.content.Context
 import android.graphics.Rect
-import android.support.annotation.StyleRes
-import android.support.v4.widget.PopupWindowCompat
-import android.support.v7.view.ContextThemeWrapper
 import android.util.Log
 import android.view.Gravity
 import android.view.View
@@ -13,6 +10,11 @@ import android.view.ViewGroup
 import android.view.WindowManager
 import android.widget.FrameLayout
 import android.widget.PopupWindow
+import androidx.annotation.StyleRes
+import androidx.appcompat.view.ContextThemeWrapper
+import androidx.core.widget.PopupWindowCompat
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.github.zawadz88.materialpopupmenu.R
 import com.github.zawadz88.materialpopupmenu.internal.PopupMenuAdapter
 import java.lang.reflect.Method
@@ -97,10 +99,10 @@ class MaterialRecyclerViewPopupWindow(
         popupMinWidth = contextThemeWrapper.resources.getDimensionPixelSize(R.dimen.mpm_popup_menu_min_width)
         popupWidthUnit = contextThemeWrapper.resources.getDimensionPixelSize(R.dimen.mpm_popup_menu_width_unit)
 
-        val a = context.obtainStyledAttributes(null, android.support.v7.appcompat.R.styleable.ListPopupWindow, 0, defStyleRes)
+        val a = context.obtainStyledAttributes(null, androidx.appcompat.R.styleable.ListPopupWindow, 0, defStyleRes)
 
-        dropDownHorizontalOffset = a.getDimensionPixelOffset(android.support.v7.appcompat.R.styleable.ListPopupWindow_android_dropDownHorizontalOffset, 0)
-        dropDownVerticalOffset = a.getDimensionPixelOffset(android.support.v7.appcompat.R.styleable.ListPopupWindow_android_dropDownVerticalOffset, 0)
+        dropDownHorizontalOffset = a.getDimensionPixelOffset(androidx.appcompat.R.styleable.ListPopupWindow_android_dropDownHorizontalOffset, 0)
+        dropDownVerticalOffset = a.getDimensionPixelOffset(androidx.appcompat.R.styleable.ListPopupWindow_android_dropDownVerticalOffset, 0)
 
         a.recycle()
     }

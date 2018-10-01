@@ -11,7 +11,7 @@ android {
         targetSdkVersion ANDROID_TARGET_SDK_VERSION
         versionCode 1
         versionName "1.0"
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
         debug {}
@@ -23,8 +23,8 @@ android {
 
 dependencies {
 
-    api "com.android.support:appcompat-v7:$ANDROID_SUPPORT_LIBRARY_VERSION"
-    api "com.android.support:recyclerview-v7:$ANDROID_SUPPORT_LIBRARY_VERSION"
+    api "androidx.appcompat:appcompat:$ANDROIDX_APPCOMPAT_VERSION"
+    api "androidx.recyclerview:recyclerview:$ANDROIDX_RECYCLERVIEW_VERSION"
 
     api "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$KOTLIN_VERSION"
 
@@ -75,7 +75,7 @@ ext {
     siteUrl = 'https://github.com/zawadz88/MaterialPopupMenu'
     gitUrl = 'https://github.com/zawadz88/MaterialPopupMenu.git'
 
-    libraryVersion = '2.2.0'
+    libraryVersion = '3.0.0'
 
     developerId = 'zawadz88'
     developerName = 'Piotr Zawadzki'

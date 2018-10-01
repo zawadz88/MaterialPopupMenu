@@ -3,17 +3,16 @@ package com.github.zawadz88.materialpopupmenu.internal
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.res.ColorStateList
-import android.support.annotation.StyleRes
-import android.support.v7.view.ContextThemeWrapper
-import android.support.v7.widget.AppCompatImageView
-import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.annotation.StyleRes
+import androidx.appcompat.view.ContextThemeWrapper
+import androidx.appcompat.widget.AppCompatImageView
+import androidx.recyclerview.widget.RecyclerView
 import com.github.zawadz88.materialpopupmenu.MaterialPopupMenu
 import com.github.zawadz88.materialpopupmenu.R
-
 
 /**
  * RecyclerView adapter used for displaying popup menu items grouped in sections.

@@ -16,6 +16,19 @@ import org.junit.Test
  */
 class MaterialPopupMenuBuilderTest {
 
+    companion object {
+        private const val ITEM_LABEL = "item label"
+        private const val ITEM_LABEL2 = "item label2"
+        private const val ITEM_LABEL3 = "item label3"
+        private const val ITEM_LABEL_TEXT_COLOR = 123
+        private const val ITEM_ICON_TINT_COLOR = 888
+        private const val ITEM_ICON = -1
+        private val ITEM_ICON_DRAWABLE: Drawable = mock { }
+        private const val CUSTOM_ITEM_LAYOUT = 555
+        private const val SECTION_TITLE = "section title"
+        private const val SECTION_TITLE2 = "section title2"
+    }
+
     @Test(expected = IllegalStateException::class)
     fun `Building an empty popup menu should throw an exception`() {
         popupMenu { }
@@ -176,7 +189,6 @@ class MaterialPopupMenuBuilderTest {
         val popupMenuItem = item as MaterialPopupMenu.PopupMenuItem
         assertEquals("Invalid item label", ITEM_LABEL, popupMenuItem.label)
         assertEquals("Invalid item icon drawable", ITEM_ICON_DRAWABLE, popupMenuItem.iconDrawable)
-
     }
 
     @Test
@@ -224,7 +236,6 @@ class MaterialPopupMenuBuilderTest {
         assertEquals("Invalid item label", ITEM_LABEL3, thirdPopupMenuItem.label)
         assertEquals("Invalid item callback", customCallback, thirdPopupMenuItem.callback)
     }
-
 
     @Test
     fun `Should build a popup menu with multiple custom items`() {
@@ -289,18 +300,4 @@ class MaterialPopupMenuBuilderTest {
         //then
         //nothing to do here...
     }
-
-    companion object {
-        val ITEM_LABEL = "item label"
-        val ITEM_LABEL2 = "item label2"
-        val ITEM_LABEL3 = "item label3"
-        val ITEM_LABEL_TEXT_COLOR = 123
-        val ITEM_ICON_TINT_COLOR = 888
-        val ITEM_ICON = -1
-        val ITEM_ICON_DRAWABLE: Drawable = mock { }
-        val CUSTOM_ITEM_LAYOUT = 555
-        val SECTION_TITLE = "section title"
-        val SECTION_TITLE2 = "section title2"
-    }
-
 }

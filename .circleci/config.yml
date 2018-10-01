@@ -5,11 +5,11 @@ jobs:
     working_directory: ~/mpm
 
     docker:
-      - image: circleci/android:api-27-alpha
+      - image: circleci/android:api-28-alpha
 
     environment:
       ANDROID_HOME: /opt/android/sdk
-      ANDROID_BUILD_TOOLS: 27.0.3
+      ANDROID_BUILD_TOOLS: 28.0.2
 
     steps:
       - checkout

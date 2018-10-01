@@ -15,7 +15,7 @@
     tools:ignore="UseCompoundDrawables"
     tools:theme="@style/Widget.MPM.Menu">
 
-    <android.support.v7.widget.AppCompatImageView
+    <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/mpm_popup_menu_item_icon"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

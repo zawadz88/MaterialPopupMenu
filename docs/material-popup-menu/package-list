@@ -1,6 +1,6 @@
 $dokka.format:html
 $dokka.linkExtension:html
 
-android.support.v7.widget
+androidx.appcompat.widget
 com.github.zawadz88.materialpopupmenu
 com.github.zawadz88.materialpopupmenu.internal
