@@ -3,6 +3,7 @@ package com.github.zawadz88.materialpopupmenu.sample
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import androidx.core.content.ContextCompat
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SwitchCompat
@@ -20,6 +21,10 @@ import com.github.zawadz88.materialpopupmenu.popupMenu
 import com.github.zawadz88.materialpopupmenu.popupMenuBuilder
 
 class LightActivity : AppCompatActivity() {
+
+    companion object {
+        private const val TAG = "MPM"
+    }
 
     @BindView(R.id.toolbar)
     lateinit var toolbar: Toolbar
@@ -105,6 +110,9 @@ class LightActivity : AppCompatActivity() {
             }
         }
 
+        popupMenu.setOnDismissListener {
+            Log.i(TAG, "Popup dismissed!")
+        }
         popupMenu.show(this@LightActivity, view)
     }
 
@@ -131,6 +139,9 @@ class LightActivity : AppCompatActivity() {
         }
 
         popupMenu.show(this@LightActivity, view)
+        popupMenu.setOnDismissListener {
+            Log.i(TAG, "Popup dismissed!")
+        }
     }
 
     @OnClick(R.id.sectionsWithTitlesTextView)
