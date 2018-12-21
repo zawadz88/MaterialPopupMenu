@@ -29,9 +29,10 @@ import java.lang.reflect.Method
  */
 @SuppressLint("PrivateResource,RestrictedApi")
 class MaterialRecyclerViewPopupWindow(
-        context: Context,
-        private var dropDownGravity: Int,
-        @StyleRes defStyleRes: Int) {
+    context: Context,
+    private var dropDownGravity: Int,
+    @StyleRes defStyleRes: Int
+) {
 
     companion object {
 
@@ -43,18 +44,19 @@ class MaterialRecyclerViewPopupWindow(
         init {
             try {
                 sClipToWindowEnabledMethod = PopupWindow::class.java.getDeclaredMethod(
-                        "setClipToScreenEnabled", Boolean::class.javaPrimitiveType)
+                    "setClipToScreenEnabled", Boolean::class.javaPrimitiveType
+                )
             } catch (e: NoSuchMethodException) {
                 Log.i(TAG, "Could not find method setClipToScreenEnabled() on PopupWindow. Oh well.")
             }
 
             try {
                 sGetMaxAvailableHeightMethod = PopupWindow::class.java.getDeclaredMethod(
-                        "getMaxAvailableHeight", View::class.java, Int::class.javaPrimitiveType, Boolean::class.javaPrimitiveType)
+                    "getMaxAvailableHeight", View::class.java, Int::class.javaPrimitiveType, Boolean::class.javaPrimitiveType
+                )
             } catch (e: NoSuchMethodException) {
                 Log.i(TAG, "Could not find method getMaxAvailableHeight(View, int, boolean)" + " on PopupWindow. Oh well.")
             }
-
         }
     }
 
@@ -138,9 +140,10 @@ class MaterialRecyclerViewPopupWindow(
 
             popup.isOutsideTouchable = true
 
-            popup.update(anchorView, dropDownHorizontalOffset,
-                    dropDownVerticalOffset, widthSpec,
-                    if (height < 0) -1 else height
+            popup.update(
+                anchorView, dropDownHorizontalOffset,
+                dropDownVerticalOffset, widthSpec,
+                if (height < 0) -1 else height
             )
         } else {
             popup.width = widthSpec
@@ -150,8 +153,10 @@ class MaterialRecyclerViewPopupWindow(
             // use outside touchable to dismiss drop down when touching outside of it, so
             // only set this if the dropdown is not always visible
             popup.isOutsideTouchable = true
-            PopupWindowCompat.showAsDropDown(popup, anchorView!!, dropDownHorizontalOffset,
-                    dropDownVerticalOffset, dropDownGravity)
+            PopupWindowCompat.showAsDropDown(
+                popup, anchorView!!, dropDownHorizontalOffset,
+                dropDownVerticalOffset, dropDownGravity
+            )
         }
     }
 
@@ -161,6 +166,19 @@ class MaterialRecyclerViewPopupWindow(
     fun dismiss() {
         popup.dismiss()
         popup.contentView = null
+    }
+
+    /**
+     * Sets a listener that is called when this popup window is dismissed.
+     *
+     * @param listener Listener that is called when this popup window is dismissed.
+     */
+    fun setOnDismissListener(listener: (() -> Unit)?) {
+        if (listener != null) {
+            popup.setOnDismissListener { listener.invoke() }
+        } else {
+            popup.setOnDismissListener(null)
+        }
     }
 
     /**
@@ -180,7 +198,6 @@ class MaterialRecyclerViewPopupWindow(
         dropDownList.isFocusableInTouchMode = true
 
         popup.contentView = dropDownList
-
 
         // getMaxAvailableHeight() subtracts the padding, so we put it back
         // to get the available height for the whole window.
@@ -204,8 +221,10 @@ class MaterialRecyclerViewPopupWindow(
 
         // Max height available on the screen for a popupMenu.
         val ignoreBottomDecorations = popup.inputMethodMode == PopupWindow.INPUT_METHOD_NOT_NEEDED
-        val maxHeight = getMaxAvailableHeight(anchorView!!, dropDownVerticalOffset,
-                ignoreBottomDecorations)
+        val maxHeight = getMaxAvailableHeight(
+            anchorView!!, dropDownVerticalOffset,
+            ignoreBottomDecorations
+        )
 
         val listContent = measureHeightOfChildrenCompat(maxHeight - otherHeights)
         if (listContent > 0) {
@@ -255,8 +274,10 @@ class MaterialRecyclerViewPopupWindow(
             }
 
             heightMeasureSpec = if (childLp.height > 0) {
-                View.MeasureSpec.makeMeasureSpec(childLp.height,
-                    View.MeasureSpec.EXACTLY)
+                View.MeasureSpec.makeMeasureSpec(
+                    childLp.height,
+                    View.MeasureSpec.EXACTLY
+                )
             } else {
                 View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED)
             }
@@ -277,8 +298,10 @@ class MaterialRecyclerViewPopupWindow(
     }
 
     private fun generateDefaultLayoutParams(): RecyclerView.LayoutParams {
-        return RecyclerView.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
-                ViewGroup.LayoutParams.WRAP_CONTENT)
+        return RecyclerView.LayoutParams(
+            ViewGroup.LayoutParams.MATCH_PARENT,
+            ViewGroup.LayoutParams.WRAP_CONTENT
+        )
     }
 
     private fun setPopupClipToScreenEnabled(clip: Boolean) {
@@ -294,8 +317,10 @@ class MaterialRecyclerViewPopupWindow(
     private fun getMaxAvailableHeight(anchor: View, yOffset: Int, ignoreBottomDecorations: Boolean): Int {
         sGetMaxAvailableHeightMethod?.let {
             try {
-                return it.invoke(popup, anchor, yOffset,
-                        ignoreBottomDecorations) as Int
+                return it.invoke(
+                    popup, anchor, yOffset,
+                    ignoreBottomDecorations
+                ) as Int
             } catch (e: Exception) {
                 Log.i(TAG, "Could not call getMaxAvailableHeightMethod(View, int, boolean)" + " on PopupWindow. Using the public version.")
             }
@@ -334,5 +359,4 @@ class MaterialRecyclerViewPopupWindow(
 
         return menuWidth
     }
-
 }
