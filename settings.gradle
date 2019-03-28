@@ -1,1 +1,15 @@
-include ':material-popup-menu', ':sample'
+buildscript {
+    repositories {
+        gradlePluginPortal()
+        mavenLocal()
+    }
+    dependencies {
+        classpath 'org.kordamp.gradle:settings-gradle-plugin:0.15.1'
+    }
+}
+
+apply plugin: 'org.kordamp.gradle.settings'
+
+projects {
+    layout = 'standard'
+}
