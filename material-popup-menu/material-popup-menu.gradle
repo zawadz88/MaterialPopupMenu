@@ -22,7 +22,6 @@ android {
 }
 
 dependencies {
-
     api "androidx.appcompat:appcompat:$ANDROIDX_APPCOMPAT_VERSION"
     api "androidx.recyclerview:recyclerview:$ANDROIDX_RECYCLERVIEW_VERSION"
 
@@ -75,17 +74,16 @@ ext {
     siteUrl = 'https://github.com/zawadz88/MaterialPopupMenu'
     gitUrl = 'https://github.com/zawadz88/MaterialPopupMenu.git'
 
-    libraryVersion = '3.1.0'
+    libraryVersion = '3.2.0'
 
     developerId = 'zawadz88'
     developerName = 'Piotr Zawadzki'
-    developerEmail = 'zawadz88@gmail.com'
+    developerEmail = 'piotr@zawadzki.dev'
 
     licenseName = 'The Apache Software License, Version 2.0'
     licenseUrl = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
     allLicenses = ["Apache-2.0"]
 }
-
 
 tasks.withType(Javadoc) {
     excludes = ['**/*.kt']
@@ -116,7 +114,7 @@ publishing {
 
             artifact sourcesJar
             artifact javadocJar
-            artifact("$buildDir/outputs/aar/material-popup-menu-release.aar")
+            artifact("$buildDir/outputs/aar/material-popup-menu-${libraryVersion}.aar")
 
             groupId publishedGroupId
             artifactId artifact

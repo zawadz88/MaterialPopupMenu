@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+## [3.2.0]
+### Changed
+- Updated Kotlin to 1.3.21, AndroidX AppCompat to 1.0.2
+- Updated internal AGP to 3.3.2 & Gradle to 5.3.1
+
 ## [3.1.0]
 ### Added
 - A listener to get notified when popup menus get dismissed
@@ -66,6 +71,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Added
 Initial release of the library.
 
+[3.2.0]: https://github.com/zawadz88/MaterialPopupMenu/compare/3.1.0...3.2.0
 [3.1.0]: https://github.com/zawadz88/MaterialPopupMenu/compare/3.0.0...3.1.0
 [3.0.0]: https://github.com/zawadz88/MaterialPopupMenu/compare/2.2.0...3.0.0
 [2.2.0]: https://github.com/zawadz88/MaterialPopupMenu/compare/2.1.0...2.2.0
