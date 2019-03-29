@@ -3,20 +3,25 @@ buildscript {
     ext.ANDROID_GRADLE_PLUGIN_VERSION = '3.3.2'
     ext.DOKKA_VERSION = '0.9.18'
     ext.BINTRAY_VERSION = '1.8.4'
+    ext.KORDAMP_VERSION = '0.15.1'
     repositories {
         google()
         jcenter()
         maven {
             url 'https://dl.bintray.com/kotlin/kotlin-eap'
         }
+        gradlePluginPortal()
     }
     dependencies {
         classpath "com.android.tools.build:gradle:$ANDROID_GRADLE_PLUGIN_VERSION"
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$KOTLIN_VERSION"
         classpath "org.jetbrains.dokka:dokka-android-gradle-plugin:$DOKKA_VERSION"
         classpath "com.jfrog.bintray.gradle:gradle-bintray-plugin:$BINTRAY_VERSION"
+        classpath "org.kordamp.gradle:testing-gradle-plugin:$KORDAMP_VERSION"
     }
 }
+
+apply plugin: 'org.kordamp.gradle.testing'
 
 allprojects {
     repositories {
@@ -45,6 +50,3 @@ configure(allprojects) {
     }
 }
 
-task clean(type: Delete) {
-    delete rootProject.buildDir
-}
