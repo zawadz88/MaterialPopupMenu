@@ -54,4 +54,12 @@
         <item name="android:dropDownHorizontalOffset">24dp</item>
     </style>
 
+    <style name="Widget.MPM.Menu.Dimmed">
+        <item name="android:backgroundDimEnabled">true</item>
+    </style>
+
+    <style name="Widget.MPM.Menu.Dark.Dimmed">
+        <item name="android:backgroundDimEnabled">true</item>
+    </style>
+
 </resources>
