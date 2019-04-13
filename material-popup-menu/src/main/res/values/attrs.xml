@@ -9,4 +9,11 @@
 
     <attr name="mpm_separatorColor" format="color|reference" />
 
+    <declare-styleable name="MaterialRecyclerViewPopupWindow">
+        <attr name="android:dropDownHorizontalOffset" />
+        <attr name="android:dropDownVerticalOffset" />
+        <attr name="android:backgroundDimEnabled" />
+        <attr name="android:backgroundDimAmount" />
+    </declare-styleable>
+
 </resources>

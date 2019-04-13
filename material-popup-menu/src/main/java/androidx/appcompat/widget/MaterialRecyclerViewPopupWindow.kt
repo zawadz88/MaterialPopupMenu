@@ -37,6 +37,7 @@ class MaterialRecyclerViewPopupWindow(
     companion object {
 
         private const val TAG = "MaterialRVPopupWindow"
+        private const val DEFAULT_BACKGROUND_DIM_AMOUNT = 0.3f
 
         private var sClipToWindowEnabledMethod: Method? = null
         private var sGetMaxAvailableHeightMethod: Method? = null
@@ -89,6 +90,14 @@ class MaterialRecyclerViewPopupWindow(
 
     private val contextThemeWrapper: Context
 
+    private val windowManager: WindowManager by lazy {
+        context.getSystemService(Context.WINDOW_SERVICE) as WindowManager
+    }
+
+    private val backgroundDimEnabled: Boolean
+
+    private val backgroundDimAmount: Float
+
     init {
         contextThemeWrapper = ContextThemeWrapper(context, null)
         contextThemeWrapper.setTheme(defStyleRes)
@@ -101,10 +110,12 @@ class MaterialRecyclerViewPopupWindow(
         popupMinWidth = contextThemeWrapper.resources.getDimensionPixelSize(R.dimen.mpm_popup_menu_min_width)
         popupWidthUnit = contextThemeWrapper.resources.getDimensionPixelSize(R.dimen.mpm_popup_menu_width_unit)
 
-        val a = context.obtainStyledAttributes(null, androidx.appcompat.R.styleable.ListPopupWindow, 0, defStyleRes)
+        val a = context.obtainStyledAttributes(null, R.styleable.MaterialRecyclerViewPopupWindow, 0, defStyleRes)
 
-        dropDownHorizontalOffset = a.getDimensionPixelOffset(androidx.appcompat.R.styleable.ListPopupWindow_android_dropDownHorizontalOffset, 0)
-        dropDownVerticalOffset = a.getDimensionPixelOffset(androidx.appcompat.R.styleable.ListPopupWindow_android_dropDownVerticalOffset, 0)
+        dropDownHorizontalOffset = a.getDimensionPixelOffset(R.styleable.MaterialRecyclerViewPopupWindow_android_dropDownHorizontalOffset, 0)
+        dropDownVerticalOffset = a.getDimensionPixelOffset(R.styleable.MaterialRecyclerViewPopupWindow_android_dropDownVerticalOffset, 0)
+        backgroundDimEnabled = a.getBoolean(R.styleable.MaterialRecyclerViewPopupWindow_android_backgroundDimEnabled, false)
+        backgroundDimAmount = a.getFloat(R.styleable.MaterialRecyclerViewPopupWindow_android_backgroundDimAmount, DEFAULT_BACKGROUND_DIM_AMOUNT)
 
         a.recycle()
     }
@@ -157,6 +168,10 @@ class MaterialRecyclerViewPopupWindow(
                 popup, anchorView!!, dropDownHorizontalOffset,
                 dropDownVerticalOffset, dropDownGravity
             )
+        }
+
+        if (backgroundDimEnabled) {
+            addBackgroundDimming()
         }
     }
 
@@ -358,5 +373,13 @@ class MaterialRecyclerViewPopupWindow(
         menuWidth = Math.ceil(menuWidth.toDouble() / popupWidthUnit).toInt() * popupWidthUnit
 
         return menuWidth
+    }
+
+    private fun addBackgroundDimming() {
+        val decorView = popup.contentView.rootView
+        val layoutParams = decorView.layoutParams as WindowManager.LayoutParams
+        layoutParams.flags = WindowManager.LayoutParams.FLAG_DIM_BEHIND
+        layoutParams.dimAmount = backgroundDimAmount
+        windowManager.updateViewLayout(decorView, layoutParams)
     }
 }

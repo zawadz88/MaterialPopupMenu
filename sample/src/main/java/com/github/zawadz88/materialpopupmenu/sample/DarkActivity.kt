@@ -291,6 +291,22 @@ class DarkActivity : AppCompatActivity() {
         popupMenu.show(this@DarkActivity, view)
     }
 
+    @OnClick(R.id.dimmedBackgroundTextView)
+    fun onDimmedBackgroundClicked(view: View) {
+        val popupMenu = popupMenu {
+            style = R.style.Widget_MPM_Menu_Dark_Dimmed
+            section {
+                item {
+                    label = "Copy"
+                }
+                item {
+                    label = "Paste"
+                }
+            }
+        }
+        popupMenu.show(this@DarkActivity, view)
+    }
+
     @OnClick(R.id.customItemsTextView)
     fun onCustomItemsClicked(view: View) {
         val popupMenu = popupMenu {
