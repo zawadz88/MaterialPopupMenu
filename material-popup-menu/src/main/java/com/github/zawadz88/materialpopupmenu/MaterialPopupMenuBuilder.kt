@@ -6,6 +6,7 @@ import android.view.View
 import androidx.annotation.ColorInt
 import androidx.annotation.DrawableRes
 import androidx.annotation.LayoutRes
+import androidx.annotation.StringRes
 
 /**
  * Builder for creating a [MaterialPopupMenu].
@@ -119,9 +120,26 @@ class MaterialPopupMenuBuilder {
     class ItemHolder : AbstractItemHolder() {
 
         /**
-         * Item label. This is a required field and must not be *null*.
+         * Item label.
+         *
+         * This is a required field and must not be *null*, unless you specify a label
+         * using [labelRes].
+         *
+         * If both [label] and [labelRes] are set [label] will be used.
          */
         var label: String? = null
+
+        /**
+         * Item label.
+         *
+         * This must be a valid string resource ID if set.
+         * This is a required field and must not be *0*, unless you specify a label
+         * using [label].
+         *
+         * If both [label] and [labelRes] are set [label] will be used.
+         */
+        @StringRes
+        var labelRes: Int = 0
 
         /**
          * Optional text color of the label. If not set or 0 the default color will be used.
@@ -163,12 +181,14 @@ class MaterialPopupMenuBuilder {
         var iconColor: Int = 0
 
         override fun toString(): String {
-            return "ItemHolder(label=$label, labelColor=$labelColor, icon=$icon, iconDrawable=$iconDrawable, iconColor=$iconColor, callback=$callback, dismissOnSelect=$dismissOnSelect)"
+            return "ItemHolder(label=$label, labelRes=$labelRes, labelColor=$labelColor, icon=$icon, iconDrawable=$iconDrawable, iconColor=$iconColor, callback=$callback, dismissOnSelect=$dismissOnSelect)"
         }
 
         override fun convertToPopupMenuItem(): MaterialPopupMenu.PopupMenuItem {
+            require(label != null || labelRes != 0) { "Item '$this' does not have a label" }
             return MaterialPopupMenu.PopupMenuItem(
-                    label = checkNotNull(label) { "Item '$this' does not have a label" },
+                    label = label,
+                    labelRes = labelRes,
                     labelColor = labelColor,
                     icon = icon,
                     iconDrawable = iconDrawable,

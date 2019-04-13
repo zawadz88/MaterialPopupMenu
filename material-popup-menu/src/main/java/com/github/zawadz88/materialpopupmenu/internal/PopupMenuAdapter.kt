@@ -101,7 +101,11 @@ internal class PopupMenuAdapter(
 
         override fun bindItem(popupMenuItem: MaterialPopupMenu.AbstractPopupMenuItem) {
             val castedPopupMenuItem = popupMenuItem as MaterialPopupMenu.PopupMenuItem
-            label.text = castedPopupMenuItem.label
+            if (castedPopupMenuItem.label != null) {
+                label.text = castedPopupMenuItem.label
+            } else {
+                label.setText(castedPopupMenuItem.labelRes)
+            }
             if (castedPopupMenuItem.icon != 0 || castedPopupMenuItem.iconDrawable != null) {
                 icon.apply {
                     visibility = View.VISIBLE
