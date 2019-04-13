@@ -6,6 +6,7 @@ import android.view.View
 import androidx.annotation.ColorInt
 import androidx.annotation.DrawableRes
 import androidx.annotation.LayoutRes
+import androidx.annotation.StringRes
 import androidx.annotation.StyleRes
 import androidx.annotation.UiThread
 import androidx.appcompat.widget.MaterialRecyclerViewPopupWindow
@@ -74,7 +75,8 @@ class MaterialPopupMenu internal constructor(
     )
 
     internal data class PopupMenuItem(
-        val label: String,
+        val label: String?,
+        @StringRes val labelRes: Int,
         @ColorInt val labelColor: Int,
         @DrawableRes val icon: Int,
         val iconDrawable: Drawable?,

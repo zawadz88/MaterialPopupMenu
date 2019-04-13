@@ -59,7 +59,7 @@ class DarkActivity : AppCompatActivity() {
                 section {
                     title = "Editing"
                     item {
-                        label = "Copy"
+                        labelRes = R.string.copy
                         icon = R.drawable.abc_ic_menu_copy_mtrl_am_alpha
                         callback = {
                             Toast.makeText(this@DarkActivity, "Copied!", Toast.LENGTH_SHORT).show()
@@ -92,7 +92,7 @@ class DarkActivity : AppCompatActivity() {
             style = R.style.Widget_MPM_Menu_Dark
             section {
                 item {
-                    label = "Copy"
+                    labelRes = R.string.copy
                     icon = R.drawable.abc_ic_menu_copy_mtrl_am_alpha
                     callback = {
                         Toast.makeText(this@DarkActivity, "Copied!", Toast.LENGTH_SHORT).show()

@@ -20,6 +20,7 @@ class MaterialPopupMenuBuilderTest {
         private const val ITEM_LABEL = "item label"
         private const val ITEM_LABEL2 = "item label2"
         private const val ITEM_LABEL3 = "item label3"
+        private const val ITEM_LABEL_RES = 777
         private const val ITEM_LABEL_TEXT_COLOR = 123
         private const val ITEM_ICON_TINT_COLOR = 888
         private const val ITEM_ICON = -1
@@ -292,12 +293,34 @@ class MaterialPopupMenuBuilderTest {
         val item = section.items[0]
         assertThat(item, instanceOf(MaterialPopupMenu.PopupMenuItem::class.java))
         val popupMenuItem = item as MaterialPopupMenu.PopupMenuItem
-        val (_, _, _, _, _, callback) = popupMenuItem
+        val (_, _, _, _, _, _, callback) = popupMenuItem
 
         //when
         callback()
 
         //then
         //nothing to do here...
+    }
+
+    @Test
+    fun `Should build a popup menu with a String resource label`() {
+        //when
+        val popupMenu = popupMenu {
+            section {
+                item {
+                    labelRes = ITEM_LABEL_RES
+                }
+            }
+        }
+
+        //then
+        assertThat("Should contain one section", popupMenu.sections, hasSize(1))
+        val section = popupMenu.sections[0]
+        assertThat("Should contain a single item", section.items, hasSize(1))
+        val item = section.items[0]
+        assertThat(item, instanceOf(MaterialPopupMenu.PopupMenuItem::class.java))
+        val popupMenuItem = item as MaterialPopupMenu.PopupMenuItem
+        assertNull("Invalid item label", popupMenuItem.label)
+        assertEquals("Invalid item label resource", ITEM_LABEL_RES, popupMenuItem.labelRes)
     }
 }
