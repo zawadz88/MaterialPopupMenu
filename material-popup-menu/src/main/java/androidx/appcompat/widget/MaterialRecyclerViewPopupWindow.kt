@@ -3,6 +3,7 @@ package androidx.appcompat.widget
 import android.annotation.SuppressLint
 import android.content.Context
 import android.graphics.Rect
+import android.os.Build
 import android.util.Log
 import android.view.Gravity
 import android.view.View
@@ -224,6 +225,13 @@ class MaterialRecyclerViewPopupWindow(
         dropDownList.isFocusable = true
         dropDownList.isFocusableInTouchMode = true
         dropDownList.setPadding(popupPaddingLeft, popupPaddingTop, popupPaddingRight, popupPaddingBottom)
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            dropDownList.clipToOutline = true
+            // Move the background from popup to RecyclerView for clipToOutline to take effect.
+            dropDownList.background = popup.background
+            popup.setBackgroundDrawable(null)
+        }
 
         popup.contentView = dropDownList
 
