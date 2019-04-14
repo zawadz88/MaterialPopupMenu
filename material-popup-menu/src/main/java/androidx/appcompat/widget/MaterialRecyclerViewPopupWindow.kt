@@ -98,6 +98,14 @@ class MaterialRecyclerViewPopupWindow(
 
     private val backgroundDimAmount: Float
 
+    private val popupPaddingBottom: Int
+
+    private val popupPaddingLeft: Int
+
+    private val popupPaddingRight: Int
+
+    private val popupPaddingTop: Int
+
     init {
         contextThemeWrapper = ContextThemeWrapper(context, null)
         contextThemeWrapper.setTheme(defStyleRes)
@@ -116,6 +124,10 @@ class MaterialRecyclerViewPopupWindow(
         dropDownVerticalOffset = a.getDimensionPixelOffset(R.styleable.MaterialRecyclerViewPopupWindow_android_dropDownVerticalOffset, 0)
         backgroundDimEnabled = a.getBoolean(R.styleable.MaterialRecyclerViewPopupWindow_android_backgroundDimEnabled, false)
         backgroundDimAmount = a.getFloat(R.styleable.MaterialRecyclerViewPopupWindow_android_backgroundDimAmount, DEFAULT_BACKGROUND_DIM_AMOUNT)
+        popupPaddingBottom = a.getDimensionPixelSize(R.styleable.MaterialRecyclerViewPopupWindow_mpm_paddingBottom, 0)
+        popupPaddingLeft = a.getDimensionPixelSize(R.styleable.MaterialRecyclerViewPopupWindow_mpm_paddingLeft, 0)
+        popupPaddingRight = a.getDimensionPixelSize(R.styleable.MaterialRecyclerViewPopupWindow_mpm_paddingRight, 0)
+        popupPaddingTop = a.getDimensionPixelSize(R.styleable.MaterialRecyclerViewPopupWindow_mpm_paddingTop, 0)
 
         a.recycle()
     }
@@ -211,6 +223,7 @@ class MaterialRecyclerViewPopupWindow(
         dropDownList.layoutManager = LinearLayoutManager(this.contextThemeWrapper)
         dropDownList.isFocusable = true
         dropDownList.isFocusableInTouchMode = true
+        dropDownList.setPadding(popupPaddingLeft, popupPaddingTop, popupPaddingRight, popupPaddingBottom)
 
         popup.contentView = dropDownList
 

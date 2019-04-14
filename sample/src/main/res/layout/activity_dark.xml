@@ -99,13 +99,22 @@
                 app:layout_constraintTop_toBottomOf="@+id/customOffsetsTextView" />
 
             <TextView
+                android:id="@+id/customPaddingTextView"
+                style="@style/TitleLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/custom_padding"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/dimmedBackgroundTextView" />
+
+            <TextView
                 android:id="@+id/conditionalItemsTextView"
                 style="@style/TitleLabel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/conditional_items"
                 app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/dimmedBackgroundTextView" />
+                app:layout_constraintTop_toBottomOf="@+id/customPaddingTextView" />
 
             <TextView
                 android:id="@+id/conditionalItemsCopySubtitleTextView"

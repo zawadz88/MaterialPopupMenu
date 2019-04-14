@@ -339,6 +339,23 @@ class DarkActivity : AppCompatActivity() {
         popupMenu.show(this@DarkActivity, view)
     }
 
+    @OnClick(R.id.customPaddingTextView)
+    fun onCustomPaddingTextViewClicked(view: View) {
+        val popupMenu = popupMenu {
+            style = R.style.Widget_MPM_Menu_Dark_CustomPadding
+            section {
+                item {
+                    label = "Copy"
+                }
+                item {
+                    label = "Paste"
+                }
+            }
+        }
+
+        popupMenu.show(this@DarkActivity, view)
+    }
+
     @OnClick(R.id.conditionalItemsTextView)
     fun onConditionalItemsClicked(view: View) {
         val conditionalPopupMenuBuilder = popupMenuBuilder {

@@ -62,4 +62,18 @@
         <item name="android:backgroundDimEnabled">true</item>
     </style>
 
+    <style name="Widget.MPM.Menu.CustomPadding">
+        <item name="mpm_paddingBottom">16dp</item>
+        <item name="mpm_paddingLeft">16dp</item>
+        <item name="mpm_paddingRight">16dp</item>
+        <item name="mpm_paddingTop">16dp</item>
+    </style>
+
+    <style name="Widget.MPM.Menu.Dark.CustomPadding">
+        <item name="mpm_paddingBottom">16dp</item>
+        <item name="mpm_paddingLeft">16dp</item>
+        <item name="mpm_paddingRight">16dp</item>
+        <item name="mpm_paddingTop">16dp</item>
+    </style>
+
 </resources>
