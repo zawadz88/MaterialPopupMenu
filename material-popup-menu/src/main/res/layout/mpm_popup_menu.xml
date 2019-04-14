@@ -2,6 +2,4 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:paddingTop="@dimen/mpm_popup_menu_vertical_padding"
-    android:paddingBottom="@dimen/mpm_popup_menu_vertical_padding"
     tools:listitem="@layout/mpm_popup_menu_item" />

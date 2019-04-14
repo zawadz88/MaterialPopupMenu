@@ -333,6 +333,23 @@ class LightActivity : AppCompatActivity() {
         popupMenu.show(this@LightActivity, view)
     }
 
+    @OnClick(R.id.customPaddingTextView)
+    fun onCustomPaddingTextViewClicked(view: View) {
+        val popupMenu = popupMenu {
+            style = R.style.Widget_MPM_Menu_CustomPadding
+            section {
+                item {
+                    label = "Copy"
+                }
+                item {
+                    label = "Paste"
+                }
+            }
+        }
+
+        popupMenu.show(this@LightActivity, view)
+    }
+
     @OnClick(R.id.conditionalItemsTextView)
     fun onConditionalItemsClicked(view: View) {
         val conditionalPopupMenuBuilder = popupMenuBuilder {

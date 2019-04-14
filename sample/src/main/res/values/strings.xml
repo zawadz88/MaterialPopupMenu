@@ -16,4 +16,5 @@
     <string name="custom_item_label">Enabled</string>
     <string name="copy">Copy</string>
     <string name="dimmed_background">Dimmed background</string>
+    <string name="custom_padding">Custom padding</string>
 </resources>
