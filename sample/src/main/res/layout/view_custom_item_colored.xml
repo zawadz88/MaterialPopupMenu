@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/colorPrimary"
+    android:clickable="true"
+    android:focusable="true"
+    android:paddingStart="@dimen/mpm_popup_menu_item_padding_horizontal"
+    android:paddingLeft="@dimen/mpm_popup_menu_item_padding_horizontal"
+    android:paddingTop="@dimen/mpm_popup_menu_vertical_padding"
+    android:paddingEnd="@dimen/mpm_popup_menu_item_padding_horizontal"
+    android:paddingRight="@dimen/mpm_popup_menu_item_padding_horizontal"
+    android:paddingBottom="@dimen/mpm_popup_menu_vertical_padding"
+    android:text="@string/more"
+    android:textColor="@android:color/white" />
+

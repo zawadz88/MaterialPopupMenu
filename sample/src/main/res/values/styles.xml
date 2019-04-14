@@ -76,4 +76,12 @@
         <item name="mpm_paddingTop">16dp</item>
     </style>
 
+    <style name="Widget.MPM.Menu.RoundedCorners">
+        <item name="android:popupBackground">@drawable/rounded_popup_background</item>
+    </style>
+
+    <style name="Widget.MPM.Menu.Dark.RoundedCorners">
+        <item name="android:popupBackground">@drawable/rounded_popup_background</item>
+    </style>
+
 </resources>

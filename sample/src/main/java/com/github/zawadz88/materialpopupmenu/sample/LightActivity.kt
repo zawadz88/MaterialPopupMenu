@@ -350,6 +350,39 @@ class LightActivity : AppCompatActivity() {
         popupMenu.show(this@LightActivity, view)
     }
 
+    @OnClick(R.id.roundedCornersTextView)
+    fun onRoundedCornersClicked(view: View) {
+        val popupMenu = popupMenu {
+            style = R.style.Widget_MPM_Menu_RoundedCorners
+            section {
+                item {
+                    label = "Copy"
+                    icon = R.drawable.abc_ic_menu_copy_mtrl_am_alpha
+                    callback = {
+                        Toast.makeText(this@LightActivity, "Copied!", Toast.LENGTH_SHORT).show()
+                    }
+                }
+                customItem {
+                    layoutResId = R.layout.view_custom_item_checkable
+                    viewBoundCallback = { view ->
+                        val checkBox: CheckBox = view.findViewById(R.id.customItemCheckbox)
+                        checkBox.isChecked = true
+                    }
+                    callback = {
+                        Toast.makeText(this@LightActivity, "Disabled!", Toast.LENGTH_SHORT).show()
+                    }
+                }
+                customItem {
+                    layoutResId = R.layout.view_custom_item_colored
+
+
+                }
+            }
+        }
+
+        popupMenu.show(this@LightActivity, view)
+    }
+
     @OnClick(R.id.conditionalItemsTextView)
     fun onConditionalItemsClicked(view: View) {
         val conditionalPopupMenuBuilder = popupMenuBuilder {
