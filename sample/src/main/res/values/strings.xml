@@ -17,4 +17,5 @@
     <string name="copy">Copy</string>
     <string name="dimmed_background">Dimmed background</string>
     <string name="custom_padding">Custom padding</string>
+    <string name="rounded_corners">Rounded corners</string>
 </resources>
