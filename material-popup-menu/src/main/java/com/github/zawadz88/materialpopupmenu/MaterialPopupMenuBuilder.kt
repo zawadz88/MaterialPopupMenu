@@ -163,7 +163,7 @@ class MaterialPopupMenuBuilder {
         var iconColor: Int = 0
 
         override fun toString(): String {
-            return "ItemHolder(label=$label, labelColor=$labelColor, icon=$icon, iconDrawable=$iconDrawable, iconColor=$iconColor, callback=$callback)"
+            return "ItemHolder(label=$label, labelColor=$labelColor, icon=$icon, iconDrawable=$iconDrawable, iconColor=$iconColor, callback=$callback, dismissOnSelect=$dismissOnSelect)"
         }
 
         override fun convertToPopupMenuItem(): MaterialPopupMenu.PopupMenuItem {
@@ -173,7 +173,8 @@ class MaterialPopupMenuBuilder {
                     icon = icon,
                     iconDrawable = iconDrawable,
                     iconColor = iconColor,
-                    callback = callback)
+                    callback = callback,
+                    dismissOnSelect = dismissOnSelect)
         }
 
     }
@@ -197,7 +198,7 @@ class MaterialPopupMenuBuilder {
         var viewBoundCallback: (View) -> Unit = {}
 
         override fun toString(): String {
-            return "CustomItemHolder(layoutResId=$layoutResId, viewBoundCallback=$viewBoundCallback, callback=$callback)"
+            return "CustomItemHolder(layoutResId=$layoutResId, viewBoundCallback=$viewBoundCallback, callback=$callback, dismissOnSelect=$dismissOnSelect)"
         }
 
         override fun convertToPopupMenuItem(): MaterialPopupMenu.PopupMenuCustomItem {
@@ -205,7 +206,8 @@ class MaterialPopupMenuBuilder {
             return MaterialPopupMenu.PopupMenuCustomItem(
                     layoutResId = layoutResId,
                     viewBoundCallback = viewBoundCallback,
-                    callback = callback)
+                    callback = callback,
+                    dismissOnSelect = dismissOnSelect)
         }
 
     }
@@ -217,6 +219,12 @@ class MaterialPopupMenuBuilder {
          * Callback to be invoked once an item gets selected.
          */
         var callback: () -> Unit = {}
+
+        /**
+         * Whether to dismiss the popup once an item gets selected.
+         * Defaults to `true`.
+         */
+        var dismissOnSelect: Boolean = true
 
         internal abstract fun convertToPopupMenuItem(): MaterialPopupMenu.AbstractPopupMenuItem
 

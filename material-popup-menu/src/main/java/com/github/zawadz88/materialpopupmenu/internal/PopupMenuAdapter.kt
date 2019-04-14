@@ -82,7 +82,9 @@ internal class PopupMenuAdapter(
         holder.bindItem(popupMenuItem)
         holder.itemView.setOnClickListener {
             popupMenuItem.callback()
-            onItemClickedCallback(popupMenuItem)
+            if (popupMenuItem.dismissOnSelect) {
+                onItemClickedCallback(popupMenuItem)
+            }
         }
     }
 

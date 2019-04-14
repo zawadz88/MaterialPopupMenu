@@ -40,7 +40,7 @@ class MaterialPopupMenu internal constructor(
     @UiThread
     fun show(context: Context, anchor: View) {
         val popupWindow = MaterialRecyclerViewPopupWindow(context, dropdownGravity, style)
-        val adapter = PopupMenuAdapter(context, style, sections, { popupWindow.dismiss() })
+        val adapter = PopupMenuAdapter(context, style, sections) { popupWindow.dismiss() }
 
         popupWindow.adapter = adapter
         popupWindow.anchorView = anchor
@@ -79,16 +79,19 @@ class MaterialPopupMenu internal constructor(
         @DrawableRes val icon: Int,
         val iconDrawable: Drawable?,
         @ColorInt val iconColor: Int,
-        override val callback: () -> Unit
-    ) : AbstractPopupMenuItem(callback)
+        override val callback: () -> Unit,
+        override val dismissOnSelect: Boolean
+    ) : AbstractPopupMenuItem(callback, dismissOnSelect)
 
     internal data class PopupMenuCustomItem(
         @LayoutRes val layoutResId: Int,
         val viewBoundCallback: (View) -> Unit,
-        override val callback: () -> Unit
-    ) : AbstractPopupMenuItem(callback)
+        override val callback: () -> Unit,
+        override val dismissOnSelect: Boolean
+    ) : AbstractPopupMenuItem(callback, dismissOnSelect)
 
     internal abstract class AbstractPopupMenuItem(
-        open val callback: () -> Unit
+        open val callback: () -> Unit,
+        open val dismissOnSelect: Boolean
     )
 }
