@@ -138,6 +138,13 @@ class DarkActivity : AppCompatActivity() {
                 item {
                     label = "Select all"
                 }
+                item {
+                    label = "Stay open when clicked"
+                    dismissOnSelect = false
+                    callback = {
+                        Toast.makeText(this@DarkActivity, "Clicked!", Toast.LENGTH_SHORT).show()
+                    }
+                }
             }
         }
 
