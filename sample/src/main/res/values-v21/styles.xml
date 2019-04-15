@@ -4,4 +4,16 @@
         <item name="android:background">?android:selectableItemBackground</item>
     </style>
 
+    <style name="Widget.MPM.Menu.RoundedCorners">
+        <item name="mpm_paddingBottom">0dp</item>
+        <item name="mpm_paddingTop">0dp</item>
+        <item name="android:popupBackground">@drawable/rounded_popup_background</item>
+    </style>
+
+    <style name="Widget.MPM.Menu.Dark.RoundedCorners">
+        <item name="mpm_paddingBottom">0dp</item>
+        <item name="mpm_paddingTop">0dp</item>
+        <item name="android:popupBackground">@drawable/rounded_popup_background</item>
+    </style>
+
 </resources>

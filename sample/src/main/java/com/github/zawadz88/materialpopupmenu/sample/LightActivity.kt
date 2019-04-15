@@ -2,18 +2,20 @@ package com.github.zawadz88.materialpopupmenu.sample
 
 import android.content.Intent
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
-import androidx.core.content.ContextCompat
-import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.widget.SwitchCompat
-import androidx.appcompat.widget.Toolbar
 import android.view.Gravity
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.widget.CheckBox
+import android.widget.TextView
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.SwitchCompat
+import androidx.appcompat.widget.Toolbar
+import androidx.core.content.ContextCompat
 import butterknife.BindView
 import butterknife.ButterKnife
 import butterknife.OnClick
@@ -35,11 +37,20 @@ class LightActivity : AppCompatActivity() {
     @BindView(R.id.sectionConditionalSwitch)
     lateinit var sectionConditionalSwitch: SwitchCompat
 
+    @BindView(R.id.roundedCornersTextView)
+    lateinit var roundedCornersTextView: TextView
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_light)
         ButterKnife.bind(this)
         setSupportActionBar(toolbar)
+
+        roundedCornersTextView.visibility = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            View.VISIBLE
+        } else {
+            View.GONE
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
