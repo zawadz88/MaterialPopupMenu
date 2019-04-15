@@ -31,7 +31,7 @@ dependencies {
     testImplementation "org.hamcrest:hamcrest-core:$HAMCREST_VERSION"
     testImplementation "org.hamcrest:hamcrest-library:$HAMCREST_VERSION"
     testImplementation "org.hamcrest:hamcrest-integration:$HAMCREST_VERSION"
-    testImplementation "com.nhaarman:mockito-kotlin:$MOCKITO_KOTLIN_VERSION"
+    testImplementation "com.nhaarman.mockitokotlin2:mockito-kotlin:$MOCKITO_KOTLIN_VERSION"
     testImplementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$KOTLIN_VERSION"
     testImplementation "org.jetbrains.kotlin:kotlin-stdlib:$KOTLIN_VERSION"
     testImplementation "org.jetbrains.kotlin:kotlin-reflect:$KOTLIN_VERSION"

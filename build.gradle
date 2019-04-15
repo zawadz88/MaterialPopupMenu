@@ -46,7 +46,7 @@ configure(allprojects) {
 
         JUNIT_VERSION                       = '4.12'
         HAMCREST_VERSION                    = '1.3'
-        MOCKITO_KOTLIN_VERSION              = '1.5.0'
+        MOCKITO_KOTLIN_VERSION              = '2.1.0'
     }
 }
 

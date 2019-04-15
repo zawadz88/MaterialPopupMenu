@@ -3,7 +3,7 @@ package com.github.zawadz88.materialpopupmenu
 import android.graphics.drawable.Drawable
 import android.view.Gravity
 import android.view.View
-import com.nhaarman.mockito_kotlin.mock
+import com.nhaarman.mockitokotlin2.mock
 import org.hamcrest.MatcherAssert.assertThat
 import org.hamcrest.Matchers.hasSize
 import org.hamcrest.Matchers.instanceOf
@@ -30,19 +30,19 @@ class MaterialPopupMenuBuilderTest {
         private const val SECTION_TITLE2 = "section title2"
     }
 
-    @Test(expected = IllegalStateException::class)
+    @Test(expected = IllegalArgumentException::class)
     fun `Building an empty popup menu should throw an exception`() {
         popupMenu { }
     }
 
-    @Test(expected = IllegalStateException::class)
+    @Test(expected = IllegalArgumentException::class)
     fun `Building a popup menu with a single empty section should throw an exception`() {
         popupMenu {
             section { }
         }
     }
 
-    @Test(expected = IllegalStateException::class)
+    @Test(expected = IllegalArgumentException::class)
     fun `Building a popup menu with one of the sections being empty should throw an exception`() {
         popupMenu {
             section {
@@ -54,7 +54,7 @@ class MaterialPopupMenuBuilderTest {
         }
     }
 
-    @Test(expected = IllegalStateException::class)
+    @Test(expected = IllegalArgumentException::class)
     fun `Building a popup menu with an empty item in section should throw an exception`() {
         popupMenu {
             section {
@@ -63,7 +63,7 @@ class MaterialPopupMenuBuilderTest {
         }
     }
 
-    @Test(expected = IllegalStateException::class)
+    @Test(expected = IllegalArgumentException::class)
     fun `Building a popup menu with an empty custom item in section should throw an exception`() {
         popupMenu {
             section {
@@ -72,7 +72,7 @@ class MaterialPopupMenuBuilderTest {
         }
     }
 
-    @Test(expected = IllegalStateException::class)
+    @Test(expected = IllegalArgumentException::class)
     fun `Building a popup menu with one of the items in section being empty should throw an exception`() {
         popupMenu {
             section {

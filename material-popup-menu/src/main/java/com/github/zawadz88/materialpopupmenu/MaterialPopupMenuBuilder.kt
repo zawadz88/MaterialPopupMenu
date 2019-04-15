@@ -58,7 +58,7 @@ class MaterialPopupMenuBuilder {
      * - see class description for validation details.
      */
     fun build(): MaterialPopupMenu {
-        check(sectionHolderList.isNotEmpty()) { "Popup menu sections cannot be empty!" }
+        require(sectionHolderList.isNotEmpty()) { "Popup menu sections cannot be empty!" }
 
         val sections = sectionHolderList.map { it.convertToPopupMenuSection() }
 
@@ -104,7 +104,7 @@ class MaterialPopupMenuBuilder {
         }
 
         internal fun convertToPopupMenuSection(): MaterialPopupMenu.PopupMenuSection {
-            check(itemsHolderList.isNotEmpty()) { "Section '$this' has no items!" }
+            require(itemsHolderList.isNotEmpty()) { "Section '$this' has no items!" }
             return MaterialPopupMenu.PopupMenuSection(
                     title = title,
                     items = itemsHolderList.map { it.convertToPopupMenuItem() }
@@ -222,7 +222,7 @@ class MaterialPopupMenuBuilder {
         }
 
         override fun convertToPopupMenuItem(): MaterialPopupMenu.PopupMenuCustomItem {
-            check(layoutResId != 0) { "Layout resource ID must be set for a custom item!" }
+            require(layoutResId != 0) { "Layout resource ID must be set for a custom item!" }
             return MaterialPopupMenu.PopupMenuCustomItem(
                     layoutResId = layoutResId,
                     viewBoundCallback = viewBoundCallback,
