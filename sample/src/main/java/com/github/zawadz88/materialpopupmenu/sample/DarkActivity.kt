@@ -3,6 +3,7 @@ package com.github.zawadz88.materialpopupmenu.sample
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import androidx.core.content.ContextCompat
@@ -14,6 +15,7 @@ import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.widget.CheckBox
+import android.widget.TextView
 import android.widget.Toast
 import butterknife.BindView
 import butterknife.ButterKnife
@@ -37,11 +39,20 @@ class DarkActivity : AppCompatActivity() {
     @BindView(R.id.sectionConditionalSwitch)
     lateinit var sectionConditionalSwitch: SwitchCompat
 
+    @BindView(R.id.roundedCornersTextView)
+    lateinit var roundedCornersTextView: TextView
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_dark)
         ButterKnife.bind(this)
         setSupportActionBar(toolbar)
+
+        roundedCornersTextView.visibility = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            View.VISIBLE
+        } else {
+            View.GONE
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
