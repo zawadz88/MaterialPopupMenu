@@ -9,6 +9,7 @@ import androidx.annotation.LayoutRes
 import androidx.annotation.StringRes
 import androidx.annotation.StyleRes
 import androidx.annotation.UiThread
+import androidx.appcompat.view.ContextThemeWrapper
 import androidx.appcompat.widget.MaterialRecyclerViewPopupWindow
 import com.github.zawadz88.materialpopupmenu.internal.PopupMenuAdapter
 
@@ -41,8 +42,9 @@ class MaterialPopupMenu internal constructor(
     @UiThread
     fun show(context: Context, anchor: View) {
         val style = resolvePopupStyle(context)
-        val popupWindow = MaterialRecyclerViewPopupWindow(context, dropdownGravity, style)
-        val adapter = PopupMenuAdapter(context, style, sections) { popupWindow.dismiss() }
+        val styledContext = ContextThemeWrapper(context, style)
+        val popupWindow = MaterialRecyclerViewPopupWindow(styledContext, dropdownGravity)
+        val adapter = PopupMenuAdapter(sections) { popupWindow.dismiss() }
 
         popupWindow.adapter = adapter
         popupWindow.anchorView = anchor

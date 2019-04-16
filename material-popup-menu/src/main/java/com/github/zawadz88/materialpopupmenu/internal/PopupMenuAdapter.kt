@@ -1,14 +1,11 @@
 package com.github.zawadz88.materialpopupmenu.internal
 
 import android.annotation.SuppressLint
-import android.content.Context
 import android.content.res.ColorStateList
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import androidx.annotation.StyleRes
-import androidx.appcompat.view.ContextThemeWrapper
 import androidx.appcompat.widget.AppCompatImageView
 import androidx.recyclerview.widget.RecyclerView
 import com.github.zawadz88.materialpopupmenu.MaterialPopupMenu
@@ -21,18 +18,13 @@ import com.github.zawadz88.materialpopupmenu.R
  */
 @SuppressLint("RestrictedApi")
 internal class PopupMenuAdapter(
-        context: Context,
-        @StyleRes style: Int,
-        private val sections: List<MaterialPopupMenu.PopupMenuSection>,
-        private val onItemClickedCallback: (MaterialPopupMenu.AbstractPopupMenuItem) -> Unit)
+    private val sections: List<MaterialPopupMenu.PopupMenuSection>,
+    private val onItemClickedCallback: (MaterialPopupMenu.AbstractPopupMenuItem) -> Unit
+)
     : SectionedRecyclerViewAdapter<PopupMenuAdapter.SectionHeaderViewHolder, PopupMenuAdapter.AbstractItemViewHolder>() {
-
-    private val contextThemeWrapper: ContextThemeWrapper
 
     init {
         setHasStableIds(false)
-        contextThemeWrapper = ContextThemeWrapper(context, null)
-        contextThemeWrapper.setTheme(style)
     }
 
     override fun getItemCountForSection(section: Int): Int {
@@ -43,7 +35,7 @@ internal class PopupMenuAdapter(
         get() = sections.size
 
     override fun onCreateSectionHeaderViewHolder(parent: ViewGroup, viewType: Int): SectionHeaderViewHolder {
-        val v = LayoutInflater.from(contextThemeWrapper).inflate(R.layout.mpm_popup_menu_section_header, parent, false)
+        val v = LayoutInflater.from(parent.context).inflate(R.layout.mpm_popup_menu_section_header, parent, false)
         return SectionHeaderViewHolder(v)
     }
 
@@ -57,10 +49,10 @@ internal class PopupMenuAdapter(
 
     override fun onCreateItemViewHolder(parent: ViewGroup, viewType: Int): AbstractItemViewHolder {
         return if (viewType == TYPE_ITEM) {
-            val v = LayoutInflater.from(contextThemeWrapper).inflate(R.layout.mpm_popup_menu_item, parent, false)
+            val v = LayoutInflater.from(parent.context).inflate(R.layout.mpm_popup_menu_item, parent, false)
             ItemViewHolder(v)
         } else {
-            val v = LayoutInflater.from(contextThemeWrapper).inflate(viewType, parent, false)
+            val v = LayoutInflater.from(parent.context).inflate(viewType, parent, false)
             CustomItemViewHolder(v)
         }
     }

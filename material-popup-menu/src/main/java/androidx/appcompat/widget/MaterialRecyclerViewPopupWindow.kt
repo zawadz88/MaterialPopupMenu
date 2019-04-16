@@ -11,8 +11,6 @@ import android.view.ViewGroup
 import android.view.WindowManager
 import android.widget.FrameLayout
 import android.widget.PopupWindow
-import androidx.annotation.StyleRes
-import androidx.appcompat.view.ContextThemeWrapper
 import androidx.core.widget.PopupWindowCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -30,9 +28,8 @@ import java.lang.reflect.Method
  */
 @SuppressLint("PrivateResource,RestrictedApi")
 class MaterialRecyclerViewPopupWindow(
-    context: Context,
-    private var dropDownGravity: Int,
-    @StyleRes defStyleRes: Int
+    private val context: Context,
+    private var dropDownGravity: Int
 ) {
 
     companion object {
@@ -89,8 +86,6 @@ class MaterialRecyclerViewPopupWindow(
 
     private val popupWidthUnit: Int
 
-    private val contextThemeWrapper: Context
-
     private val windowManager: WindowManager by lazy {
         context.getSystemService(Context.WINDOW_SERVICE) as WindowManager
     }
@@ -108,18 +103,15 @@ class MaterialRecyclerViewPopupWindow(
     private val popupPaddingTop: Int
 
     init {
-        contextThemeWrapper = ContextThemeWrapper(context, null)
-        contextThemeWrapper.setTheme(defStyleRes)
-
-        popup = AppCompatPopupWindow(contextThemeWrapper, null, 0, defStyleRes)
+        popup = AppCompatPopupWindow(context, null, 0)
         popup.inputMethodMode = PopupWindow.INPUT_METHOD_NEEDED
         popup.isFocusable = true
 
-        popupMaxWidth = contextThemeWrapper.resources.getDimensionPixelSize(R.dimen.mpm_popup_menu_max_width)
-        popupMinWidth = contextThemeWrapper.resources.getDimensionPixelSize(R.dimen.mpm_popup_menu_min_width)
-        popupWidthUnit = contextThemeWrapper.resources.getDimensionPixelSize(R.dimen.mpm_popup_menu_width_unit)
+        popupMaxWidth = context.resources.getDimensionPixelSize(R.dimen.mpm_popup_menu_max_width)
+        popupMinWidth = context.resources.getDimensionPixelSize(R.dimen.mpm_popup_menu_min_width)
+        popupWidthUnit = context.resources.getDimensionPixelSize(R.dimen.mpm_popup_menu_width_unit)
 
-        val a = context.obtainStyledAttributes(null, R.styleable.MaterialRecyclerViewPopupWindow, 0, defStyleRes)
+        val a = context.obtainStyledAttributes(null, R.styleable.MaterialRecyclerViewPopupWindow)
 
         dropDownHorizontalOffset = a.getDimensionPixelOffset(R.styleable.MaterialRecyclerViewPopupWindow_android_dropDownHorizontalOffset, 0)
         dropDownVerticalOffset = a.getDimensionPixelOffset(R.styleable.MaterialRecyclerViewPopupWindow_android_dropDownVerticalOffset, 0)
@@ -219,9 +211,9 @@ class MaterialRecyclerViewPopupWindow(
     private fun buildDropDown(): Int {
         var otherHeights = 0
 
-        val dropDownList = View.inflate(contextThemeWrapper, R.layout.mpm_popup_menu, null) as RecyclerView
+        val dropDownList = View.inflate(context, R.layout.mpm_popup_menu, null) as RecyclerView
         dropDownList.adapter = adapter
-        dropDownList.layoutManager = LinearLayoutManager(this.contextThemeWrapper)
+        dropDownList.layoutManager = LinearLayoutManager(context)
         dropDownList.isFocusable = true
         dropDownList.isFocusableInTouchMode = true
         dropDownList.setPadding(popupPaddingLeft, popupPaddingTop, popupPaddingRight, popupPaddingBottom)
@@ -286,7 +278,7 @@ class MaterialRecyclerViewPopupWindow(
      */
     private fun measureHeightOfChildrenCompat(maxHeight: Int): Int {
 
-        val parent = FrameLayout(contextThemeWrapper)
+        val parent = FrameLayout(context)
         val widthMeasureSpec = View.MeasureSpec.makeMeasureSpec(dropDownWidth, View.MeasureSpec.EXACTLY)
 
         // Include the padding of the list
@@ -372,7 +364,7 @@ class MaterialRecyclerViewPopupWindow(
      */
     private fun measureIndividualMenuWidth(adapter: PopupMenuAdapter): Int {
         adapter.setupIndices()
-        val parent = FrameLayout(contextThemeWrapper)
+        val parent = FrameLayout(context)
         var menuWidth = popupMinWidth
 
         val widthMeasureSpec = View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED)
