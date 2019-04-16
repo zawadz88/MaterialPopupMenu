@@ -1,5 +1,6 @@
 package com.github.zawadz88.materialpopupmenu.sample
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.net.Uri
 import android.os.Build
@@ -297,6 +298,7 @@ class LightActivity : AppCompatActivity() {
         popupMenu.show(this@LightActivity, view)
     }
 
+    @SuppressLint("SetTextI18n")
     @OnClick(R.id.customItemsTextView)
     fun onCustomItemsClicked(view: View) {
         val popupMenu = popupMenu {
@@ -321,6 +323,10 @@ class LightActivity : AppCompatActivity() {
                 }
                 customItem {
                     layoutResId = R.layout.view_custom_item_large
+                    viewBoundCallback = { view ->
+                        val textView: TextView = view.findViewById(R.id.customItemTextView)
+                        textView.text = "Some long text that is applied later to see if height calculation indeed is incorrectly calculated due to this binding."
+                    }
                 }
             }
         }
