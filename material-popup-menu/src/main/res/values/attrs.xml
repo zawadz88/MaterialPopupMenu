@@ -17,6 +17,8 @@
 
     <attr name="mpm_paddingTop" format="dimension" />
 
+    <attr name="materialPopupMenuStyle" format="reference" />
+
     <declare-styleable name="MaterialRecyclerViewPopupWindow">
         <attr name="android:dropDownHorizontalOffset" />
         <attr name="android:dropDownVerticalOffset" />
