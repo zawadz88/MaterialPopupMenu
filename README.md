@@ -1,5 +1,5 @@
 <p align="center">
-  <img src ="./art/components_menus.png" width="256" />
+  <img src ="./art/logo_vertical.png" width="256" />
 </p>
 
 # Material Popup Menu [![CircleCI](https://circleci.com/gh/zawadz88/MaterialPopupMenu.svg?style=svg)](https://circleci.com/gh/zawadz88/MaterialPopupMenu)
@@ -10,7 +10,7 @@ This library allows to create simple popup menus programmatically with a nice [t
 
 ## Download (from JCenter)
 ```groovy
-implementation 'com.github.zawadz88.materialpopupmenu:material-popup-menu:3.2.0'
+implementation 'com.github.zawadz88.materialpopupmenu:material-popup-menu:3.3.0'
 ```
 
 ## Getting started
@@ -28,7 +28,7 @@ To create a popup menu with a single section from an anchor view:
                     }
                 }
                 item {
-                    label = "Paste"
+                    labelRes = R.string.label_paste
                     iconDrawable = ContextCompat.getDrawable(this@LightActivity, R.drawable.abc_ic_menu_paste_mtrl_am_alpha) //optional
                     callback = { //optional
                         Toast.makeText(this@LightActivity, "Text pasted!", Toast.LENGTH_SHORT).show()
@@ -59,7 +59,7 @@ To create a popup menu with 2 sections and a section title in the second one:
                     }
                 }
                 item {
-                    label = "Paste"
+                    labelRes = R.string.label_paste
                     icon = R.drawable.abc_ic_menu_paste_mtrl_am_alpha
                     callback = {
                         Toast.makeText(this@LightActivity, "Text pasted!", Toast.LENGTH_SHORT).show()
@@ -88,6 +88,9 @@ To create a popup menu with 2 sections and a section title in the second one:
 * Setting item label text color & icon color for each individual item
 * Setting custom popup background color
 * Adding additional offsets to where the dialog should be shown
+* Keeping popup open after clicking on item
+* Dimming background behind popup
+* Customizing popup padding
 
 ## Custom views
 <img src ="./art/sample_custom_items.png" width="360" />

@@ -4,6 +4,22 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+## [Unreleased]
+
+## [3.3.0]
+### Added
+- An option to keep popup open after clicking on item (#45, thanks to @Tunous)
+- Allow setting item label via string resource (#42, thanks to @Tunous)
+- A flag to dim background behind popup (#43, thanks to @Tunous)
+- A way to customize popup padding (#44, thanks to @Tunous)
+
+### Changed
+- new project & sample app logos (#48, thanks to @ghostofiht)
+
+### Fixed
+- Incorrect menu height in case of dynamic content (#49, reported by @Tunous)
+- Fix background clipping when using rounded corners (#47, thanks to @Tunous)
+
 ## [3.2.0]
 ### Changed
 - Updated Kotlin to 1.3.21, AndroidX AppCompat to 1.0.2
@@ -71,6 +87,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Added
 Initial release of the library.
 
+[Unreleased]: https://github.com/zawadz88/MaterialPopupMenu/compare/3.3.0...HEAD
+[3.3.0]: https://github.com/zawadz88/MaterialPopupMenu/compare/3.2.0...3.3.0
 [3.2.0]: https://github.com/zawadz88/MaterialPopupMenu/compare/3.1.0...3.2.0
 [3.1.0]: https://github.com/zawadz88/MaterialPopupMenu/compare/3.0.0...3.1.0
 [3.0.0]: https://github.com/zawadz88/MaterialPopupMenu/compare/2.2.0...3.0.0
