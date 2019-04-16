@@ -287,7 +287,7 @@ class MaterialRecyclerViewPopupWindow(
     private fun measureHeightOfChildrenCompat(maxHeight: Int): Int {
 
         val parent = FrameLayout(contextThemeWrapper)
-        val widthMeasureSpec = View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED)
+        val widthMeasureSpec = View.MeasureSpec.makeMeasureSpec(dropDownWidth, View.MeasureSpec.EXACTLY)
 
         // Include the padding of the list
         var returnedHeight = 0
@@ -318,6 +318,9 @@ class MaterialRecyclerViewPopupWindow(
                 View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED)
             }
             itemView.measure(widthMeasureSpec, heightMeasureSpec)
+            // Since this view was measured directly against the parent measure
+            // spec, we must measure it again before reuse.
+            itemView.forceLayout()
 
             returnedHeight += itemView.measuredHeight
 

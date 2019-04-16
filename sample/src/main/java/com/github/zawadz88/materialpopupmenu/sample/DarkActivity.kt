@@ -318,6 +318,7 @@ class DarkActivity : AppCompatActivity() {
         popupMenu.show(this@DarkActivity, view)
     }
 
+    @SuppressLint("SetTextI18n")
     @OnClick(R.id.customItemsTextView)
     fun onCustomItemsClicked(view: View) {
         val popupMenu = popupMenu {
@@ -343,6 +344,10 @@ class DarkActivity : AppCompatActivity() {
                 }
                 customItem {
                     layoutResId = R.layout.view_custom_item_large
+                    viewBoundCallback = { view ->
+                        val textView: TextView = view.findViewById(R.id.customItemTextView)
+                        textView.text = "Some long text that is applied later to see if height calculation indeed is incorrectly calculated due to this binding."
+                    }
                 }
             }
         }
