@@ -24,14 +24,14 @@ class MaterialPopupMenuBuilder {
      *
      * For dark themes you should use [R.style.Widget_MPM_Menu_Dark].
      *
-     * Setting this to `null` will make the popup use the default style resolved based on context
+     * Setting this to `0` will make the popup use the default style resolved based on context
      * passed to [MaterialPopupMenu.show] function. You can customize that default style by defining
      * [R.attr.materialPopupMenuStyle] in your theme style.
      *
      * *NOTE:* make sure that all of the attributes that are declared in [R.style.Widget_MPM_Menu]
      * are also declared in your style.
      */
-    var style: Int? = null
+    var style: Int = 0
 
     /**
      * Gravity of the dropdown list. This is commonly used to
