@@ -23,7 +23,7 @@ import com.github.zawadz88.materialpopupmenu.internal.PopupMenuAdapter
  * @author Piotr Zawadzki
  */
 class MaterialPopupMenu internal constructor(
-    @StyleRes internal val style: Int?,
+    @StyleRes internal val style: Int,
     internal val dropdownGravity: Int,
     internal val sections: List<PopupMenuSection>
 ) {
@@ -73,7 +73,7 @@ class MaterialPopupMenu internal constructor(
     }
 
     private fun resolvePopupStyle(context: Context): Int {
-        if (style != null) {
+        if (style != 0) {
             return style
         }
 

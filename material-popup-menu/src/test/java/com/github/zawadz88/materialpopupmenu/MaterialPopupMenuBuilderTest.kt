@@ -97,7 +97,7 @@ class MaterialPopupMenuBuilderTest {
 
         //then
         assertEquals("Invalid dropdown gravity", Gravity.NO_GRAVITY, popupMenu.dropdownGravity)
-        assertNull("Invalid popup style", popupMenu.style)
+        assertEquals("Invalid popup style", 0, popupMenu.style)
         assertThat("Should contain a single section", popupMenu.sections, hasSize(1))
         val (title, items) = popupMenu.sections[0]
         assertNull("Section title should be null", title)
