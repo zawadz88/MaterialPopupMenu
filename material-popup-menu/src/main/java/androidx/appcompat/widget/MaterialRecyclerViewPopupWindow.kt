@@ -314,7 +314,12 @@ class MaterialRecyclerViewPopupWindow(
             // spec, we must measure it again before reuse.
             itemView.forceLayout()
 
-            returnedHeight += itemView.measuredHeight
+            val marginLayoutParams = childLp as? ViewGroup.MarginLayoutParams
+            val topMargin = marginLayoutParams?.topMargin ?: 0
+            val bottomMargin = marginLayoutParams?.bottomMargin ?: 0
+            val verticalMargin = topMargin + bottomMargin
+
+            returnedHeight += itemView.measuredHeight + verticalMargin
 
             if (returnedHeight >= maxHeight) {
                 // We went over, figure out which height to return.  If returnedHeight >
