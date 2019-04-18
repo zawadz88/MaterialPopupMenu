@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.annotation.CallSuper
 import androidx.appcompat.widget.AppCompatImageView
 import androidx.recyclerview.widget.RecyclerView
 import com.github.zawadz88.materialpopupmenu.MaterialPopupMenu
@@ -20,8 +21,7 @@ import com.github.zawadz88.materialpopupmenu.R
 internal class PopupMenuAdapter(
     private val sections: List<MaterialPopupMenu.PopupMenuSection>,
     private val dismissPopupCallback: () -> Unit
-)
-    : SectionedRecyclerViewAdapter<PopupMenuAdapter.SectionHeaderViewHolder, PopupMenuAdapter.AbstractItemViewHolder>() {
+) : SectionedRecyclerViewAdapter<PopupMenuAdapter.SectionHeaderViewHolder, PopupMenuAdapter.AbstractItemViewHolder>() {
 
     init {
         setHasStableIds(false)
@@ -82,7 +82,10 @@ internal class PopupMenuAdapter(
 
     internal abstract class AbstractItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
-        abstract fun bindItem(popupMenuItem: MaterialPopupMenu.AbstractPopupMenuItem)
+        @CallSuper
+        open fun bindItem(popupMenuItem: MaterialPopupMenu.AbstractPopupMenuItem) {
+            popupMenuItem.viewBoundCallback.invoke(itemView)
+        }
     }
 
     internal class ItemViewHolder(itemView: View) : AbstractItemViewHolder(itemView) {
@@ -92,6 +95,7 @@ internal class PopupMenuAdapter(
         var icon: AppCompatImageView = itemView.findViewById(R.id.mpm_popup_menu_item_icon)
 
         override fun bindItem(popupMenuItem: MaterialPopupMenu.AbstractPopupMenuItem) {
+            super.bindItem(popupMenuItem)
             val castedPopupMenuItem = popupMenuItem as MaterialPopupMenu.PopupMenuItem
             if (castedPopupMenuItem.label != null) {
                 label.text = castedPopupMenuItem.label
@@ -114,7 +118,6 @@ internal class PopupMenuAdapter(
                 label.setTextColor(castedPopupMenuItem.labelColor)
             }
         }
-
     }
 
     internal class CustomItemViewHolder(
@@ -123,9 +126,9 @@ internal class PopupMenuAdapter(
     ) : AbstractItemViewHolder(itemView) {
 
         override fun bindItem(popupMenuItem: MaterialPopupMenu.AbstractPopupMenuItem) {
+            super.bindItem(popupMenuItem)
             val popupMenuCustomItem = popupMenuItem as MaterialPopupMenu.PopupMenuCustomItem
             popupMenuCustomItem.viewBoundCallback.dismissPopupAction = dismissPopupCallback
-            popupMenuCustomItem.viewBoundCallback.invoke(itemView)
         }
     }
 
@@ -134,7 +137,5 @@ internal class PopupMenuAdapter(
         var label: TextView = itemView.findViewById(R.id.mpm_popup_menu_section_header_label)
 
         var separator: View = itemView.findViewById(R.id.mpm_popup_menu_section_separator)
-
     }
-
 }

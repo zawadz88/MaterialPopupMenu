@@ -240,7 +240,7 @@ class MaterialPopupMenuBuilderTest {
     }
 
     @Test
-    fun `Should build a popup menu with multiple custom items`() {
+    fun `Should build a popup menu with multiple custom items and a single item`() {
         //given
         val customCallback = {}
         val customViewBoundCallback: (View) -> Unit = {}
@@ -257,13 +257,17 @@ class MaterialPopupMenuBuilderTest {
                     viewBoundCallback = customViewBoundCallback
                     callback = customCallback
                 }
+                item {
+                    label = ITEM_LABEL
+                    viewBoundCallback = customViewBoundCallback
+                }
             }
         }
 
         //then
         assertThat("Should contain a single section", popupMenu.sections, hasSize(1))
         val section = popupMenu.sections[0]
-        assertThat("Invalid item count", section.items, hasSize(2))
+        assertThat("Invalid item count", section.items, hasSize(3))
 
         val firstItem = section.items[0]
         assertThat(firstItem, instanceOf(MaterialPopupMenu.PopupMenuCustomItem::class.java))
@@ -275,6 +279,11 @@ class MaterialPopupMenuBuilderTest {
         val secondPopupMenuItem = secondItem as MaterialPopupMenu.PopupMenuCustomItem
         assertEquals("Invalid item layout ID", CUSTOM_ITEM_LAYOUT, secondPopupMenuItem.layoutResId)
         assertEquals("Invalid item callback", customCallback, secondPopupMenuItem.callback)
+        val thirdItem = section.items[2]
+        assertThat(thirdItem, instanceOf(MaterialPopupMenu.PopupMenuItem::class.java))
+        val thirdPopupMenuItem = thirdItem as MaterialPopupMenu.PopupMenuItem
+        assertEquals("Invalid item label", ITEM_LABEL, thirdPopupMenuItem.label)
+        assertEquals("Invalid item view bound callback", customViewBoundCallback, thirdPopupMenuItem.viewBoundCallback)
     }
 
     @Test
@@ -317,7 +326,7 @@ class MaterialPopupMenuBuilderTest {
         val item = section.items[0]
         assertThat(item, instanceOf(MaterialPopupMenu.PopupMenuItem::class.java))
         val popupMenuItem = item as MaterialPopupMenu.PopupMenuItem
-        val (_, _, _, _, _, _, callback) = popupMenuItem
+        val (_, _, _, _, _, _, _, callback) = popupMenuItem
 
         //when
         callback()
