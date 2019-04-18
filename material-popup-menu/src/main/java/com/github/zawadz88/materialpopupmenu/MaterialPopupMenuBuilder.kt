@@ -110,11 +110,10 @@ class MaterialPopupMenuBuilder {
         internal fun convertToPopupMenuSection(): MaterialPopupMenu.PopupMenuSection {
             require(itemsHolderList.isNotEmpty()) { "Section '$this' has no items!" }
             return MaterialPopupMenu.PopupMenuSection(
-                    title = title,
-                    items = itemsHolderList.map { it.convertToPopupMenuItem() }
+                title = title,
+                items = itemsHolderList.map { it.convertToPopupMenuItem() }
             )
         }
-
     }
 
     /**
@@ -191,16 +190,17 @@ class MaterialPopupMenuBuilder {
         override fun convertToPopupMenuItem(): MaterialPopupMenu.PopupMenuItem {
             require(label != null || labelRes != 0) { "Item '$this' does not have a label" }
             return MaterialPopupMenu.PopupMenuItem(
-                    label = label,
-                    labelRes = labelRes,
-                    labelColor = labelColor,
-                    icon = icon,
-                    iconDrawable = iconDrawable,
-                    iconColor = iconColor,
-                    callback = callback,
-                    dismissOnSelect = dismissOnSelect)
+                label = label,
+                labelRes = labelRes,
+                labelColor = labelColor,
+                icon = icon,
+                iconDrawable = iconDrawable,
+                iconColor = iconColor,
+                viewBoundCallback = resolveViewBoundCallback(),
+                callback = callback,
+                dismissOnSelect = dismissOnSelect
+            )
         }
-
     }
 
     /**
@@ -215,32 +215,19 @@ class MaterialPopupMenuBuilder {
         @LayoutRes
         var layoutResId: Int = 0
 
-        /**
-         * Callback to be invoked once the custom item view gets created and bound.
-         * It is to be used when some views inside need to be updated once inflated.
-         *
-         * You can set this to [ViewBoundCallback] to gain access to additional
-         * features.
-         *
-         * @see ViewBoundCallback
-         */
-        var viewBoundCallback: (View) -> Unit = {}
-
         override fun toString(): String {
             return "CustomItemHolder(layoutResId=$layoutResId, viewBoundCallback=$viewBoundCallback, callback=$callback, dismissOnSelect=$dismissOnSelect)"
         }
 
         override fun convertToPopupMenuItem(): MaterialPopupMenu.PopupMenuCustomItem {
             require(layoutResId != 0) { "Layout resource ID must be set for a custom item!" }
-            val resolvedViewBoundCallback = viewBoundCallback as? ViewBoundCallback
-                ?: ViewBoundCallback { viewBoundCallback(it) }
             return MaterialPopupMenu.PopupMenuCustomItem(
-                    layoutResId = layoutResId,
-                    viewBoundCallback = resolvedViewBoundCallback,
-                    callback = callback,
-                    dismissOnSelect = dismissOnSelect)
+                layoutResId = layoutResId,
+                viewBoundCallback = resolveViewBoundCallback(),
+                callback = callback,
+                dismissOnSelect = dismissOnSelect
+            )
         }
-
     }
 
     @PopupMenuMarker
@@ -257,10 +244,22 @@ class MaterialPopupMenuBuilder {
          */
         var dismissOnSelect: Boolean = true
 
+        /**
+         * Callback to be invoked once the item view gets created and bound.
+         * It is to be used when some views inside need to be updated once inflated.
+         *
+         * You can set this to [ViewBoundCallback] to gain access to additional
+         * features.
+         *
+         * @see ViewBoundCallback
+         */
+        var viewBoundCallback: (View) -> Unit = {}
+
         internal abstract fun convertToPopupMenuItem(): MaterialPopupMenu.AbstractPopupMenuItem
 
+        protected fun resolveViewBoundCallback() = (viewBoundCallback as? ViewBoundCallback
+            ?: ViewBoundCallback { viewBoundCallback(it) })
     }
-
 }
 
 /**

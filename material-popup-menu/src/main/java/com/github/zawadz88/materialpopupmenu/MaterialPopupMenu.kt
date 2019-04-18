@@ -96,19 +96,21 @@ class MaterialPopupMenu internal constructor(
         @DrawableRes val icon: Int,
         val iconDrawable: Drawable?,
         @ColorInt val iconColor: Int,
+        override val viewBoundCallback: ViewBoundCallback,
         override val callback: () -> Unit,
         override val dismissOnSelect: Boolean
-    ) : AbstractPopupMenuItem(callback, dismissOnSelect)
+    ) : AbstractPopupMenuItem(callback, dismissOnSelect, viewBoundCallback)
 
     internal data class PopupMenuCustomItem(
         @LayoutRes val layoutResId: Int,
-        val viewBoundCallback: ViewBoundCallback,
+        override val viewBoundCallback: ViewBoundCallback,
         override val callback: () -> Unit,
         override val dismissOnSelect: Boolean
-    ) : AbstractPopupMenuItem(callback, dismissOnSelect)
+    ) : AbstractPopupMenuItem(callback, dismissOnSelect, viewBoundCallback)
 
     internal abstract class AbstractPopupMenuItem(
         open val callback: () -> Unit,
-        open val dismissOnSelect: Boolean
+        open val dismissOnSelect: Boolean,
+        open val viewBoundCallback: ViewBoundCallback
     )
 }
