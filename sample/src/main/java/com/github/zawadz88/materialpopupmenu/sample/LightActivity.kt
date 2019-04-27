@@ -20,6 +20,7 @@ import androidx.core.content.ContextCompat
 import butterknife.BindView
 import butterknife.ButterKnife
 import butterknife.OnClick
+import com.github.zawadz88.materialpopupmenu.ViewBoundCallback
 import com.github.zawadz88.materialpopupmenu.popupMenu
 import com.github.zawadz88.materialpopupmenu.popupMenuBuilder
 
@@ -313,9 +314,14 @@ class LightActivity : AppCompatActivity() {
                 }
                 customItem {
                     layoutResId = R.layout.view_custom_item_checkable
-                    viewBoundCallback = { view ->
+                    viewBoundCallback = ViewBoundCallback { view ->
                         val checkBox: CheckBox = view.findViewById(R.id.customItemCheckbox)
                         checkBox.isChecked = true
+                        checkBox.setOnCheckedChangeListener { _, isChecked ->
+                            if (isChecked) {
+                                dismissPopup()
+                            }
+                        }
                     }
                     callback = {
                         Toast.makeText(this@LightActivity, "Disabled!", Toast.LENGTH_SHORT).show()

@@ -9,6 +9,7 @@ import org.hamcrest.Matchers.hasSize
 import org.hamcrest.Matchers.instanceOf
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNull
+import org.junit.Assert.assertTrue
 import org.junit.Test
 
 /**
@@ -241,8 +242,10 @@ class MaterialPopupMenuBuilderTest {
     @Test
     fun `Should build a popup menu with multiple custom items`() {
         //given
+        val view = mock<View> {}
+        var callbackInvoked = false
         val customCallback = {}
-        val customViewBoundCallback: (View) -> Unit = {}
+        val customViewBoundCallback: (View) -> Unit = { callbackInvoked = true }
 
         //when
         val popupMenu = popupMenu {
@@ -274,7 +277,9 @@ class MaterialPopupMenuBuilderTest {
         val secondPopupMenuItem = secondItem as MaterialPopupMenu.PopupMenuCustomItem
         assertEquals("Invalid item layout ID", CUSTOM_ITEM_LAYOUT, secondPopupMenuItem.layoutResId)
         assertEquals("Invalid item callback", customCallback, secondPopupMenuItem.callback)
-        assertEquals("Invalid item view bound callback", customViewBoundCallback, secondPopupMenuItem.viewBoundCallback)
+
+        secondPopupMenuItem.viewBoundCallback.invoke(view)
+        assertTrue("View bound callback has not beed invoked", callbackInvoked)
     }
 
     @Test
