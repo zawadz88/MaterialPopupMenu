@@ -218,6 +218,11 @@ class MaterialPopupMenuBuilder {
         /**
          * Callback to be invoked once the custom item view gets created and bound.
          * It is to be used when some views inside need to be updated once inflated.
+         *
+         * You can set this to [ViewBoundCallback] to gain access to additional
+         * features.
+         *
+         * @see ViewBoundCallback
          */
         var viewBoundCallback: (View) -> Unit = {}
 
@@ -227,9 +232,11 @@ class MaterialPopupMenuBuilder {
 
         override fun convertToPopupMenuItem(): MaterialPopupMenu.PopupMenuCustomItem {
             require(layoutResId != 0) { "Layout resource ID must be set for a custom item!" }
+            val resolvedViewBoundCallback = viewBoundCallback as? ViewBoundCallback
+                ?: ViewBoundCallback { viewBoundCallback(it) }
             return MaterialPopupMenu.PopupMenuCustomItem(
                     layoutResId = layoutResId,
-                    viewBoundCallback = viewBoundCallback,
+                    viewBoundCallback = resolvedViewBoundCallback,
                     callback = callback,
                     dismissOnSelect = dismissOnSelect)
         }

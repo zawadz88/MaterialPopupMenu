@@ -102,7 +102,7 @@ class MaterialPopupMenu internal constructor(
 
     internal data class PopupMenuCustomItem(
         @LayoutRes val layoutResId: Int,
-        val viewBoundCallback: (View) -> Unit,
+        val viewBoundCallback: ViewBoundCallback,
         override val callback: () -> Unit,
         override val dismissOnSelect: Boolean
     ) : AbstractPopupMenuItem(callback, dismissOnSelect)

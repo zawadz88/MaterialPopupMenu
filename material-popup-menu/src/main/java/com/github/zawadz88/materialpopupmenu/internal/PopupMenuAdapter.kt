@@ -19,7 +19,7 @@ import com.github.zawadz88.materialpopupmenu.R
 @SuppressLint("RestrictedApi")
 internal class PopupMenuAdapter(
     private val sections: List<MaterialPopupMenu.PopupMenuSection>,
-    private val onItemClickedCallback: (MaterialPopupMenu.AbstractPopupMenuItem) -> Unit
+    private val dismissPopupCallback: () -> Unit
 )
     : SectionedRecyclerViewAdapter<PopupMenuAdapter.SectionHeaderViewHolder, PopupMenuAdapter.AbstractItemViewHolder>() {
 
@@ -53,7 +53,7 @@ internal class PopupMenuAdapter(
             ItemViewHolder(v)
         } else {
             val v = LayoutInflater.from(parent.context).inflate(viewType, parent, false)
-            CustomItemViewHolder(v)
+            CustomItemViewHolder(v, dismissPopupCallback)
         }
     }
 
@@ -75,7 +75,7 @@ internal class PopupMenuAdapter(
         holder.itemView.setOnClickListener {
             popupMenuItem.callback()
             if (popupMenuItem.dismissOnSelect) {
-                onItemClickedCallback(popupMenuItem)
+                dismissPopupCallback()
             }
         }
     }
@@ -117,10 +117,14 @@ internal class PopupMenuAdapter(
 
     }
 
-    internal class CustomItemViewHolder(itemView: View) : AbstractItemViewHolder(itemView) {
+    internal class CustomItemViewHolder(
+        itemView: View,
+        private val dismissPopupCallback: () -> Unit
+    ) : AbstractItemViewHolder(itemView) {
 
         override fun bindItem(popupMenuItem: MaterialPopupMenu.AbstractPopupMenuItem) {
             val popupMenuCustomItem = popupMenuItem as MaterialPopupMenu.PopupMenuCustomItem
+            popupMenuCustomItem.viewBoundCallback.dismissPopupAction = dismissPopupCallback
             popupMenuCustomItem.viewBoundCallback.invoke(itemView)
         }
     }
