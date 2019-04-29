@@ -96,6 +96,7 @@ class MaterialPopupMenu internal constructor(
         @DrawableRes val icon: Int,
         val iconDrawable: Drawable?,
         @ColorInt val iconColor: Int,
+        val hasNestedItems: Boolean,
         override val viewBoundCallback: ViewBoundCallback,
         override val callback: () -> Unit,
         override val dismissOnSelect: Boolean

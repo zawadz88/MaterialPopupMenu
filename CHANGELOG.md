@@ -5,6 +5,13 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+### Added
+- An option to display an icon at the end of each item which indicates a nested submenu.
+- Allow customizing default popup style via theme attribute (#53, thanks to @Tunous)
+
+### Fixed
+- Disabled `clipToPadding` on menu `RecyclerView ` (#54, thanks to @Tunous)
+- Take margins under account when calculating popup height (#56, thanks to @Tunous)
 
 ## [3.3.0]
 ### Added

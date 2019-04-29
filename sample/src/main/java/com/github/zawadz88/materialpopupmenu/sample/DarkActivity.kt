@@ -6,10 +6,6 @@ import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
-import androidx.core.content.ContextCompat
-import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.widget.SwitchCompat
-import androidx.appcompat.widget.Toolbar
 import android.view.Gravity
 import android.view.Menu
 import android.view.MenuItem
@@ -17,6 +13,10 @@ import android.view.View
 import android.widget.CheckBox
 import android.widget.TextView
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.SwitchCompat
+import androidx.appcompat.widget.Toolbar
+import androidx.core.content.ContextCompat
 import butterknife.BindView
 import butterknife.ButterKnife
 import butterknife.OnClick
@@ -65,6 +65,7 @@ class DarkActivity : AppCompatActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if (item.itemId == R.id.overflow) {
+            val anchor = checkNotNull<View>(findViewById(R.id.overflow))
             val popupMenu = popupMenu {
                 style = R.style.Widget_MPM_Menu_Dark
                 dropdownGravity = Gravity.END
@@ -89,10 +90,54 @@ class DarkActivity : AppCompatActivity() {
                             shareUrl()
                         }
                     }
+                    item {
+                        label = "Multi-level"
+                        hasNestedItems = true
+                        callback = {
+                            val nestedPopupMenu = popupMenu {
+                                style = R.style.Widget_MPM_Menu_Dark
+                                dropdownGravity = Gravity.END
+                                section {
+                                    title = "Second level"
+                                    item {
+                                        label = "Copy"
+                                    }
+                                    item {
+                                        label = "Paste"
+                                    }
+                                }
+                            }
+
+                            nestedPopupMenu.show(this@DarkActivity, anchor)
+                        }
+                    }
+                    item {
+                        label = "Multi-level"
+                        hasNestedItems = true
+                        icon = R.drawable.abc_ic_menu_copy_mtrl_am_alpha
+                        callback = {
+                            val nestedPopupMenu = popupMenu {
+                                style = R.style.Widget_MPM_Menu_Dark
+                                dropdownGravity = Gravity.END
+                                section {
+                                    title = "Second level"
+                                    item {
+                                        label = "Copy"
+                                    }
+                                    item {
+                                        label = "Paste"
+                                    }
+                                }
+                            }
+
+                            nestedPopupMenu.show(this@DarkActivity, anchor)
+                        }
+                    }
+
                 }
             }
 
-            popupMenu.show(this@DarkActivity, checkNotNull(findViewById(R.id.overflow)))
+            popupMenu.show(this@DarkActivity, anchor)
             return true
         }
         return false

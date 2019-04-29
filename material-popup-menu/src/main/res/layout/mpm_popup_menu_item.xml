@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     style="@style/Widget.MPM.Item"
     android:layout_width="match_parent"
     android:layout_height="@dimen/mpm_popup_menu_item_height"
@@ -21,7 +22,7 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="@dimen/mpm_popup_menu_item_icon_margin_end"
         android:layout_marginRight="@dimen/mpm_popup_menu_item_icon_margin_end"
-        android:tint="?attr/mpm_activeIconColor"
+        app:tint="?attr/mpm_activeIconColor"
         android:visibility="gone"
         tools:ignore="PrivateResource"
         tools:src="@drawable/abc_ic_voice_search_api_material"
@@ -29,12 +30,26 @@
 
     <TextView
         android:id="@+id/mpm_popup_menu_item_label"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
+        android:layout_weight="1"
         android:layout_height="wrap_content"
+        android:textAlignment="viewStart"
+        android:layout_gravity="start|center_vertical"
         android:ellipsize="end"
         android:lines="1"
         android:textColor="?attr/mpm_primaryTextColor"
         android:textSize="@dimen/mpm_popup_menu_item_label_text_size"
         tools:text="Preview" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/mpm_popup_menu_item_nested_icon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/mpm_popup_menu_item_icon_margin_end"
+        android:layout_marginLeft="@dimen/mpm_popup_menu_item_icon_margin_end"
+        android:visibility="gone"
+        app:tint="?attr/mpm_activeIconColor"
+        app:srcCompat="@drawable/mpm_ic_menu_end"
+        tools:visibility="visible"  />
 
 </LinearLayout>
