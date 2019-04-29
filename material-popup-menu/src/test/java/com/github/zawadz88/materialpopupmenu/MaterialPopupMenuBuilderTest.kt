@@ -242,10 +242,8 @@ class MaterialPopupMenuBuilderTest {
     @Test
     fun `Should build a popup menu with multiple custom items`() {
         //given
-        val view = mock<View> {}
-        var callbackInvoked = false
         val customCallback = {}
-        val customViewBoundCallback: (View) -> Unit = { callbackInvoked = true }
+        val customViewBoundCallback: (View) -> Unit = {}
 
         //when
         val popupMenu = popupMenu {
@@ -277,8 +275,29 @@ class MaterialPopupMenuBuilderTest {
         val secondPopupMenuItem = secondItem as MaterialPopupMenu.PopupMenuCustomItem
         assertEquals("Invalid item layout ID", CUSTOM_ITEM_LAYOUT, secondPopupMenuItem.layoutResId)
         assertEquals("Invalid item callback", customCallback, secondPopupMenuItem.callback)
+    }
 
-        secondPopupMenuItem.viewBoundCallback.invoke(view)
+    @Test
+    fun `Should invoke custom view bound callback`() {
+        //given
+        val view = mock<View> {}
+        var callbackInvoked = false
+        val customViewBoundCallback: (View) -> Unit = { callbackInvoked = true }
+        val popupMenu = popupMenu {
+            section {
+                customItem {
+                    layoutResId = CUSTOM_ITEM_LAYOUT
+                    viewBoundCallback = customViewBoundCallback
+                }
+            }
+        }
+
+        //when
+        val item = popupMenu.sections[0].items[0]
+        val popupMenuItem = item as MaterialPopupMenu.PopupMenuCustomItem
+        popupMenuItem.viewBoundCallback.invoke(view)
+
+        //then
         assertTrue("View bound callback has not beed invoked", callbackInvoked)
     }
 
