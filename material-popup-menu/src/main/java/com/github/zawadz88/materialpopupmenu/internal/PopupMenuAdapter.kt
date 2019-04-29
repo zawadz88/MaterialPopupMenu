@@ -90,9 +90,11 @@ internal class PopupMenuAdapter(
 
     internal class ItemViewHolder(itemView: View) : AbstractItemViewHolder(itemView) {
 
-        var label: TextView = itemView.findViewById(R.id.mpm_popup_menu_item_label)
+        private var label: TextView = itemView.findViewById(R.id.mpm_popup_menu_item_label)
 
-        var icon: AppCompatImageView = itemView.findViewById(R.id.mpm_popup_menu_item_icon)
+        private var icon: AppCompatImageView = itemView.findViewById(R.id.mpm_popup_menu_item_icon)
+
+        private var nestedIcon: AppCompatImageView = itemView.findViewById(R.id.mpm_popup_menu_item_nested_icon)
 
         override fun bindItem(popupMenuItem: MaterialPopupMenu.AbstractPopupMenuItem) {
             super.bindItem(popupMenuItem)
@@ -117,6 +119,7 @@ internal class PopupMenuAdapter(
             if (castedPopupMenuItem.labelColor != 0) {
                 label.setTextColor(castedPopupMenuItem.labelColor)
             }
+            nestedIcon.visibility = if (castedPopupMenuItem.hasNestedItems) View.VISIBLE else View.GONE
         }
     }
 

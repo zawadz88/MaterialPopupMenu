@@ -183,8 +183,14 @@ class MaterialPopupMenuBuilder {
         @ColorInt
         var iconColor: Int = 0
 
+        /**
+         * Optional. If set to *true* this will show a "menu-end" icon, which indicates that there might be a submenu shown.
+         * *false* by default.
+         */
+        var hasNestedItems: Boolean = false
+
         override fun toString(): String {
-            return "ItemHolder(label=$label, labelRes=$labelRes, labelColor=$labelColor, icon=$icon, iconDrawable=$iconDrawable, iconColor=$iconColor, callback=$callback, dismissOnSelect=$dismissOnSelect)"
+            return "ItemHolder(label=$label, labelRes=$labelRes, labelColor=$labelColor, icon=$icon, iconDrawable=$iconDrawable, iconColor=$iconColor, callback=$callback, dismissOnSelect=$dismissOnSelect, hasNestedItems=$hasNestedItems)"
         }
 
         override fun convertToPopupMenuItem(): MaterialPopupMenu.PopupMenuItem {
@@ -196,6 +202,7 @@ class MaterialPopupMenuBuilder {
                 icon = icon,
                 iconDrawable = iconDrawable,
                 iconColor = iconColor,
+                hasNestedItems = hasNestedItems,
                 viewBoundCallback = resolveViewBoundCallback(),
                 callback = callback,
                 dismissOnSelect = dismissOnSelect

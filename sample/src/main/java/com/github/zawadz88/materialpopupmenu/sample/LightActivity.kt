@@ -24,6 +24,7 @@ import com.github.zawadz88.materialpopupmenu.ViewBoundCallback
 import com.github.zawadz88.materialpopupmenu.popupMenu
 import com.github.zawadz88.materialpopupmenu.popupMenuBuilder
 
+@SuppressLint("PrivateResource")
 class LightActivity : AppCompatActivity() {
 
     companion object {
@@ -56,7 +57,6 @@ class LightActivity : AppCompatActivity() {
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
-
         val menuInflater = menuInflater
         menuInflater.inflate(R.menu.menu_overflow, menu)
 
@@ -65,6 +65,7 @@ class LightActivity : AppCompatActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if (item.itemId == R.id.overflow) {
+            val anchor = checkNotNull<View>(findViewById(R.id.overflow))
             val popupMenu = popupMenu {
                 style = R.style.Widget_MPM_Menu //optional, light is the default
                 dropdownGravity = Gravity.END
@@ -89,10 +90,51 @@ class LightActivity : AppCompatActivity() {
                             shareUrl()
                         }
                     }
+                    item {
+                        label = "Multi-level"
+                        hasNestedItems = true
+                        callback = {
+                            val nestedPopupMenu = popupMenu {
+                                dropdownGravity = Gravity.END
+                                section {
+                                    title = "Second level"
+                                    item {
+                                        label = "Copy"
+                                    }
+                                    item {
+                                        label = "Paste"
+                                    }
+                                }
+                            }
+
+                            nestedPopupMenu.show(this@LightActivity, anchor)
+                        }
+                    }
+                    item {
+                        label = "Multi-level"
+                        hasNestedItems = true
+                        icon = R.drawable.abc_ic_menu_copy_mtrl_am_alpha
+                        callback = {
+                            val nestedPopupMenu = popupMenu {
+                                dropdownGravity = Gravity.END
+                                section {
+                                    title = "Second level"
+                                    item {
+                                        label = "Copy"
+                                    }
+                                    item {
+                                        label = "Paste"
+                                    }
+                                }
+                            }
+
+                            nestedPopupMenu.show(this@LightActivity, anchor)
+                        }
+                    }
                 }
             }
 
-            popupMenu.show(this@LightActivity, checkNotNull(findViewById(R.id.overflow)))
+            popupMenu.show(this@LightActivity, anchor)
             return true
         }
         return false
@@ -397,7 +439,6 @@ class LightActivity : AppCompatActivity() {
                 }
                 customItem {
                     layoutResId = R.layout.view_custom_item_colored
-
 
                 }
             }
