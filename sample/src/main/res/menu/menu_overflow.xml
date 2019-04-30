@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android"
+<menu xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
@@ -7,5 +8,6 @@
         android:icon="@drawable/abc_ic_menu_overflow_material"
         android:title="@string/more"
         app:icon="@drawable/abc_ic_menu_overflow_material"
-        app:showAsAction="always"/>
+        app:showAsAction="always"
+        tools:ignore="PrivateResource" />
 </menu>

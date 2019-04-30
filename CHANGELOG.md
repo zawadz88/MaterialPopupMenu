@@ -5,9 +5,13 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+
+## [3.4.0]
 ### Added
 - An option to display an icon at the end of each item which indicates a nested submenu.
+- `viewBoundCallback` added to default items as well
 - Allow customizing default popup style via theme attribute (#53, thanks to @Tunous)
+- Make it possible to dismiss popup from `viewBoundCallback` (#57, thanks to @Tunous)
 
 ### Fixed
 - Disabled `clipToPadding` on menu `RecyclerView ` (#54, thanks to @Tunous)
@@ -94,7 +98,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Added
 Initial release of the library.
 
-[Unreleased]: https://github.com/zawadz88/MaterialPopupMenu/compare/3.3.0...HEAD
+[Unreleased]: https://github.com/zawadz88/MaterialPopupMenu/compare/3.4.0...HEAD
+[3.4.0]: https://github.com/zawadz88/MaterialPopupMenu/compare/3.3.0...3.4.0
 [3.3.0]: https://github.com/zawadz88/MaterialPopupMenu/compare/3.2.0...3.3.0
 [3.2.0]: https://github.com/zawadz88/MaterialPopupMenu/compare/3.1.0...3.2.0
 [3.1.0]: https://github.com/zawadz88/MaterialPopupMenu/compare/3.0.0...3.1.0

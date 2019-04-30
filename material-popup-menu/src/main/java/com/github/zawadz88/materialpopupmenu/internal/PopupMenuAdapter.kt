@@ -50,7 +50,7 @@ internal class PopupMenuAdapter(
     override fun onCreateItemViewHolder(parent: ViewGroup, viewType: Int): AbstractItemViewHolder {
         return if (viewType == TYPE_ITEM) {
             val v = LayoutInflater.from(parent.context).inflate(R.layout.mpm_popup_menu_item, parent, false)
-            ItemViewHolder(v)
+            ItemViewHolder(v, dismissPopupCallback)
         } else {
             val v = LayoutInflater.from(parent.context).inflate(viewType, parent, false)
             CustomItemViewHolder(v, dismissPopupCallback)
@@ -80,15 +80,19 @@ internal class PopupMenuAdapter(
         }
     }
 
-    internal abstract class AbstractItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    internal abstract class AbstractItemViewHolder(
+        itemView: View,
+        private val dismissPopupCallback: () -> Unit
+    ) : RecyclerView.ViewHolder(itemView) {
 
         @CallSuper
         open fun bindItem(popupMenuItem: MaterialPopupMenu.AbstractPopupMenuItem) {
+            popupMenuItem.viewBoundCallback.dismissPopupAction = dismissPopupCallback
             popupMenuItem.viewBoundCallback.invoke(itemView)
         }
     }
 
-    internal class ItemViewHolder(itemView: View) : AbstractItemViewHolder(itemView) {
+    internal class ItemViewHolder(itemView: View, dismissPopupCallback: () -> Unit) : AbstractItemViewHolder(itemView, dismissPopupCallback) {
 
         private var label: TextView = itemView.findViewById(R.id.mpm_popup_menu_item_label)
 
@@ -123,17 +127,7 @@ internal class PopupMenuAdapter(
         }
     }
 
-    internal class CustomItemViewHolder(
-        itemView: View,
-        private val dismissPopupCallback: () -> Unit
-    ) : AbstractItemViewHolder(itemView) {
-
-        override fun bindItem(popupMenuItem: MaterialPopupMenu.AbstractPopupMenuItem) {
-            super.bindItem(popupMenuItem)
-            val popupMenuCustomItem = popupMenuItem as MaterialPopupMenu.PopupMenuCustomItem
-            popupMenuCustomItem.viewBoundCallback.dismissPopupAction = dismissPopupCallback
-        }
-    }
+    internal class CustomItemViewHolder(itemView: View, dismissPopupCallback: () -> Unit) : AbstractItemViewHolder(itemView, dismissPopupCallback)
 
     internal class SectionHeaderViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 

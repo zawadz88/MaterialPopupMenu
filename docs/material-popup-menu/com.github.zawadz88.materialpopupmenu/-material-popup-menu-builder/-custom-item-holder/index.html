@@ -36,16 +36,6 @@
 <p>Layout ID of the view to be used for this item.</p>
 </td>
 </tr>
-<tr>
-<td>
-<p><a href="view-bound-callback.html">viewBoundCallback</a></p>
-</td>
-<td>
-<code><span class="keyword">var </span><span class="identifier">viewBoundCallback</span><span class="symbol">: </span><span class="symbol">(</span><a href="https://developer.android.com/reference/android/view/View.html"><span class="identifier">View</span></a><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code>
-<p>Callback to be invoked once the custom item view gets created and bound.
-It is to be used when some views inside need to be updated once inflated.</p>
-</td>
-</tr>
 </tbody>
 </table>
 <h3>Inherited Properties</h3>
@@ -70,6 +60,16 @@ It is to be used when some views inside need to be updated once inflated.</p>
 Defaults to <code>true</code>.</p>
 </td>
 </tr>
+<tr>
+<td>
+<p><a href="../-abstract-item-holder/view-bound-callback.html">viewBoundCallback</a></p>
+</td>
+<td>
+<code><span class="keyword">var </span><span class="identifier">viewBoundCallback</span><span class="symbol">: </span><span class="symbol">(</span><a href="https://developer.android.com/reference/android/view/View.html"><span class="identifier">View</span></a><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code>
+<p>Callback to be invoked once the item view gets created and bound.
+It is to be used when some views inside need to be updated once inflated.</p>
+</td>
+</tr>
 </tbody>
 </table>
 <h3>Functions</h3>
@@ -81,6 +81,18 @@ Defaults to <code>true</code>.</p>
 </td>
 <td>
 <code><span class="keyword">fun </span><span class="identifier">toString</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a></code></td>
+</tr>
+</tbody>
+</table>
+<h3>Inherited Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="../-abstract-item-holder/resolve-view-bound-callback.html">resolveViewBoundCallback</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">resolveViewBoundCallback</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="../../-view-bound-callback/index.html"><span class="identifier">ViewBoundCallback</span></a></code></td>
 </tr>
 </tbody>
 </table>
