@@ -1,0 +1,56 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>ViewBoundCallback - material-popup-menu</title>
+<link rel="stylesheet" href="../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">material-popup-menu</a>&nbsp;/&nbsp;<a href="../index.html">com.github.zawadz88.materialpopupmenu</a>&nbsp;/&nbsp;<a href="./index.html">ViewBoundCallback</a><br/>
+<br/>
+<h1>ViewBoundCallback</h1>
+<code><span class="keyword">class </span><span class="identifier">ViewBoundCallback</span>&nbsp;<span class="symbol">:</span>&nbsp;<span class="symbol">(</span><a href="https://developer.android.com/reference/android/view/View.html"><span class="identifier">View</span></a><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code>
+<p>Callback to be invoked once the custom item view gets created and bound.
+It is to be used when some views inside need to be updated once inflated.</p>
+<p>This class is an extension for closure based callback that provides
+additional functionality such as dismissing popup.</p>
+<h3>Parameters</h3>
+<p><a name="callback"></a>
+<code>callback</code> - block of the callback in which you can bind the given view</p>
+<h3>Constructors</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="-init-.html">&lt;init&gt;</a></p>
+</td>
+<td>
+<code><span class="identifier">ViewBoundCallback</span><span class="symbol">(</span><span class="identifier" id="com.github.zawadz88.materialpopupmenu.ViewBoundCallback$<init>(kotlin.Function2((com.github.zawadz88.materialpopupmenu.ViewBoundCallback, android.view.View, kotlin.Unit)))/callback">callback</span><span class="symbol">:</span>&nbsp;<a href="./index.html"><span class="identifier">ViewBoundCallback</span></a><span class="symbol">.</span><span class="symbol">(</span><a href="https://developer.android.com/reference/android/view/View.html"><span class="identifier">View</span></a><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a><span class="symbol">)</span></code>
+<p>Callback to be invoked once the custom item view gets created and bound.
+It is to be used when some views inside need to be updated once inflated.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="dismiss-popup.html">dismissPopup</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">dismissPopup</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code>
+<p>Dismisses the shown popup.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="invoke.html">invoke</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">invoke</span><span class="symbol">(</span><span class="identifier" id="com.github.zawadz88.materialpopupmenu.ViewBoundCallback$invoke(android.view.View)/view">view</span><span class="symbol">:</span>&nbsp;<a href="https://developer.android.com/reference/android/view/View.html"><span class="identifier">View</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>
