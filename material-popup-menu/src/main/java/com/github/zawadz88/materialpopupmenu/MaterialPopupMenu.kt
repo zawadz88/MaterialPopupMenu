@@ -85,12 +85,12 @@ class MaterialPopupMenu internal constructor(
     }
 
     internal data class PopupMenuSection(
-        val title: String?,
+        val title: CharSequence?,
         val items: List<AbstractPopupMenuItem>
     )
 
     internal data class PopupMenuItem(
-        val label: String?,
+        val label: CharSequence?,
         @StringRes val labelRes: Int,
         @ColorInt val labelColor: Int,
         @DrawableRes val icon: Int,

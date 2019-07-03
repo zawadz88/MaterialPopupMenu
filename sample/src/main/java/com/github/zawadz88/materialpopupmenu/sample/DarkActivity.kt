@@ -5,6 +5,10 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
+import android.text.Spannable
+import android.text.SpannableString
+import android.text.style.ForegroundColorSpan
+import android.text.style.RelativeSizeSpan
 import android.util.Log
 import android.view.Gravity
 import android.view.Menu
@@ -400,6 +404,14 @@ class DarkActivity : AppCompatActivity() {
                         textView.text = "Some long text that is applied later to see if height calculation indeed is incorrectly calculated due to this binding."
                     }
                 }
+                item {
+                    label = createMultiLineText()
+                    viewBoundCallback = { view ->
+                        val tv = view.findViewById<TextView>(R.id.mpm_popup_menu_item_label)
+                        tv.setSingleLine(false)
+                        tv.maxLines = 2
+                    }
+                }
             }
         }
 
@@ -496,5 +508,26 @@ class DarkActivity : AppCompatActivity() {
     private fun shareUrl() {
         val shareIntent = Intent(Intent.ACTION_VIEW, Uri.parse(Constants.SHARE_URL))
         startActivity(shareIntent)
+    }
+
+    private fun createMultiLineText(): CharSequence {
+        val text = "Line 1\nLines in secondary color"
+        val spannable = SpannableString(text)
+        val idx = text.indexOf("\n")
+        if (idx != -1) {
+            spannable.setSpan(
+                RelativeSizeSpan(0.7f),
+                idx,
+                text.length,
+                Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+            )
+            spannable.setSpan(
+                ForegroundColorSpan(ContextCompat.getColor(this@DarkActivity, R.color.abc_secondary_text_material_dark)),
+                idx,
+                text.length,
+                Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+            )
+        }
+        return spannable
     }
 }

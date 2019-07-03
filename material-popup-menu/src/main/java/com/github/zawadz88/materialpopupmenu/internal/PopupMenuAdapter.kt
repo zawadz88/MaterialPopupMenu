@@ -40,8 +40,7 @@ internal class PopupMenuAdapter(
     }
 
     override fun getSectionItemViewType(section: Int, position: Int): Int {
-        val popupMenuItem = sections[section].items[position]
-        return when (popupMenuItem) {
+        return when (val popupMenuItem = sections[section].items[position]) {
             is MaterialPopupMenu.PopupMenuCustomItem -> popupMenuItem.layoutResId
             else -> super.getSectionItemViewType(section, position)
         }
@@ -101,7 +100,6 @@ internal class PopupMenuAdapter(
         private var nestedIcon: AppCompatImageView = itemView.findViewById(R.id.mpm_popup_menu_item_nested_icon)
 
         override fun bindItem(popupMenuItem: MaterialPopupMenu.AbstractPopupMenuItem) {
-            super.bindItem(popupMenuItem)
             val castedPopupMenuItem = popupMenuItem as MaterialPopupMenu.PopupMenuItem
             if (castedPopupMenuItem.label != null) {
                 label.text = castedPopupMenuItem.label
@@ -124,6 +122,7 @@ internal class PopupMenuAdapter(
                 label.setTextColor(castedPopupMenuItem.labelColor)
             }
             nestedIcon.visibility = if (castedPopupMenuItem.hasNestedItems) View.VISIBLE else View.GONE
+            super.bindItem(popupMenuItem)
         }
     }
 

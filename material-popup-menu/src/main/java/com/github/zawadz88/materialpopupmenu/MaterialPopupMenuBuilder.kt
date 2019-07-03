@@ -79,7 +79,7 @@ class MaterialPopupMenuBuilder {
          * Optional section holder. *null* by default.
          * If the title is not *null* it will be displayed in the menu.
          */
-        var title: String? = null
+        var title: CharSequence? = null
 
         private val itemsHolderList = arrayListOf<AbstractItemHolder>()
 
@@ -130,7 +130,7 @@ class MaterialPopupMenuBuilder {
          *
          * If both [label] and [labelRes] are set [label] will be used.
          */
-        var label: String? = null
+        var label: CharSequence? = null
 
         /**
          * Item label.

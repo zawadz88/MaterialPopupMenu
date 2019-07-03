@@ -10,7 +10,7 @@ This library allows to create simple popup menus programmatically with a nice [t
 
 ## Download (from JCenter)
 ```groovy
-implementation 'com.github.zawadz88.materialpopupmenu:material-popup-menu:3.4.0'
+implementation 'com.github.zawadz88.materialpopupmenu:material-popup-menu:4.0.0'
 ```
 
 ## Getting started
@@ -201,7 +201,3 @@ Check out the [official documentation](https://kotlinlang.org/docs/reference/bas
 
 ### I have not migrated to AndroidX. Can I use this library?
 If you're still using legacy Android Support libraries you can use version 2.2.0. AndroidX is supported by default since 3.0.0.
-
-## TODOs:
-* add Espresso tests
-* add item selection
