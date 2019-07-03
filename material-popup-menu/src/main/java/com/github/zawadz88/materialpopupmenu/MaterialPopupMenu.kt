@@ -22,10 +22,12 @@ import com.github.zawadz88.materialpopupmenu.internal.PopupMenuAdapter
  *
  * @author Piotr Zawadzki
  */
-class MaterialPopupMenu internal constructor(
-    @StyleRes internal val style: Int,
-    internal val dropdownGravity: Int,
-    internal val sections: List<PopupMenuSection>
+class MaterialPopupMenu
+internal constructor(
+    @StyleRes private val style: Int,
+    private val dropdownGravity: Int,
+    private val sections: List<PopupMenuSection>,
+    private val fixedContentWidthInPx: Int
 ) {
 
     private var popupWindow: MaterialRecyclerViewPopupWindow? = null
@@ -43,7 +45,7 @@ class MaterialPopupMenu internal constructor(
     fun show(context: Context, anchor: View) {
         val style = resolvePopupStyle(context)
         val styledContext = ContextThemeWrapper(context, style)
-        val popupWindow = MaterialRecyclerViewPopupWindow(styledContext, dropdownGravity)
+        val popupWindow = MaterialRecyclerViewPopupWindow(styledContext, dropdownGravity, fixedContentWidthInPx)
         val adapter = PopupMenuAdapter(sections) { popupWindow.dismiss() }
 
         popupWindow.adapter = adapter

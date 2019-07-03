@@ -497,6 +497,32 @@ class LightActivity : AppCompatActivity() {
         conditionalPopupMenuBuilder.build().show(this@LightActivity, view)
     }
 
+    @OnClick(R.id.bottomButton)
+    fun onBottomButtonClicked(view: View) {
+        val popupMenu = popupMenu {
+            dropdownGravity = Gravity.TOP xor Gravity.CENTER_HORIZONTAL
+            style = R.style.Widget_MPM_Menu_ZeroOffsets
+            fixedContentWidthInPx = view.width
+            section {
+                item {
+                    label = "Copy"
+                    icon = R.drawable.abc_ic_menu_copy_mtrl_am_alpha
+                    callback = {
+                        Toast.makeText(this@LightActivity, "Copied!", Toast.LENGTH_SHORT).show()
+                    }
+                }
+                item {
+                    label = "Paste"
+                    icon = R.drawable.abc_ic_menu_paste_mtrl_am_alpha
+                    callback = {
+                        Toast.makeText(this@LightActivity, "Text pasted!", Toast.LENGTH_SHORT).show()
+                    }
+                }
+            }
+        }
+        popupMenu.show(this@LightActivity, view)
+    }
+
     private fun shareUrl() {
         val shareIntent = Intent(Intent.ACTION_VIEW, Uri.parse(Constants.SHARE_URL))
         startActivity(shareIntent)

@@ -27,9 +27,10 @@ import java.lang.reflect.Method
  * @see ListPopupWindow
  */
 @SuppressLint("PrivateResource,RestrictedApi")
-class MaterialRecyclerViewPopupWindow(
+internal class MaterialRecyclerViewPopupWindow(
     private val context: Context,
-    private var dropDownGravity: Int
+    private var dropDownGravity: Int,
+    private val fixedContentWidthInPx: Int
 ) {
 
     companion object {
@@ -66,7 +67,10 @@ class MaterialRecyclerViewPopupWindow(
 
     internal var adapter: PopupMenuAdapter? = null
         set(value) {
-            setContentWidth(measureIndividualMenuWidth(checkNotNull(value)))
+            val menuWidth = measureMenuSizeAndGetWidth(checkNotNull(value))
+            if (fixedContentWidthInPx == 0) {
+                updateContentWidth(menuWidth)
+            }
             field = value
         }
 
@@ -123,6 +127,10 @@ class MaterialRecyclerViewPopupWindow(
         popupPaddingTop = a.getDimensionPixelSize(R.styleable.MaterialRecyclerViewPopupWindow_mpm_paddingTop, 0)
 
         a.recycle()
+
+        if (fixedContentWidthInPx != 0) {
+            updateContentWidth(fixedContentWidthInPx)
+        }
     }
 
     /**
@@ -131,7 +139,7 @@ class MaterialRecyclerViewPopupWindow(
 
      * @param width Desired width of content in pixels.
      */
-    private fun setContentWidth(width: Int) {
+    internal fun updateContentWidth(width: Int) {
         val popupBackground = popup.background
         dropDownWidth = if (popupBackground != null) {
             popupBackground.getPadding(tempRect)
@@ -145,7 +153,7 @@ class MaterialRecyclerViewPopupWindow(
      * Show the popupMenu list. If the list is already showing, this method
      * will recalculate the popupMenu's size and position.
      */
-    fun show() {
+    internal fun show() {
         checkNotNull(anchorView) { "Anchor view must be set!" }
         val height = buildDropDown()
 
@@ -183,7 +191,7 @@ class MaterialRecyclerViewPopupWindow(
     /**
      * Dismiss the popupMenu window.
      */
-    fun dismiss() {
+    internal fun dismiss() {
         popup.dismiss()
         popup.contentView = null
     }
@@ -193,7 +201,7 @@ class MaterialRecyclerViewPopupWindow(
      *
      * @param listener Listener that is called when this popup window is dismissed.
      */
-    fun setOnDismissListener(listener: (() -> Unit)?) {
+    internal fun setOnDismissListener(listener: (() -> Unit)?) {
         if (listener != null) {
             popup.setOnDismissListener { listener.invoke() }
         } else {
@@ -367,7 +375,7 @@ class MaterialRecyclerViewPopupWindow(
     /**
      * @see android.support.v7.view.menu.MenuPopup.measureIndividualMenuWidth
      */
-    private fun measureIndividualMenuWidth(adapter: PopupMenuAdapter): Int {
+    private fun measureMenuSizeAndGetWidth(adapter: PopupMenuAdapter): Int {
         adapter.setupIndices()
         val parent = FrameLayout(context)
         var menuWidth = popupMinWidth

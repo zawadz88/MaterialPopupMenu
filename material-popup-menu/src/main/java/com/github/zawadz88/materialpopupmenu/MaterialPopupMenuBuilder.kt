@@ -40,6 +40,12 @@ class MaterialPopupMenuBuilder {
      */
     var dropdownGravity: Int = Gravity.NO_GRAVITY
 
+    /**
+     * Setting this to a non-zero value will force the width of the popup menu to be exactly this value.
+     * If set to 0, the default mechanism for measuring popup menu width will be applied.
+     */
+    var fixedContentWidthInPx: Int = 0
+
     private val sectionHolderList = arrayListOf<SectionHolder>()
 
     /**
@@ -66,7 +72,12 @@ class MaterialPopupMenuBuilder {
 
         val sections = sectionHolderList.map { it.convertToPopupMenuSection() }
 
-        return MaterialPopupMenu(style, dropdownGravity, sections)
+        return MaterialPopupMenu(
+            style = style,
+            dropdownGravity = dropdownGravity,
+            sections = sections,
+            fixedContentWidthInPx = fixedContentWidthInPx
+        )
     }
 
     /**
