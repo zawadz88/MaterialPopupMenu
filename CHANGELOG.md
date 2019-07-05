@@ -8,8 +8,12 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [4.0.0]
 ### Changed
+- *Breaking change:* minimum SDK version raised to API 19 (Kitkat)
 - Moved `super.bindItem` call to the end of `ItemViewHolder#bindItem`method so that it's possible to override values set by it in callbacks.
 - *Breaking change:* updated `MaterialPopupMenuBuilder.SectionHolder.label` and `MaterialPopupMenuBuilder.ItemHolder.label` to be of type `CharSequence` rather than `String` to allow the use of `Spannables`.
+
+### Added
+- an option to override the defaults and set menu width & dropdown offsets programmatically via `MaterialPopupMenuBuilder`
 
 ## [3.4.0]
 ### Added

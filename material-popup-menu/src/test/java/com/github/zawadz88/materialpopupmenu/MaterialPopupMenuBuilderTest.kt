@@ -29,6 +29,8 @@ class MaterialPopupMenuBuilderTest {
         private const val CUSTOM_ITEM_LAYOUT = 555
         private const val SECTION_TITLE = "section title"
         private const val SECTION_TITLE2 = "section title2"
+        private const val CUSTOM_WIDTH = 500
+        private const val CUSTOM_OFFSET = 200
     }
 
     @Test(expected = IllegalArgumentException::class)
@@ -124,6 +126,54 @@ class MaterialPopupMenuBuilderTest {
 
         //then
         assertEquals("Invalid popup style", R.style.Widget_MPM_Menu_Dark, popupMenu.style)
+    }
+
+    @Test
+    fun `Should build a popup menu with a custom fixedContentWidthInPx`() {
+        //when
+        val popupMenu = popupMenu {
+            fixedContentWidthInPx = CUSTOM_WIDTH
+            section {
+                item {
+                    label = ITEM_LABEL
+                }
+            }
+        }
+
+        //then
+        assertEquals("Invalid popup fixedContentWidthInPx value", CUSTOM_WIDTH, popupMenu.fixedContentWidthInPx)
+    }
+
+    @Test
+    fun `Should build a popup menu with a custom dropDownHorizontalOffset`() {
+        //when
+        val popupMenu = popupMenu {
+            dropDownHorizontalOffset = CUSTOM_OFFSET
+            section {
+                item {
+                    label = ITEM_LABEL
+                }
+            }
+        }
+
+        //then
+        assertEquals("Invalid popup dropDownHorizontalOffset value", CUSTOM_OFFSET, popupMenu.dropDownHorizontalOffset)
+    }
+
+    @Test
+    fun `Should build a popup menu with a custom dropDownVerticalOffset`() {
+        //when
+        val popupMenu = popupMenu {
+            dropDownVerticalOffset = CUSTOM_OFFSET
+            section {
+                item {
+                    label = ITEM_LABEL
+                }
+            }
+        }
+
+        //then
+        assertEquals("Invalid popup dropDownVerticalOffset value", CUSTOM_OFFSET, popupMenu.dropDownVerticalOffset)
     }
 
     @Test

@@ -46,6 +46,16 @@ class MaterialPopupMenuBuilder {
      */
     var fixedContentWidthInPx: Int = 0
 
+    /**
+     * Setting this to non-`null` value will override `android:dropDownVerticalOffset` set by the style applied in [style].
+     */
+    var dropDownVerticalOffset: Int? = null
+
+    /**
+     * Setting this to non-`null` value will override `android:dropDownHorizontalOffset` set by the style applied in [style].
+     */
+    var dropDownHorizontalOffset: Int? = null
+
     private val sectionHolderList = arrayListOf<SectionHolder>()
 
     /**
@@ -76,7 +86,9 @@ class MaterialPopupMenuBuilder {
             style = style,
             dropdownGravity = dropdownGravity,
             sections = sections,
-            fixedContentWidthInPx = fixedContentWidthInPx
+            fixedContentWidthInPx = fixedContentWidthInPx,
+            dropDownVerticalOffset = dropDownVerticalOffset,
+            dropDownHorizontalOffset = dropDownHorizontalOffset
         )
     }
 

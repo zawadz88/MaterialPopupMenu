@@ -21,6 +21,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SwitchCompat
 import androidx.appcompat.widget.Toolbar
 import androidx.core.content.ContextCompat
+import butterknife.BindDimen
 import butterknife.BindView
 import butterknife.ButterKnife
 import butterknife.OnClick
@@ -46,6 +47,14 @@ class DarkActivity : AppCompatActivity() {
 
     @BindView(R.id.roundedCornersTextView)
     lateinit var roundedCornersTextView: TextView
+
+    @JvmField
+    @BindDimen(R.dimen.horizontal_button_padding)
+    var horizontalButtonPadding: Int = 0
+
+    @JvmField
+    @BindDimen(R.dimen.horizontal_popup_menu_background_start_padding)
+    var horizontalPopupMenuBackgroundStartPadding: Int = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -508,9 +517,11 @@ class DarkActivity : AppCompatActivity() {
     @OnClick(R.id.bottomButton)
     fun onBottomButtonClicked(view: View) {
         val popupMenu = popupMenu {
+            style = R.style.Widget_MPM_Menu_Dark
             dropdownGravity = Gravity.TOP xor Gravity.CENTER_HORIZONTAL
-            style = R.style.Widget_MPM_Menu_Dark_ZeroOffsets
-            fixedContentWidthInPx = view.width
+            fixedContentWidthInPx = calculatePopupMenuWidthForBottomButton(view)
+            dropDownHorizontalOffset = horizontalButtonPadding - horizontalPopupMenuBackgroundStartPadding
+            dropDownVerticalOffset = calculatePopupMenuVerticalOffsetForBottomButton(view)
             section {
                 item {
                     label = "Copy"
@@ -530,6 +541,13 @@ class DarkActivity : AppCompatActivity() {
         }
         popupMenu.show(this@DarkActivity, view)
     }
+
+    private fun calculatePopupMenuWidthForBottomButton(view: View) = view.width - 2 * horizontalButtonPadding
+
+    /**
+     * There was a change in dropdown offsets on Nougat. Before it the popup menu would be displayed on top of the View and not above it.
+     */
+    private fun calculatePopupMenuVerticalOffsetForBottomButton(view: View) = if (Build.VERSION.SDK_INT < Build.VERSION_CODES.N) view.height else 0
 
     private fun shareUrl() {
         val shareIntent = Intent(Intent.ACTION_VIEW, Uri.parse(Constants.SHARE_URL))

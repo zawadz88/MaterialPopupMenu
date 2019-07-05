@@ -30,7 +30,9 @@ import java.lang.reflect.Method
 internal class MaterialRecyclerViewPopupWindow(
     private val context: Context,
     private var dropDownGravity: Int,
-    private val fixedContentWidthInPx: Int
+    private val fixedContentWidthInPx: Int,
+    dropDownVerticalOffset: Int?,
+    dropDownHorizontalOffset: Int?
 ) {
 
     companion object {
@@ -117,8 +119,8 @@ internal class MaterialRecyclerViewPopupWindow(
 
         val a = context.obtainStyledAttributes(null, R.styleable.MaterialRecyclerViewPopupWindow)
 
-        dropDownHorizontalOffset = a.getDimensionPixelOffset(R.styleable.MaterialRecyclerViewPopupWindow_android_dropDownHorizontalOffset, 0)
-        dropDownVerticalOffset = a.getDimensionPixelOffset(R.styleable.MaterialRecyclerViewPopupWindow_android_dropDownVerticalOffset, 0)
+        this.dropDownHorizontalOffset = dropDownHorizontalOffset ?: a.getDimensionPixelOffset(R.styleable.MaterialRecyclerViewPopupWindow_android_dropDownHorizontalOffset, 0)
+        this.dropDownVerticalOffset = dropDownVerticalOffset ?: a.getDimensionPixelOffset(R.styleable.MaterialRecyclerViewPopupWindow_android_dropDownVerticalOffset, 0)
         backgroundDimEnabled = a.getBoolean(R.styleable.MaterialRecyclerViewPopupWindow_android_backgroundDimEnabled, false)
         backgroundDimAmount = a.getFloat(R.styleable.MaterialRecyclerViewPopupWindow_android_backgroundDimAmount, DEFAULT_BACKGROUND_DIM_AMOUNT)
         popupPaddingBottom = a.getDimensionPixelSize(R.styleable.MaterialRecyclerViewPopupWindow_mpm_paddingBottom, 0)
@@ -220,16 +222,20 @@ internal class MaterialRecyclerViewPopupWindow(
         var otherHeights = 0
 
         val dropDownList = View.inflate(context, R.layout.mpm_popup_menu, null) as RecyclerView
-        dropDownList.adapter = adapter
-        dropDownList.layoutManager = LinearLayoutManager(context)
-        dropDownList.isFocusable = true
-        dropDownList.isFocusableInTouchMode = true
-        dropDownList.setPadding(popupPaddingLeft, popupPaddingTop, popupPaddingRight, popupPaddingBottom)
+        dropDownList.also {
+            it.adapter = adapter
+            it.layoutManager = LinearLayoutManager(context)
+            it.isFocusable = true
+            it.isFocusableInTouchMode = true
+            it.setPadding(popupPaddingLeft, popupPaddingTop, popupPaddingRight, popupPaddingBottom)
+        }
+
+        val background = popup.background
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             dropDownList.clipToOutline = true
             // Move the background from popup to RecyclerView for clipToOutline to take effect.
-            dropDownList.background = popup.background
+            dropDownList.background = background
             popup.setBackgroundDrawable(null)
         }
 
@@ -238,7 +244,6 @@ internal class MaterialRecyclerViewPopupWindow(
         // getMaxAvailableHeight() subtracts the padding, so we put it back
         // to get the available height for the whole window.
         val padding: Int
-        val background = popup.background
         if (background != null) {
             background.getPadding(tempRect)
             padding = tempRect.top + tempRect.bottom

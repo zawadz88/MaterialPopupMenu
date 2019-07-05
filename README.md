@@ -91,7 +91,7 @@ To create a popup menu with 2 sections and a section title in the second one:
 * Adding additional offsets to where the dialog should be shown
 * Keeping popup open after clicking on item
 * Dimming background behind popup
-* Customizing popup padding
+* Customizing popup width, padding & offsets
 * Displaying an icon at the end of each item which indicates a nested submenu
 
 ## Custom views
@@ -201,3 +201,6 @@ Check out the [official documentation](https://kotlinlang.org/docs/reference/bas
 
 ### I have not migrated to AndroidX. Can I use this library?
 If you're still using legacy Android Support libraries you can use version 2.2.0. AndroidX is supported by default since 3.0.0.
+
+### Can I use this library on Jelly Bean?
+Up to 3.4.0 minimum supported version was API 16 (Jelly Bean) so you can use that version. Since 4.0.0 minimum supported version is API 19 (Kitkat).
