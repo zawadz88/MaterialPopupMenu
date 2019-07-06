@@ -6,6 +6,16 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [4.0.0]
+### Changed
+- *Breaking change:* minimum SDK version raised to API 19 (Kitkat)
+- *Breaking change:* replaced `mpm_paddingLeft` with `mpm_paddingStart` and `mpm_paddingRight` with `mpm_paddingEnd` and other inter layout attributes accordingly for better RTL support
+- *Breaking change:* updated `MaterialPopupMenuBuilder.SectionHolder.label` and `MaterialPopupMenuBuilder.ItemHolder.label` to be of type `CharSequence` rather than `String` to allow the use of `Spannables`.
+- Moved `super.bindItem` call to the end of `ItemViewHolder#bindItem`method so that it's possible to override values set by it in callbacks.
+
+### Added
+- an option to override the defaults and set menu width & dropdown offsets programmatically via `MaterialPopupMenuBuilder`
+
 ## [3.4.0]
 ### Added
 - An option to display an icon at the end of each item which indicates a nested submenu.
@@ -98,7 +108,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Added
 Initial release of the library.
 
-[Unreleased]: https://github.com/zawadz88/MaterialPopupMenu/compare/3.4.0...HEAD
+[Unreleased]: https://github.com/zawadz88/MaterialPopupMenu/compare/4.0.0...HEAD
+[4.0.0]: https://github.com/zawadz88/MaterialPopupMenu/compare/3.4.0...4.0.0
 [3.4.0]: https://github.com/zawadz88/MaterialPopupMenu/compare/3.3.0...3.4.0
 [3.3.0]: https://github.com/zawadz88/MaterialPopupMenu/compare/3.2.0...3.3.0
 [3.2.0]: https://github.com/zawadz88/MaterialPopupMenu/compare/3.1.0...3.2.0

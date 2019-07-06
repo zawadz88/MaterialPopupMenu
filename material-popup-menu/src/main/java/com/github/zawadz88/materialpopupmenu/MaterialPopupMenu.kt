@@ -22,10 +22,14 @@ import com.github.zawadz88.materialpopupmenu.internal.PopupMenuAdapter
  *
  * @author Piotr Zawadzki
  */
-class MaterialPopupMenu internal constructor(
+class MaterialPopupMenu
+internal constructor(
     @StyleRes internal val style: Int,
     internal val dropdownGravity: Int,
-    internal val sections: List<PopupMenuSection>
+    internal val sections: List<PopupMenuSection>,
+    internal val fixedContentWidthInPx: Int,
+    internal val dropDownVerticalOffset: Int?,
+    internal val dropDownHorizontalOffset: Int?
 ) {
 
     private var popupWindow: MaterialRecyclerViewPopupWindow? = null
@@ -43,7 +47,13 @@ class MaterialPopupMenu internal constructor(
     fun show(context: Context, anchor: View) {
         val style = resolvePopupStyle(context)
         val styledContext = ContextThemeWrapper(context, style)
-        val popupWindow = MaterialRecyclerViewPopupWindow(styledContext, dropdownGravity)
+        val popupWindow = MaterialRecyclerViewPopupWindow(
+            context = styledContext,
+            dropDownGravity = dropdownGravity,
+            fixedContentWidthInPx = fixedContentWidthInPx,
+            dropDownVerticalOffset = dropDownVerticalOffset,
+            dropDownHorizontalOffset = dropDownHorizontalOffset
+        )
         val adapter = PopupMenuAdapter(sections) { popupWindow.dismiss() }
 
         popupWindow.adapter = adapter
@@ -85,12 +95,12 @@ class MaterialPopupMenu internal constructor(
     }
 
     internal data class PopupMenuSection(
-        val title: String?,
+        val title: CharSequence?,
         val items: List<AbstractPopupMenuItem>
     )
 
     internal data class PopupMenuItem(
-        val label: String?,
+        val label: CharSequence?,
         @StringRes val labelRes: Int,
         @ColorInt val labelColor: Int,
         @DrawableRes val icon: Int,

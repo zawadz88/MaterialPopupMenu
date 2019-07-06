@@ -11,9 +11,9 @@
 
     <attr name="mpm_paddingBottom" format="dimension" />
 
-    <attr name="mpm_paddingLeft" format="dimension" />
+    <attr name="mpm_paddingStart" format="dimension" />
 
-    <attr name="mpm_paddingRight" format="dimension" />
+    <attr name="mpm_paddingEnd" format="dimension" />
 
     <attr name="mpm_paddingTop" format="dimension" />
 
@@ -25,8 +25,8 @@
         <attr name="android:backgroundDimEnabled" />
         <attr name="android:backgroundDimAmount" />
         <attr name="mpm_paddingBottom" />
-        <attr name="mpm_paddingLeft" />
-        <attr name="mpm_paddingRight" />
+        <attr name="mpm_paddingStart" />
+        <attr name="mpm_paddingEnd" />
         <attr name="mpm_paddingTop" />
     </declare-styleable>
 

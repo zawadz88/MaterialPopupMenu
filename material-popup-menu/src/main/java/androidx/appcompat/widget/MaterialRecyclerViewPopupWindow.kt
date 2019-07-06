@@ -27,9 +27,12 @@ import java.lang.reflect.Method
  * @see ListPopupWindow
  */
 @SuppressLint("PrivateResource,RestrictedApi")
-class MaterialRecyclerViewPopupWindow(
+internal class MaterialRecyclerViewPopupWindow(
     private val context: Context,
-    private var dropDownGravity: Int
+    private var dropDownGravity: Int,
+    private val fixedContentWidthInPx: Int,
+    dropDownVerticalOffset: Int?,
+    dropDownHorizontalOffset: Int?
 ) {
 
     companion object {
@@ -66,7 +69,10 @@ class MaterialRecyclerViewPopupWindow(
 
     internal var adapter: PopupMenuAdapter? = null
         set(value) {
-            setContentWidth(measureIndividualMenuWidth(checkNotNull(value)))
+            val menuWidth = measureMenuSizeAndGetWidth(checkNotNull(value))
+            if (fixedContentWidthInPx == 0) {
+                updateContentWidth(menuWidth)
+            }
             field = value
         }
 
@@ -96,9 +102,9 @@ class MaterialRecyclerViewPopupWindow(
 
     private val popupPaddingBottom: Int
 
-    private val popupPaddingLeft: Int
+    private val popupPaddingStart: Int
 
-    private val popupPaddingRight: Int
+    private val popupPaddingEnd: Int
 
     private val popupPaddingTop: Int
 
@@ -113,16 +119,20 @@ class MaterialRecyclerViewPopupWindow(
 
         val a = context.obtainStyledAttributes(null, R.styleable.MaterialRecyclerViewPopupWindow)
 
-        dropDownHorizontalOffset = a.getDimensionPixelOffset(R.styleable.MaterialRecyclerViewPopupWindow_android_dropDownHorizontalOffset, 0)
-        dropDownVerticalOffset = a.getDimensionPixelOffset(R.styleable.MaterialRecyclerViewPopupWindow_android_dropDownVerticalOffset, 0)
+        this.dropDownHorizontalOffset = dropDownHorizontalOffset ?: a.getDimensionPixelOffset(R.styleable.MaterialRecyclerViewPopupWindow_android_dropDownHorizontalOffset, 0)
+        this.dropDownVerticalOffset = dropDownVerticalOffset ?: a.getDimensionPixelOffset(R.styleable.MaterialRecyclerViewPopupWindow_android_dropDownVerticalOffset, 0)
         backgroundDimEnabled = a.getBoolean(R.styleable.MaterialRecyclerViewPopupWindow_android_backgroundDimEnabled, false)
         backgroundDimAmount = a.getFloat(R.styleable.MaterialRecyclerViewPopupWindow_android_backgroundDimAmount, DEFAULT_BACKGROUND_DIM_AMOUNT)
         popupPaddingBottom = a.getDimensionPixelSize(R.styleable.MaterialRecyclerViewPopupWindow_mpm_paddingBottom, 0)
-        popupPaddingLeft = a.getDimensionPixelSize(R.styleable.MaterialRecyclerViewPopupWindow_mpm_paddingLeft, 0)
-        popupPaddingRight = a.getDimensionPixelSize(R.styleable.MaterialRecyclerViewPopupWindow_mpm_paddingRight, 0)
+        popupPaddingStart = a.getDimensionPixelSize(R.styleable.MaterialRecyclerViewPopupWindow_mpm_paddingStart, 0)
+        popupPaddingEnd = a.getDimensionPixelSize(R.styleable.MaterialRecyclerViewPopupWindow_mpm_paddingEnd, 0)
         popupPaddingTop = a.getDimensionPixelSize(R.styleable.MaterialRecyclerViewPopupWindow_mpm_paddingTop, 0)
 
         a.recycle()
+
+        if (fixedContentWidthInPx != 0) {
+            updateContentWidth(fixedContentWidthInPx)
+        }
     }
 
     /**
@@ -131,7 +141,7 @@ class MaterialRecyclerViewPopupWindow(
 
      * @param width Desired width of content in pixels.
      */
-    private fun setContentWidth(width: Int) {
+    private fun updateContentWidth(width: Int) {
         val popupBackground = popup.background
         dropDownWidth = if (popupBackground != null) {
             popupBackground.getPadding(tempRect)
@@ -145,7 +155,7 @@ class MaterialRecyclerViewPopupWindow(
      * Show the popupMenu list. If the list is already showing, this method
      * will recalculate the popupMenu's size and position.
      */
-    fun show() {
+    internal fun show() {
         checkNotNull(anchorView) { "Anchor view must be set!" }
         val height = buildDropDown()
 
@@ -183,7 +193,7 @@ class MaterialRecyclerViewPopupWindow(
     /**
      * Dismiss the popupMenu window.
      */
-    fun dismiss() {
+    internal fun dismiss() {
         popup.dismiss()
         popup.contentView = null
     }
@@ -193,7 +203,7 @@ class MaterialRecyclerViewPopupWindow(
      *
      * @param listener Listener that is called when this popup window is dismissed.
      */
-    fun setOnDismissListener(listener: (() -> Unit)?) {
+    internal fun setOnDismissListener(listener: (() -> Unit)?) {
         if (listener != null) {
             popup.setOnDismissListener { listener.invoke() }
         } else {
@@ -212,16 +222,20 @@ class MaterialRecyclerViewPopupWindow(
         var otherHeights = 0
 
         val dropDownList = View.inflate(context, R.layout.mpm_popup_menu, null) as RecyclerView
-        dropDownList.adapter = adapter
-        dropDownList.layoutManager = LinearLayoutManager(context)
-        dropDownList.isFocusable = true
-        dropDownList.isFocusableInTouchMode = true
-        dropDownList.setPadding(popupPaddingLeft, popupPaddingTop, popupPaddingRight, popupPaddingBottom)
+        dropDownList.also {
+            it.adapter = adapter
+            it.layoutManager = LinearLayoutManager(context)
+            it.isFocusable = true
+            it.isFocusableInTouchMode = true
+            it.setPaddingRelative(popupPaddingStart, popupPaddingTop, popupPaddingEnd, popupPaddingBottom)
+        }
+
+        val background = popup.background
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             dropDownList.clipToOutline = true
             // Move the background from popup to RecyclerView for clipToOutline to take effect.
-            dropDownList.background = popup.background
+            dropDownList.background = background
             popup.setBackgroundDrawable(null)
         }
 
@@ -230,7 +244,6 @@ class MaterialRecyclerViewPopupWindow(
         // getMaxAvailableHeight() subtracts the padding, so we put it back
         // to get the available height for the whole window.
         val padding: Int
-        val background = popup.background
         if (background != null) {
             background.getPadding(tempRect)
             padding = tempRect.top + tempRect.bottom
@@ -367,7 +380,7 @@ class MaterialRecyclerViewPopupWindow(
     /**
      * @see android.support.v7.view.menu.MenuPopup.measureIndividualMenuWidth
      */
-    private fun measureIndividualMenuWidth(adapter: PopupMenuAdapter): Int {
+    private fun measureMenuSizeAndGetWidth(adapter: PopupMenuAdapter): Int {
         adapter.setupIndices()
         val parent = FrameLayout(context)
         var menuWidth = popupMinWidth

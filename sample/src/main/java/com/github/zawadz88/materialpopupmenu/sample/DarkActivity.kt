@@ -5,6 +5,10 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
+import android.text.Spannable
+import android.text.SpannableString
+import android.text.style.ForegroundColorSpan
+import android.text.style.RelativeSizeSpan
 import android.util.Log
 import android.view.Gravity
 import android.view.Menu
@@ -17,6 +21,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SwitchCompat
 import androidx.appcompat.widget.Toolbar
 import androidx.core.content.ContextCompat
+import butterknife.BindDimen
 import butterknife.BindView
 import butterknife.ButterKnife
 import butterknife.OnClick
@@ -42,6 +47,14 @@ class DarkActivity : AppCompatActivity() {
 
     @BindView(R.id.roundedCornersTextView)
     lateinit var roundedCornersTextView: TextView
+
+    @JvmField
+    @BindDimen(R.dimen.horizontal_button_padding)
+    var horizontalButtonPadding: Int = 0
+
+    @JvmField
+    @BindDimen(R.dimen.horizontal_popup_menu_background_start_padding)
+    var horizontalPopupMenuBackgroundStartPadding: Int = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -400,6 +413,14 @@ class DarkActivity : AppCompatActivity() {
                         textView.text = "Some long text that is applied later to see if height calculation indeed is incorrectly calculated due to this binding."
                     }
                 }
+                item {
+                    label = createMultiLineText()
+                    viewBoundCallback = { view ->
+                        val tv = view.findViewById<TextView>(R.id.mpm_popup_menu_item_label)
+                        tv.setSingleLine(false)
+                        tv.maxLines = 2
+                    }
+                }
             }
         }
 
@@ -493,8 +514,64 @@ class DarkActivity : AppCompatActivity() {
         conditionalPopupMenuBuilder.build().show(this@DarkActivity, view)
     }
 
+    @OnClick(R.id.bottomButton)
+    fun onBottomButtonClicked(view: View) {
+        val popupMenu = popupMenu {
+            style = R.style.Widget_MPM_Menu_Dark
+            dropdownGravity = Gravity.TOP xor Gravity.CENTER_HORIZONTAL
+            fixedContentWidthInPx = calculatePopupMenuWidthForBottomButton(view)
+            dropDownHorizontalOffset = horizontalButtonPadding - horizontalPopupMenuBackgroundStartPadding
+            dropDownVerticalOffset = calculatePopupMenuVerticalOffsetForBottomButton(view)
+            section {
+                item {
+                    label = "Copy"
+                    icon = R.drawable.abc_ic_menu_copy_mtrl_am_alpha
+                    callback = {
+                        Toast.makeText(this@DarkActivity, "Copied!", Toast.LENGTH_SHORT).show()
+                    }
+                }
+                item {
+                    label = "Paste"
+                    icon = R.drawable.abc_ic_menu_paste_mtrl_am_alpha
+                    callback = {
+                        Toast.makeText(this@DarkActivity, "Text pasted!", Toast.LENGTH_SHORT).show()
+                    }
+                }
+            }
+        }
+        popupMenu.show(this@DarkActivity, view)
+    }
+
+    private fun calculatePopupMenuWidthForBottomButton(view: View) = view.width - 2 * horizontalButtonPadding
+
+    /**
+     * There was a change in dropdown offsets on Nougat. Before it the popup menu would be displayed on top of the View and not above it.
+     */
+    private fun calculatePopupMenuVerticalOffsetForBottomButton(view: View) = if (Build.VERSION.SDK_INT < Build.VERSION_CODES.N) view.height else 0
+
     private fun shareUrl() {
         val shareIntent = Intent(Intent.ACTION_VIEW, Uri.parse(Constants.SHARE_URL))
         startActivity(shareIntent)
+    }
+
+    private fun createMultiLineText(): CharSequence {
+        val text = "Line 1\nLines in secondary color"
+        val spannable = SpannableString(text)
+        val idx = text.indexOf("\n")
+        if (idx != -1) {
+            spannable.setSpan(
+                RelativeSizeSpan(0.7f),
+                idx,
+                text.length,
+                Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+            )
+            spannable.setSpan(
+                ForegroundColorSpan(ContextCompat.getColor(this@DarkActivity, R.color.abc_secondary_text_material_dark)),
+                idx,
+                text.length,
+                Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+            )
+        }
+        return spannable
     }
 }

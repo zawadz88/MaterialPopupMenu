@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     style="@style/Widget.MPM.Item"
     android:layout_width="match_parent"
     android:layout_height="@dimen/mpm_popup_menu_item_height"
@@ -9,10 +9,8 @@
     android:focusable="true"
     android:gravity="center_vertical"
     android:orientation="horizontal"
-    android:paddingEnd="@dimen/mpm_popup_menu_item_padding_horizontal"
-    android:paddingLeft="@dimen/mpm_popup_menu_item_padding_horizontal"
-    android:paddingRight="@dimen/mpm_popup_menu_item_padding_horizontal"
     android:paddingStart="@dimen/mpm_popup_menu_item_padding_horizontal"
+    android:paddingEnd="@dimen/mpm_popup_menu_item_padding_horizontal"
     tools:ignore="UseCompoundDrawables"
     tools:theme="@style/Widget.MPM.Menu">
 
@@ -21,9 +19,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="@dimen/mpm_popup_menu_item_icon_margin_end"
-        android:layout_marginRight="@dimen/mpm_popup_menu_item_icon_margin_end"
-        app:tint="?attr/mpm_activeIconColor"
         android:visibility="gone"
+        app:tint="?attr/mpm_activeIconColor"
         tools:ignore="PrivateResource"
         tools:src="@drawable/abc_ic_voice_search_api_material"
         tools:visibility="visible" />
@@ -31,12 +28,12 @@
     <TextView
         android:id="@+id/mpm_popup_menu_item_label"
         android:layout_width="0dp"
-        android:layout_weight="1"
         android:layout_height="wrap_content"
-        android:textAlignment="viewStart"
         android:layout_gravity="start|center_vertical"
+        android:layout_weight="1"
         android:ellipsize="end"
         android:lines="1"
+        android:textAlignment="viewStart"
         android:textColor="?attr/mpm_primaryTextColor"
         android:textSize="@dimen/mpm_popup_menu_item_label_text_size"
         tools:text="Preview" />
@@ -46,10 +43,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/mpm_popup_menu_item_icon_margin_end"
-        android:layout_marginLeft="@dimen/mpm_popup_menu_item_icon_margin_end"
         android:visibility="gone"
-        app:tint="?attr/mpm_activeIconColor"
         app:srcCompat="@drawable/mpm_ic_menu_end"
-        tools:visibility="visible"  />
+        app:tint="?attr/mpm_activeIconColor"
+        tools:visibility="visible" />
 
 </LinearLayout>

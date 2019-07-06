@@ -40,6 +40,22 @@ class MaterialPopupMenuBuilder {
      */
     var dropdownGravity: Int = Gravity.NO_GRAVITY
 
+    /**
+     * Setting this to a non-zero value will force the width of the popup menu to be exactly this value.
+     * If set to 0, the default mechanism for measuring popup menu width will be applied.
+     */
+    var fixedContentWidthInPx: Int = 0
+
+    /**
+     * Setting this to non-`null` value will override `android:dropDownVerticalOffset` set by the style applied in [style].
+     */
+    var dropDownVerticalOffset: Int? = null
+
+    /**
+     * Setting this to non-`null` value will override `android:dropDownHorizontalOffset` set by the style applied in [style].
+     */
+    var dropDownHorizontalOffset: Int? = null
+
     private val sectionHolderList = arrayListOf<SectionHolder>()
 
     /**
@@ -66,7 +82,14 @@ class MaterialPopupMenuBuilder {
 
         val sections = sectionHolderList.map { it.convertToPopupMenuSection() }
 
-        return MaterialPopupMenu(style, dropdownGravity, sections)
+        return MaterialPopupMenu(
+            style = style,
+            dropdownGravity = dropdownGravity,
+            sections = sections,
+            fixedContentWidthInPx = fixedContentWidthInPx,
+            dropDownVerticalOffset = dropDownVerticalOffset,
+            dropDownHorizontalOffset = dropDownHorizontalOffset
+        )
     }
 
     /**
@@ -79,7 +102,7 @@ class MaterialPopupMenuBuilder {
          * Optional section holder. *null* by default.
          * If the title is not *null* it will be displayed in the menu.
          */
-        var title: String? = null
+        var title: CharSequence? = null
 
         private val itemsHolderList = arrayListOf<AbstractItemHolder>()
 
@@ -130,7 +153,7 @@ class MaterialPopupMenuBuilder {
          *
          * If both [label] and [labelRes] are set [label] will be used.
          */
-        var label: String? = null
+        var label: CharSequence? = null
 
         /**
          * Item label.

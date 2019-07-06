@@ -26,8 +26,8 @@
     </style>
 
     <style name="TitleLabel" parent="Base.TitleLabel">
-        <item name="android:layout_marginLeft">16dp</item>
-        <item name="android:layout_marginRight">16dp</item>
+        <item name="android:layout_marginStart">16dp</item>
+        <item name="android:layout_marginEnd">16dp</item>
         <item name="android:layout_marginTop">8dp</item>
         <item name="android:paddingBottom">16dp</item>
         <item name="android:paddingTop">16dp</item>
@@ -35,7 +35,7 @@
     </style>
 
     <style name="SubtitleLabel">
-        <item name="android:layout_marginLeft">16dp</item>
+        <item name="android:layout_marginStart">16dp</item>
         <item name="android:layout_marginTop">0dp</item>
         <item name="android:textAppearance">@style/TextAppearance.AppCompat.Caption</item>
     </style>
@@ -64,15 +64,15 @@
 
     <style name="Widget.MPM.Menu.CustomPadding">
         <item name="mpm_paddingBottom">16dp</item>
-        <item name="mpm_paddingLeft">16dp</item>
-        <item name="mpm_paddingRight">16dp</item>
+        <item name="mpm_paddingStart">16dp</item>
+        <item name="mpm_paddingEnd">16dp</item>
         <item name="mpm_paddingTop">16dp</item>
     </style>
 
     <style name="Widget.MPM.Menu.Dark.CustomPadding">
         <item name="mpm_paddingBottom">16dp</item>
-        <item name="mpm_paddingLeft">16dp</item>
-        <item name="mpm_paddingRight">16dp</item>
+        <item name="mpm_paddingStart">16dp</item>
+        <item name="mpm_paddingEnd">16dp</item>
         <item name="mpm_paddingTop">16dp</item>
     </style>
 
