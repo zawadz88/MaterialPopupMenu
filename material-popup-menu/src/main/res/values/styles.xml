@@ -8,8 +8,8 @@
         <item name="mpm_activeIconColor">@color/mpm_black_54_opacity</item>
         <item name="mpm_separatorColor">@color/mpm_black_12_opacity</item>
         <item name="mpm_paddingBottom">@dimen/mpm_popup_menu_vertical_padding</item>
-        <item name="mpm_paddingLeft">0dp</item>
-        <item name="mpm_paddingRight">0dp</item>
+        <item name="mpm_paddingStart">0dp</item>
+        <item name="mpm_paddingEnd">0dp</item>
         <item name="mpm_paddingTop">@dimen/mpm_popup_menu_vertical_padding</item>
     </style>
 
@@ -21,8 +21,8 @@
         <item name="mpm_activeIconColor">@color/mpm_white</item>
         <item name="mpm_separatorColor">@color/mpm_white_12_opacity</item>
         <item name="mpm_paddingBottom">@dimen/mpm_popup_menu_vertical_padding</item>
-        <item name="mpm_paddingLeft">0dp</item>
-        <item name="mpm_paddingRight">0dp</item>
+        <item name="mpm_paddingStart">0dp</item>
+        <item name="mpm_paddingEnd">0dp</item>
         <item name="mpm_paddingTop">@dimen/mpm_popup_menu_vertical_padding</item>
     </style>
 

@@ -9,8 +9,6 @@
     android:gravity="center_vertical"
     android:orientation="horizontal"
     android:paddingEnd="@dimen/mpm_popup_menu_item_padding_horizontal"
-    android:paddingLeft="@dimen/mpm_popup_menu_item_padding_horizontal"
-    android:paddingRight="@dimen/mpm_popup_menu_item_padding_horizontal"
     android:paddingStart="@dimen/mpm_popup_menu_item_padding_horizontal"
     tools:ignore="UseCompoundDrawables"
     tools:theme="@style/Widget.MPM.Menu">

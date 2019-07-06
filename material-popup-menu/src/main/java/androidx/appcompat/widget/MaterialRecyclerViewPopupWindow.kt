@@ -102,9 +102,9 @@ internal class MaterialRecyclerViewPopupWindow(
 
     private val popupPaddingBottom: Int
 
-    private val popupPaddingLeft: Int
+    private val popupPaddingStart: Int
 
-    private val popupPaddingRight: Int
+    private val popupPaddingEnd: Int
 
     private val popupPaddingTop: Int
 
@@ -124,8 +124,8 @@ internal class MaterialRecyclerViewPopupWindow(
         backgroundDimEnabled = a.getBoolean(R.styleable.MaterialRecyclerViewPopupWindow_android_backgroundDimEnabled, false)
         backgroundDimAmount = a.getFloat(R.styleable.MaterialRecyclerViewPopupWindow_android_backgroundDimAmount, DEFAULT_BACKGROUND_DIM_AMOUNT)
         popupPaddingBottom = a.getDimensionPixelSize(R.styleable.MaterialRecyclerViewPopupWindow_mpm_paddingBottom, 0)
-        popupPaddingLeft = a.getDimensionPixelSize(R.styleable.MaterialRecyclerViewPopupWindow_mpm_paddingLeft, 0)
-        popupPaddingRight = a.getDimensionPixelSize(R.styleable.MaterialRecyclerViewPopupWindow_mpm_paddingRight, 0)
+        popupPaddingStart = a.getDimensionPixelSize(R.styleable.MaterialRecyclerViewPopupWindow_mpm_paddingStart, 0)
+        popupPaddingEnd = a.getDimensionPixelSize(R.styleable.MaterialRecyclerViewPopupWindow_mpm_paddingEnd, 0)
         popupPaddingTop = a.getDimensionPixelSize(R.styleable.MaterialRecyclerViewPopupWindow_mpm_paddingTop, 0)
 
         a.recycle()
@@ -141,7 +141,7 @@ internal class MaterialRecyclerViewPopupWindow(
 
      * @param width Desired width of content in pixels.
      */
-    internal fun updateContentWidth(width: Int) {
+    private fun updateContentWidth(width: Int) {
         val popupBackground = popup.background
         dropDownWidth = if (popupBackground != null) {
             popupBackground.getPadding(tempRect)
@@ -227,7 +227,7 @@ internal class MaterialRecyclerViewPopupWindow(
             it.layoutManager = LinearLayoutManager(context)
             it.isFocusable = true
             it.isFocusableInTouchMode = true
-            it.setPadding(popupPaddingLeft, popupPaddingTop, popupPaddingRight, popupPaddingBottom)
+            it.setPaddingRelative(popupPaddingStart, popupPaddingTop, popupPaddingEnd, popupPaddingBottom)
         }
 
         val background = popup.background
