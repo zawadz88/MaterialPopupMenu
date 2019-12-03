@@ -10,8 +10,9 @@ jobs:
       uses: actions/checkout@v1
       with:
         fetch-depth: 1
-
-    - name: run tests
+    - name: Create local.properties
+      run: printf 'bintray.user=dummy_user\nbintray.apikey=dummy_api_key' > local.properties
+    - name: Build & verify library
       uses: reactivecircus/android-emulator-runner@v1.0.2
       with:
         api-level: 29
