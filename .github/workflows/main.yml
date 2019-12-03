@@ -17,3 +17,8 @@ jobs:
       with:
         api-level: 29
         script: ./gradlew check publishToMavenLocal --continue --no-daemon --stacktrace
+    - name: Archive verification results
+      uses: actions/upload-artifact@v1
+      with:
+        name: material-popup-menu-reports
+        path: material-popup-menu/build/reports
