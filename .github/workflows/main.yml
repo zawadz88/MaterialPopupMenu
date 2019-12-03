@@ -37,4 +37,4 @@ jobs:
       uses: actions/upload-artifact@v1
       with:
         name: material-popup-menu-aar
-        path: material-popup-menu/build/outputs/aar/material-popup-menu-release.aar
+        path: material-popup-menu/build/outputs/aar
