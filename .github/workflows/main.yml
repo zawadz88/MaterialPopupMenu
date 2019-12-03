@@ -12,13 +12,29 @@ jobs:
         fetch-depth: 1
     - name: Create local.properties
       run: printf 'bintray.user=dummy_user\nbintray.apikey=dummy_api_key' > local.properties
-    - name: Build & verify library
-      uses: reactivecircus/android-emulator-runner@v1.0.2
+    - name: set up JDK 1.8
+      uses: actions/setup-java@v1
       with:
-        api-level: 29
-        script: ./gradlew check publishToMavenLocal --continue --no-daemon --stacktrace
-    - name: Archive verification results
+        java-version: 1.8
+    - name: Build with Gradle
+      run: ./gradlew check publishToMavenLocal --continue --no-daemon --stacktrace
+    - name: Archive library reports
       uses: actions/upload-artifact@v1
       with:
         name: material-popup-menu-reports
         path: material-popup-menu/build/reports
+    - name: Archive sample app reports
+      uses: actions/upload-artifact@v1
+      with:
+        name: sample-reports
+        path: sample/build/reports
+    - name: Archive library POM
+      uses: actions/upload-artifact@v1
+      with:
+        name: material-popup-menu-pom
+        path: material-popup-menu/build/publications/MyPublication/pom-default.xml
+    - name: Archive library AAR
+      uses: actions/upload-artifact@v1
+      with:
+        name: material-popup-menu-aar
+        path: material-popup-menu/build/outputs/aar/material-popup-menu-release.aar
