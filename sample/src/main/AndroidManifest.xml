@@ -21,14 +21,19 @@
         </activity>
 
         <activity
-            android:label="@string/light_activity"
             android:name=".LightActivity"
+            android:label="@string/light_activity"
             android:theme="@style/AppTheme.Light" />
 
         <activity
-            android:label="@string/dark_activity"
             android:name=".DarkActivity"
+            android:label="@string/dark_activity"
             android:theme="@style/AppTheme.Dark" />
+
+        <activity
+            android:name=".SampleActivity"
+            android:theme="@style/AppTheme.Light" />
+
     </application>
 
 </manifest>

@@ -19,4 +19,9 @@
     <string name="custom_padding">Custom padding</string>
     <string name="rounded_corners">Rounded corners</string>
     <string name="bottom_button_text">Show menu above me please</string>
+
+    <string name="choose_theme">Choose theme</string>
+    <string name="theme_light">Light</string>
+    <string name="theme_dark">Dark</string>
+
 </resources>

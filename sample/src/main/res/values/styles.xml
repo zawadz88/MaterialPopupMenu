@@ -7,18 +7,36 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="materialButtonStyle">@style/AppTheme.Button</item>
+        <item name="materialButtonOutlinedStyle">@style/AppTheme.Button.OutlinedButton</item>
     </style>
 
     <style name="AppTheme.Light" parent="Theme.MaterialComponents.Light.NoActionBar">
         <item name="colorPrimary">@color/lightColorPrimary</item>
         <item name="colorPrimaryDark">@color/lightColorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="materialButtonStyle">@style/AppTheme.Button</item>
+        <item name="materialButtonOutlinedStyle">@style/AppTheme.Button.OutlinedButton</item>
     </style>
 
     <style name="AppTheme.Dark" parent="Theme.MaterialComponents.NoActionBar">
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="materialButtonStyle">@style/AppTheme.Button</item>
+        <item name="materialButtonOutlinedStyle">@style/AppTheme.Button.OutlinedButton</item>
+    </style>
+
+    <style name="AppTheme.Button" parent="Widget.MaterialComponents.Button">
+        <item name="backgroundTint">?attr/colorAccent</item>
+    </style>
+
+    <style name="AppTheme.Button.OutlinedButton" parent="Widget.MaterialComponents.Button.OutlinedButton">
+        <item name="android:theme">@style/AppThemeOverlay.AccentToPrimary</item>
+    </style>
+
+    <style name="AppThemeOverlay.AccentToPrimary" parent="">
+        <item name="colorPrimary">?attr/colorAccent</item>
     </style>
 
     <style name="Base.TitleLabel" parent="TextAppearance.AppCompat">
