@@ -29,4 +29,9 @@ class MainActivity : AppCompatActivity() {
     fun onDarkActivityClicked() {
         startActivity(Intent(this, DarkActivity::class.java))
     }
+
+    @OnClick(R.id.sample_activity)
+    fun onSampleActivityClicked() {
+        startActivity(Intent(this, SampleActivity::class.java))
+    }
 }

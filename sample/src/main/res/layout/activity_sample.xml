@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.github.zawadz88.materialpopupmenu.sample.SampleActivity"
+    tools:theme="@style/AppTheme.Light">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="?attr/colorPrimary"
+        android:elevation="4dp"
+        tools:targetApi="lollipop" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:orientation="vertical"
+            android:clipToPadding="false"
+            android:padding="16dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:layout_gravity="center_horizontal"
+                android:text="@string/choose_theme"/>
+
+            <com.google.android.material.button.MaterialButtonToggleGroup
+                android:id="@+id/themeToggleGroup"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:layout_gravity="center_horizontal"
+                app:singleSelection="true"
+                app:checkedButton="@id/themeLightButton">
+
+                <Button
+                    android:id="@+id/themeLightButton"
+                    style="?attr/materialButtonOutlinedStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:minWidth="0dp"
+                    android:text="@string/theme_light"
+                    app:icon="@drawable/ic_theme_light_24px"
+                    app:iconPadding="4dp"/>
+
+                <Button
+                    android:id="@+id/themeDarkButton"
+                    style="?attr/materialButtonOutlinedStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:minWidth="0dp"
+                    android:text="@string/theme_dark"
+                    app:icon="@drawable/ic_theme_dark_24px"
+                    app:iconPadding="4dp"/>
+
+            </com.google.android.material.button.MaterialButtonToggleGroup>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</LinearLayout>
