@@ -47,6 +47,7 @@ dependencies {
     implementation("androidx.core:core:$ANDROIDX_CORE_VERSION") {
         force = true
     }
+    implementation("com.google.android.material:material:$MATERIAL_COMPONENTS_VERSION")
 }
 
 
