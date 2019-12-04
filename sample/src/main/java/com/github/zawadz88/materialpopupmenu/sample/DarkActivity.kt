@@ -21,7 +21,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SwitchCompat
 import androidx.appcompat.widget.Toolbar
 import androidx.core.content.ContextCompat
-import butterknife.BindDimen
 import butterknife.BindView
 import butterknife.ButterKnife
 import butterknife.OnClick
@@ -47,14 +46,6 @@ class DarkActivity : AppCompatActivity() {
 
     @BindView(R.id.roundedCornersTextView)
     lateinit var roundedCornersTextView: TextView
-
-    @JvmField
-    @BindDimen(R.dimen.horizontal_button_padding)
-    var horizontalButtonPadding: Int = 0
-
-    @JvmField
-    @BindDimen(R.dimen.horizontal_popup_menu_background_start_padding)
-    var horizontalPopupMenuBackgroundStartPadding: Int = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -520,7 +511,7 @@ class DarkActivity : AppCompatActivity() {
             style = R.style.Widget_MPM_Menu_Dark
             dropdownGravity = Gravity.TOP xor Gravity.CENTER_HORIZONTAL
             fixedContentWidthInPx = calculatePopupMenuWidthForBottomButton(view)
-            dropDownHorizontalOffset = horizontalButtonPadding - horizontalPopupMenuBackgroundStartPadding
+            dropDownHorizontalOffset = 0
             dropDownVerticalOffset = calculatePopupMenuVerticalOffsetForBottomButton(view)
             section {
                 item {
@@ -542,7 +533,7 @@ class DarkActivity : AppCompatActivity() {
         popupMenu.show(this@DarkActivity, view)
     }
 
-    private fun calculatePopupMenuWidthForBottomButton(view: View) = view.width - 2 * horizontalButtonPadding
+    private fun calculatePopupMenuWidthForBottomButton(view: View) = view.width
 
     /**
      * There was a change in dropdown offsets on Nougat. Before it the popup menu would be displayed on top of the View and not above it.
