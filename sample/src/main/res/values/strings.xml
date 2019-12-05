@@ -1,27 +1,40 @@
 <resources>
     <string name="app_name">Material Popup Menu</string>
-    <string name="more">More</string>
-    <string name="light_activity">Light Activity</string>
-    <string name="dark_activity">Dark Activity</string>
     <string name="two_sections_with_section_titles">Two sections with titles</string>
     <string name="single_section_with_icons">Single section with icons</string>
     <string name="single_section_without_icons">Single section without icons</string>
     <string name="two_sections_without_titles">Two sections without titles</string>
     <string name="custom_colors">Custom colors</string>
     <string name="conditional_items">Conditional items</string>
-    <string name="custom_offsets">Custom offsets</string>
     <string name="show_copy_item">Show Copy in popup menu</string>
     <string name="show_share_section">Show Share section</string>
     <string name="custom_items">Custom items</string>
     <string name="custom_item_label">Enabled</string>
+    <string name="more">More</string>
     <string name="copy">Copy</string>
-    <string name="dimmed_background">Dimmed background</string>
-    <string name="custom_padding">Custom padding</string>
-    <string name="rounded_corners">Rounded corners</string>
-    <string name="bottom_button_text">Show menu above me please</string>
+    <string name="custom_offsets">Custom offsets (fixed popup style used)</string>
+    <string name="dimmed_background">Dimmed background (fixed popup style used)</string>
+    <string name="custom_padding">Custom padding (fixed popup style used)</string>
+    <string name="rounded_corners">Rounded corners (fixed popup style used)</string>
+    <string name="multi_level">Multi-level</string>
+    <string name="anchor_width">Same width as anchor View</string>
 
-    <string name="choose_theme">Choose theme</string>
+    <string name="choose_theme">Choose Activity theme</string>
     <string name="theme_light">Light</string>
     <string name="theme_dark">Dark</string>
+    <string name="choose_gravity">Choose dropdown Gravity (multi-select)</string>
+    <string name="gravity_start">START</string>
+    <string name="gravity_end">END</string>
+    <string name="gravity_bottom">BOTTOM</string>
+    <string name="gravity_top">TOP</string>
+    <string name="choose_popup_style">Choose popup style</string>
+    <string name="popup_style_colored">Colored</string>
+    <string name="popup_style_default">Default</string>
+    <string name="popup_style_light">Light</string>
+    <string name="popup_style_dark">Dark</string>
+    <string name="choose_popup_sample">Choose popup sample</string>
+    <string name="drag_button_hint">You can also drag the button across the screen</string>
+    <string name="tap_hint">Tap to show popup menu</string>
+    <string name="anchor_view_width_hint">Anchor View width</string>
 
 </resources>

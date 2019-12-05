@@ -1,16 +1,5 @@
 <resources>
 
-    <style name="AppTheme" parent="Theme.MaterialComponents.Light.DarkActionBar">
-        <item name="windowActionBar">false</item>
-        <item name="windowNoTitle">true</item>
-
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
-        <item name="materialButtonStyle">@style/AppTheme.Button</item>
-        <item name="materialButtonOutlinedStyle">@style/AppTheme.Button.OutlinedButton</item>
-    </style>
-
     <style name="AppTheme.Light" parent="Theme.MaterialComponents.Light.NoActionBar">
         <item name="colorPrimary">@color/lightColorPrimary</item>
         <item name="colorPrimaryDark">@color/lightColorPrimaryDark</item>
@@ -58,7 +47,7 @@
         <item name="android:textAppearance">?attr/textAppearanceCaption</item>
     </style>
 
-    <style name="Widget.MPM.Menu.Dark.CustomBackground">
+    <style name="Widget.MPM.Menu.Dark.ColoredBackground">
         <item name="android:colorBackground">@color/colorPrimary</item>
     </style>
 
@@ -67,16 +56,7 @@
         <item name="android:dropDownHorizontalOffset">24dp</item>
     </style>
 
-    <style name="Widget.MPM.Menu.Dark.CustomOffsets">
-        <item name="android:dropDownVerticalOffset">24dp</item>
-        <item name="android:dropDownHorizontalOffset">24dp</item>
-    </style>
-
     <style name="Widget.MPM.Menu.Dimmed">
-        <item name="android:backgroundDimEnabled">true</item>
-    </style>
-
-    <style name="Widget.MPM.Menu.Dark.Dimmed">
         <item name="android:backgroundDimEnabled">true</item>
     </style>
 
@@ -87,18 +67,7 @@
         <item name="mpm_paddingTop">16dp</item>
     </style>
 
-    <style name="Widget.MPM.Menu.Dark.CustomPadding">
-        <item name="mpm_paddingBottom">16dp</item>
-        <item name="mpm_paddingStart">16dp</item>
-        <item name="mpm_paddingEnd">16dp</item>
-        <item name="mpm_paddingTop">16dp</item>
-    </style>
-
     <style name="Widget.MPM.Menu.RoundedCorners">
-        <!-- See styles-v21 as background with rounded corners works since version 21 -->
-    </style>
-
-    <style name="Widget.MPM.Menu.Dark.RoundedCorners">
         <!-- See styles-v21 as background with rounded corners works since version 21 -->
     </style>
 

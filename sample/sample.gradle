@@ -40,9 +40,8 @@ dependencies {
 
     implementation project(':material-popup-menu')
     implementation "androidx.constraintlayout:constraintlayout:$ANDROIDX_CONSTRAINTLAYOUT_VERSION"
-    implementation "com.jakewharton:butterknife:$BUTTERKNIFE_VERSION"
-    kapt "com.jakewharton:butterknife-compiler:$BUTTERKNIFE_VERSION"
-    implementation("com.google.android.material:material:$MATERIAL_COMPONENTS_VERSION")
+    implementation "com.google.android.material:material:$MATERIAL_COMPONENTS_VERSION"
+    implementation "androidx.core:core-ktx:$ANDROIDX_CORE_KTX_VERSION"
 }
 
 
