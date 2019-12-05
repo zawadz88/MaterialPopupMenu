@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.github.zawadz88.materialpopupmenu.sample.widget.DraggableConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
@@ -14,35 +15,37 @@
         android:layout_height="?attr/actionBarSize"
         android:background="?attr/colorPrimary"
         android:elevation="4dp"
+        app:layout_constraintTop_toTopOf="parent"
         tools:targetApi="lollipop" />
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:fillViewport="true">
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@id/bottomBar"
+        app:layout_constraintTop_toBottomOf="@id/toolbar">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:orientation="vertical"
             android:clipToPadding="false"
+            android:orientation="vertical"
             android:padding="16dp">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
                 android:layout_gravity="center_horizontal"
-                android:text="@string/choose_theme"/>
+                android:text="@string/choose_theme"
+                android:textAppearance="?attr/textAppearanceBody1" />
 
             <com.google.android.material.button.MaterialButtonToggleGroup
                 android:id="@+id/themeToggleGroup"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
                 android:layout_gravity="center_horizontal"
-                app:singleSelection="true"
-                app:checkedButton="@id/themeLightButton">
+                android:layout_marginBottom="8dp"
+                app:checkedButton="@id/themeLightButton"
+                app:singleSelection="true">
 
                 <Button
                     android:id="@+id/themeLightButton"
@@ -51,8 +54,8 @@
                     android:layout_height="wrap_content"
                     android:minWidth="0dp"
                     android:text="@string/theme_light"
-                    app:icon="@drawable/ic_theme_light_24px"
-                    app:iconPadding="4dp"/>
+                    app:icon="@drawable/ic_theme_light_24dp"
+                    app:iconPadding="4dp" />
 
                 <Button
                     android:id="@+id/themeDarkButton"
@@ -61,13 +64,213 @@
                     android:layout_height="wrap_content"
                     android:minWidth="0dp"
                     android:text="@string/theme_dark"
-                    app:icon="@drawable/ic_theme_dark_24px"
-                    app:iconPadding="4dp"/>
+                    app:icon="@drawable/ic_theme_dark_24dp"
+                    app:iconPadding="4dp" />
 
             </com.google.android.material.button.MaterialButtonToggleGroup>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:text="@string/choose_popup_style"
+                android:textAppearance="?attr/textAppearanceBody1" />
+
+            <com.google.android.material.button.MaterialButtonToggleGroup
+                android:id="@+id/popupStyleToggleGroup"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginBottom="8dp"
+                app:checkedButton="@id/popupStyleDefaultButton"
+                app:singleSelection="true">
+
+                <Button
+                    android:id="@+id/popupStyleDefaultButton"
+                    style="?attr/materialButtonOutlinedStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:minWidth="0dp"
+                    android:text="@string/popup_style_default" />
+
+                <Button
+                    android:id="@+id/popupStyleLightButton"
+                    style="?attr/materialButtonOutlinedStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:minWidth="0dp"
+                    android:text="@string/popup_style_light" />
+
+                <Button
+                    android:id="@+id/popupStyleDarkButton"
+                    style="?attr/materialButtonOutlinedStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:minWidth="0dp"
+                    android:text="@string/popup_style_dark" />
+
+                <Button
+                    android:id="@+id/popupStyleColoredButton"
+                    style="?attr/materialButtonOutlinedStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:minWidth="0dp"
+                    android:text="@string/popup_style_colored" />
+
+            </com.google.android.material.button.MaterialButtonToggleGroup>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:text="@string/choose_gravity"
+                android:textAppearance="?attr/textAppearanceBody1" />
+
+            <com.google.android.material.button.MaterialButtonToggleGroup
+                android:id="@+id/gravityToggleGroup"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginBottom="8dp"
+                app:singleSelection="false">
+
+                <Button
+                    android:id="@+id/gravityStartButton"
+                    style="?attr/materialButtonOutlinedStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:minWidth="0dp"
+                    android:text="@string/gravity_start" />
+
+                <Button
+                    android:id="@+id/gravityEndButton"
+                    style="?attr/materialButtonOutlinedStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:minWidth="0dp"
+                    android:text="@string/gravity_end" />
+
+                <Button
+                    android:id="@+id/gravityBottomButton"
+                    style="?attr/materialButtonOutlinedStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:minWidth="0dp"
+                    android:text="@string/gravity_bottom" />
+
+                <Button
+                    android:id="@+id/gravityTopButton"
+                    style="?attr/materialButtonOutlinedStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:minWidth="0dp"
+                    android:text="@string/gravity_top" />
+
+            </com.google.android.material.button.MaterialButtonToggleGroup>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:text="@string/choose_popup_sample"
+                android:textAppearance="?attr/textAppearanceBody1" />
+
+            <RadioGroup
+                android:id="@+id/popupTypeRadioGroup"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/anchor_view_width_hint"
+                android:theme="@style/AppThemeOverlay.AccentToPrimary"
+                app:suffixText=" dp">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/anchorWidthInputEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="numberDecimal"
+                    android:text="@string/showPopupButtonSizeLabel"
+                    android:textAlignment="textEnd" />
+
+            </com.google.android.material.textfield.TextInputLayout>
 
         </LinearLayout>
 
     </ScrollView>
 
-</LinearLayout>
+    <View
+        android:id="@+id/bottomBar"
+        android:layout_width="match_parent"
+        android:layout_height="72dp"
+        android:background="?attr/colorPrimarySurface"
+        android:elevation="2dp"
+        app:layout_constraintBottom_toBottomOf="parent" />
+
+    <ImageView
+        android:id="@+id/showPopupButton"
+        android:layout_width="@dimen/showPopupButtonSize"
+        android:layout_height="@dimen/showPopupButtonSize"
+        android:layout_marginEnd="16dp"
+        android:background="?attr/colorAccent"
+        android:elevation="4dp"
+        android:scaleType="center"
+        android:stateListAnimator="@animator/raise_on_pressed"
+        android:tint="?attr/colorOnPrimary"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/bottomBar"
+        app:srcCompat="@drawable/ic_gesture_tap_24dp"
+        tools:ignore="ContentDescription"
+        tools:targetApi="lollipop" />
+
+    <TextView
+        android:id="@+id/tapHintLabel"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:elevation="2dp"
+        android:text="@string/tap_hint"
+        android:textAlignment="center"
+        android:textAppearance="?attr/textAppearanceBody1"
+        app:layout_constraintBottom_toTopOf="@id/dragHintLabel"
+        app:layout_constraintEnd_toStartOf="@id/bottomBarHintIcon"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/bottomBar"
+        app:layout_constraintVertical_chainStyle="packed" />
+
+    <TextView
+        android:id="@+id/dragHintLabel"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:elevation="2dp"
+        android:text="@string/drag_button_hint"
+        android:textAlignment="center"
+        android:textAppearance="?attr/textAppearanceCaption"
+        app:layout_constraintBottom_toBottomOf="@id/bottomBar"
+        app:layout_constraintEnd_toStartOf="@id/bottomBarHintIcon"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tapHintLabel" />
+
+    <ImageView
+        android:id="@+id/bottomBarHintIcon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        android:elevation="2dp"
+        android:tint="?attr/colorOnSurface"
+        app:layout_constraintBottom_toBottomOf="@id/bottomBar"
+        app:layout_constraintEnd_toStartOf="@id/showPopupButton"
+        app:layout_constraintTop_toTopOf="@id/bottomBar"
+        app:srcCompat="@drawable/mpm_ic_menu_end" />
+
+</com.github.zawadz88.materialpopupmenu.sample.widget.DraggableConstraintLayout>
