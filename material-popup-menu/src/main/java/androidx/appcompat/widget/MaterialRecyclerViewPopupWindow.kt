@@ -236,7 +236,11 @@ internal class MaterialRecyclerViewPopupWindow(
             dropDownList.clipToOutline = true
             // Move the background from popup to RecyclerView for clipToOutline to take effect.
             dropDownList.background = background
-            popup.setBackgroundDrawable(null)
+            // Remove background from popup itself to avoid overdraw.
+            // This causes issues on Lollipop so we do it on M+ only (see issue #66 on GitHub).
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                popup.setBackgroundDrawable(null)
+            }
         }
 
         popup.contentView = dropDownList

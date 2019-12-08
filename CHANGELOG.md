@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [4.0.1]
+### Fixed
+- Popup couldn't be dismissed on Lollipop (issue #66)
+
 ## [4.0.0]
 ### Changed
 - *Breaking change:* minimum SDK version raised to API 19 (Kitkat)
@@ -108,7 +112,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Added
 Initial release of the library.
 
-[Unreleased]: https://github.com/zawadz88/MaterialPopupMenu/compare/4.0.0...HEAD
+[Unreleased]: https://github.com/zawadz88/MaterialPopupMenu/compare/4.0.1...HEAD
+[4.0.1]: https://github.com/zawadz88/MaterialPopupMenu/compare/4.0.0...4.0.1
 [4.0.0]: https://github.com/zawadz88/MaterialPopupMenu/compare/3.4.0...4.0.0
 [3.4.0]: https://github.com/zawadz88/MaterialPopupMenu/compare/3.3.0...3.4.0
 [3.3.0]: https://github.com/zawadz88/MaterialPopupMenu/compare/3.2.0...3.3.0
