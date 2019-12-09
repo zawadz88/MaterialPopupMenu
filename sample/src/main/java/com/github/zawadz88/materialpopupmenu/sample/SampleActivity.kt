@@ -13,6 +13,9 @@ import androidx.core.widget.addTextChangedListener
 import com.github.zawadz88.materialpopupmenu.MaterialPopupMenuBuilder
 import com.github.zawadz88.materialpopupmenu.sample.extensions.roundPixels
 import com.github.zawadz88.materialpopupmenu.sample.extensions.toPixelFromDip
+import com.github.zawadz88.materialpopupmenu.sample.persistence.DEFAULT_POPUP_STYLE
+import com.github.zawadz88.materialpopupmenu.sample.persistence.SelectionRepository
+import com.github.zawadz88.materialpopupmenu.sample.persistence.SelectionRepositoryImpl
 import com.google.android.material.radiobutton.MaterialRadioButton
 import kotlinx.android.synthetic.main.activity_sample.anchorWidthInputEditText
 import kotlinx.android.synthetic.main.activity_sample.container
@@ -31,53 +34,64 @@ import kotlinx.android.synthetic.main.activity_sample.toolbar
 
 class SampleActivity : AppCompatActivity() {
 
-    // TODO: 2019-12-05 remember selection across Activity theme change & on rotation
-    // TODO: 2019-12-05 check if we can use Data Binding to simplify this
-    // TODO: 2019-12-05 check on older devices
+    private val selectionRepository: SelectionRepository by lazy { SelectionRepositoryImpl(applicationContext) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val themeToUse = intent.getIntExtra(THEME_EXTRA_KEY, R.style.AppTheme_Light)
+        val themeToUse = selectionRepository.theme
         setTheme(themeToUse)
         setContentView(R.layout.activity_sample)
         setSupportActionBar(toolbar)
         initializeThemeButtonGroup(themeToUse)
-        initializeThemeButtonGroup()
+        initializePopupStyleButtonGroup()
+        initializeGravityButtonGroup()
         initializePopupRadioGroup()
         initializeShowPopupButton()
         initializeAnchorViewWidthInputEditText()
     }
 
+    private fun initializeGravityButtonGroup() {
+        selectionRepository.dropdownGravities
+            .map { GRAVITY_TO_GRAVITY_BUTTON_ID_MAP.getValue(it) }
+            .forEach { gravityToggleGroup.check(it) }
+        gravityToggleGroup.addOnButtonCheckedListener { group, _, _ ->
+            selectionRepository.dropdownGravities = group.checkedButtonIds.map { GRAVITY_BUTTON_ID_TO_GRAVITY_MAP.getValue(it) }
+        }
+    }
+
     private fun initializeAnchorViewWidthInputEditText() {
         anchorWidthInputEditText.addTextChangedListener(afterTextChanged = { editable ->
-            if (!editable.isNullOrEmpty()) {
-                showPopupButton.layoutParams.width = toPixelFromDip(editable.toString().toInt()).roundPixels()
+            if (editable.isNullOrEmpty()) return@addTextChangedListener
+
+            editable.toString().toInt().let {
+                selectionRepository.anchorWidthInDp = it
+                showPopupButton.layoutParams.width = toPixelFromDip(it).roundPixels()
                 showPopupButton.requestLayout()
             }
         })
+        anchorWidthInputEditText.setText(selectionRepository.anchorWidthInDp.toString())
     }
 
     private fun initializeShowPopupButton() {
         container.addDraggableChild(showPopupButton)
-        showPopupButton.setOnClickListener { clickedView ->
-            val checkedRadioButton = popupTypeRadioGroup.findViewById<RadioButton>(popupTypeRadioGroup.checkedRadioButtonId)
-            val checkedSamplePosition = popupTypeRadioGroup.indexOfChild(checkedRadioButton)
-            val materialPopupMenuBuilder = SAMPLES[checkedSamplePosition].popupMenuProvider(this, clickedView)
-            val popupMenuStyle = POPUP_STYLE_BUTTON_ID_TO_POPUP_STYLE_ID_MAP.getValue(popupStyleToggleGroup.checkedButtonId)
-            if (isCustomPopupMenuStyleUsed(popupMenuStyle) && canOverrideDefaultPopupStyle(materialPopupMenuBuilder)) {
-                materialPopupMenuBuilder.style = popupMenuStyle
-            }
-            var jointGravity = 0
-            gravityToggleGroup.checkedButtonIds
-                .map { GRAVITY_BUTTON_ID_TO_GRAVITY_MAP.getValue(it) }
-                .forEach { gravity -> jointGravity = jointGravity or gravity }
-            if (jointGravity != 0) {
-                materialPopupMenuBuilder.dropdownGravity = jointGravity
-            }
-            materialPopupMenuBuilder.build().run {
-                show(this@SampleActivity, clickedView)
-                setOnDismissListener { Log.i(TAG, "Popup dismissed!") }
-            }
+        showPopupButton.setOnClickListener(::showPopupMenu)
+    }
+
+    private fun showPopupMenu(clickedView: View) {
+        val checkedSamplePosition = selectionRepository.samplePosition
+        val materialPopupMenuBuilder = SAMPLES[checkedSamplePosition].popupMenuProvider(this, clickedView)
+        val popupMenuStyle = selectionRepository.popupStyle
+        if (isCustomPopupMenuStyleUsed(popupMenuStyle) && canOverrideDefaultPopupStyle(materialPopupMenuBuilder)) {
+            materialPopupMenuBuilder.style = popupMenuStyle
+        }
+        var jointGravity = 0
+        selectionRepository.dropdownGravities.forEach { gravity -> jointGravity = jointGravity or gravity }
+        if (jointGravity != 0) {
+            materialPopupMenuBuilder.dropdownGravity = jointGravity
+        }
+        materialPopupMenuBuilder.build().run {
+            show(this@SampleActivity, clickedView)
+            setOnDismissListener { Log.i(TAG, "Popup dismissed!") }
         }
     }
 
@@ -102,7 +116,13 @@ class SampleActivity : AppCompatActivity() {
         }
     }
 
-    private fun initializeThemeButtonGroup() {
+    private fun initializePopupStyleButtonGroup() {
+        popupStyleToggleGroup.check(POPUP_STYLE_ID_TO_POPUP_STYLE_BUTTON_ID_MAP.getValue(selectionRepository.popupStyle))
+        popupStyleToggleGroup.addOnButtonCheckedListener { _, checkedId, isChecked ->
+            if (isChecked) {
+                selectionRepository.popupStyle = POPUP_STYLE_BUTTON_ID_TO_POPUP_STYLE_ID_MAP.getValue(checkedId)
+            }
+        }
         // TODO this can be simplified once https://github.com/material-components/material-components-android/commit/d4a17635b1a058a88ca03985a83c3990ba6626b7 is released
         listOf(popupStyleDefaultButton, popupStyleLightButton, popupStyleDarkButton, popupStyleColoredButton).forEach { button ->
             button.setOnClickListener {
@@ -120,7 +140,11 @@ class SampleActivity : AppCompatActivity() {
             val radioButton = createRadioButton(index, item)
             popupTypeRadioGroup.addView(radioButton)
         }
-        popupTypeRadioGroup.check(0)
+        popupTypeRadioGroup.check(selectionRepository.samplePosition)
+        popupTypeRadioGroup.setOnCheckedChangeListener { group, _ ->
+            val checkedRadioButton = group.findViewById<RadioButton>(popupTypeRadioGroup.checkedRadioButtonId)
+            selectionRepository.samplePosition = popupTypeRadioGroup.indexOfChild(checkedRadioButton)
+        }
     }
 
     private fun createRadioButton(index: Int, sample: PopupMenuSample): MaterialRadioButton = MaterialRadioButton(popupTypeRadioGroup.context).apply {
@@ -129,8 +153,8 @@ class SampleActivity : AppCompatActivity() {
     }
 
     private fun changeThemeTo(@StyleRes newThemeStyle: Int) {
+        selectionRepository.theme = newThemeStyle
         val intent = Intent(this, SampleActivity::class.java)
-            .putExtra(THEME_EXTRA_KEY, newThemeStyle)
         val activityOptions = ActivityOptions.makeCustomAnimation(this, android.R.anim.fade_in, android.R.anim.fade_out)
         startActivity(intent, activityOptions.toBundle())
         finish()
@@ -138,10 +162,6 @@ class SampleActivity : AppCompatActivity() {
 }
 
 private const val TAG = "MPM"
-
-private const val THEME_EXTRA_KEY = "theme"
-
-private const val DEFAULT_POPUP_STYLE = -1
 
 private val THEME_BUTTON_ID_TO_THEME_ID_MAP: Map<Int, Int> = mapOf(
     R.id.themeDarkButton to R.style.AppTheme_Dark,
@@ -160,9 +180,23 @@ private val POPUP_STYLE_BUTTON_ID_TO_POPUP_STYLE_ID_MAP: Map<Int, Int> = mapOf(
     R.id.popupStyleColoredButton to R.style.Widget_MPM_Menu_Dark_ColoredBackground
 )
 
+private val POPUP_STYLE_ID_TO_POPUP_STYLE_BUTTON_ID_MAP: Map<Int, Int> = mapOf(
+    DEFAULT_POPUP_STYLE to R.id.popupStyleDefaultButton,
+    R.style.Widget_MPM_Menu to R.id.popupStyleLightButton,
+    R.style.Widget_MPM_Menu_Dark to R.id.popupStyleDarkButton,
+    R.style.Widget_MPM_Menu_Dark_ColoredBackground to R.id.popupStyleColoredButton
+)
+
 private val GRAVITY_BUTTON_ID_TO_GRAVITY_MAP: Map<Int, Int> = mapOf(
     R.id.gravityStartButton to Gravity.START,
     R.id.gravityEndButton to Gravity.END,
     R.id.gravityBottomButton to Gravity.BOTTOM,
     R.id.gravityTopButton to Gravity.TOP
+)
+
+private val GRAVITY_TO_GRAVITY_BUTTON_ID_MAP: Map<Int, Int> = mapOf(
+    Gravity.START to R.id.gravityStartButton,
+    Gravity.END to R.id.gravityEndButton,
+    Gravity.BOTTOM to R.id.gravityBottomButton,
+    Gravity.TOP to R.id.gravityTopButton
 )

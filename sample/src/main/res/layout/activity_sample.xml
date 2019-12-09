@@ -44,7 +44,6 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginBottom="8dp"
-                app:checkedButton="@id/themeLightButton"
                 app:singleSelection="true">
 
                 <Button
@@ -82,7 +81,6 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginBottom="8dp"
-                app:checkedButton="@id/popupStyleDefaultButton"
                 app:singleSelection="true">
 
                 <Button
@@ -194,8 +192,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="numberDecimal"
-                    android:text="@string/showPopupButtonSizeLabel"
-                    android:textAlignment="textEnd" />
+                    android:textAlignment="textEnd"
+                    tools:text="@integer/showPopupButtonSizeInDp" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
