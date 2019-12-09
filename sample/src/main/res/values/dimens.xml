@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <dimen name="showPopupButtonSize">48dp</dimen>
-    <string name="showPopupButtonSizeLabel">48</string>
+    <integer name="showPopupButtonSizeInDp">48</integer>
 </resources>
