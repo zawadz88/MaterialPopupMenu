@@ -180,12 +180,12 @@
                 android:layout_marginBottom="8dp" />
 
             <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/dummy"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/anchor_view_width_hint"
-                android:theme="@style/AppThemeOverlay.AccentToPrimary"
-                app:suffixText=" dp">
+                android:theme="@style/AppThemeOverlay.AccentToPrimary">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/anchorWidthInputEditText"
