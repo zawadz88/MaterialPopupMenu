@@ -35,6 +35,6 @@
     <string name="choose_popup_sample">Choose popup sample</string>
     <string name="drag_button_hint">You can also drag the button across the screen</string>
     <string name="tap_hint">Tap to show popup menu</string>
-    <string name="anchor_view_width_hint">Anchor View width</string>
+    <string name="anchor_view_width_hint">Anchor View width (dp)</string>
 
 </resources>
