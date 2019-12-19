@@ -20,6 +20,10 @@ android {
 
     }
 
+    testOptions {
+        animationsDisabled = true
+    }
+
     compileOptions {
         incremental false
         sourceCompatibility 1.8
@@ -42,6 +46,10 @@ dependencies {
     implementation "androidx.constraintlayout:constraintlayout:$ANDROIDX_CONSTRAINTLAYOUT_VERSION"
     implementation "com.google.android.material:material:$MATERIAL_COMPONENTS_VERSION"
     implementation "androidx.core:core-ktx:$ANDROIDX_CORE_KTX_VERSION"
+
+    androidTestImplementation "androidx.test:core:$ANDROIDX_TEXT_CORE_VERSION"
+    androidTestImplementation "androidx.test:runner:$RUNNER_VERSION"
+    androidTestImplementation "androidx.test:rules:$RULES_VERSION"
+    androidTestImplementation "androidx.test.ext:junit-ktx:$JUNIT_EXT_VERSION"
+    androidTestImplementation "androidx.test.espresso:espresso-core:$ESPRESSO_VERSION"
 }
-
-

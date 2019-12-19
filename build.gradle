@@ -50,6 +50,12 @@ configure(allprojects) {
         ARCHUNIT_VERSION                    = '0.12.0'
         HAMCREST_VERSION                    = '1.3'
         MOCKITO_KOTLIN_VERSION              = '2.1.0'
+
+        ANDROIDX_TEXT_CORE_VERSION          = "1.2.0"
+        RUNNER_VERSION                      = "1.2.0"
+        RULES_VERSION                       = "1.2.0"
+        ESPRESSO_VERSION                    = "3.2.0"
+        JUNIT_EXT_VERSION                   = "1.1.0"
     }
 }
 
