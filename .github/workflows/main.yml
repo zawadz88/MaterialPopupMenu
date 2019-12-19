@@ -5,6 +5,9 @@ on: [push]
 jobs:
   test:
     runs-on: macOS-latest
+    strategy:
+      matrix:
+        emulator-api-level: [21, 23, 25, 29]
     steps:
     - name: checkout
       uses: actions/checkout@v2
@@ -21,7 +24,7 @@ jobs:
     - name: Run UI tests
       uses: reactivecircus/android-emulator-runner@v2
       with:
-        api-level: 22
+        api-level: ${{ matrix.emulator-api-level }}
         script: ./gradlew connectedCheck
     - name: Archive library reports
       uses: actions/upload-artifact@v1
