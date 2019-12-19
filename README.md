@@ -2,7 +2,7 @@
   <img src ="./art/logo_vertical.png" width="256" />
 </p>
 
-# Material Popup Menu [![CircleCI](https://circleci.com/gh/zawadz88/MaterialPopupMenu.svg?style=svg)](https://circleci.com/gh/zawadz88/MaterialPopupMenu)
+# Material Popup Menu [![GitHubActions](https://github.com/zawadz88/MaterialPopupMenu/workflows/Android%20CI/badge.svg?branch=master)]
 
 This library allows to create simple popup menus programmatically with a nice [type-safe builder syntax in Kotlin](https://kotlinlang.org/docs/reference/type-safe-builders.html). Menus can be divided into separate sections with optional headers and contain icons.
 
