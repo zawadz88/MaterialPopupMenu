@@ -30,7 +30,7 @@ import androidx.recyclerview.widget.RecyclerView
  * @param H  Class extending RecyclerView.ViewHolder to hold and bind the header view
  * @param VH Class extending RecyclerView.ViewHolder to hold and bind the items view
  * */
-internal abstract class SectionedRecyclerViewAdapter<H : RecyclerView.ViewHolder, VH : RecyclerView.ViewHolder> : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+abstract class SectionedRecyclerViewAdapter<H : RecyclerView.ViewHolder, VH : RecyclerView.ViewHolder> : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     private var sectionForPosition: IntArray? = null
     private var positionWithinSection: IntArray? = null
