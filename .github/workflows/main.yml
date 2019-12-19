@@ -7,7 +7,7 @@ jobs:
     runs-on: macOS-latest
     steps:
     - name: checkout
-      uses: actions/checkout@v1
+      uses: actions/checkout@v2
       with:
         fetch-depth: 1
     - name: Create local.properties
@@ -18,6 +18,11 @@ jobs:
         java-version: 1.8
     - name: Build with Gradle
       run: ./gradlew check publishToMavenLocal --continue --no-daemon --stacktrace
+    - name: Run UI tests
+      uses: reactivecircus/android-emulator-runner@v2
+      with:
+        api-level: 22
+        script: ./gradlew connectedCheck
     - name: Archive library reports
       uses: actions/upload-artifact@v1
       with:
