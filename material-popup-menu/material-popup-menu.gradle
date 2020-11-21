@@ -75,7 +75,7 @@ ext {
     siteUrl = 'https://github.com/zawadz88/MaterialPopupMenu'
     gitUrl = 'https://github.com/zawadz88/MaterialPopupMenu.git'
 
-    libraryVersion = '4.0.1'
+    libraryVersion = '4.1.0'
 
     developerId = 'zawadz88'
     developerName = 'Piotr Zawadzki'
@@ -115,7 +115,7 @@ publishing {
 
             artifact sourcesJar
             artifact javadocJar
-            artifact("$buildDir/outputs/aar/material-popup-menu-${libraryVersion}.aar")
+            artifact("$buildDir/outputs/aar/material-popup-menu-release.aar")
 
             groupId publishedGroupId
             artifactId artifact

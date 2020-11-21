@@ -2,4 +2,3 @@ $dokka.format:html
 $dokka.linkExtension:html
 
 com.github.zawadz88.materialpopupmenu
-com.github.zawadz88.materialpopupmenu.internal

@@ -1,6 +1,6 @@
 package com.github.zawadz88.materialpopupmenu
 
-import androidx.appcompat.widget.MaterialRecyclerViewPopupWindow
+import com.github.zawadz88.materialpopupmenu.internal.MaterialRecyclerViewPopupWindow
 import com.github.zawadz88.materialpopupmenu.internal.PopupMenuAdapter
 import com.tngtech.archunit.junit.AnalyzeClasses
 import com.tngtech.archunit.junit.ArchTest
