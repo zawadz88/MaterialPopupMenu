@@ -10,7 +10,7 @@ import androidx.annotation.StringRes
 import androidx.annotation.StyleRes
 import androidx.annotation.UiThread
 import androidx.appcompat.view.ContextThemeWrapper
-import androidx.appcompat.widget.MaterialRecyclerViewPopupWindow
+import com.github.zawadz88.materialpopupmenu.internal.MaterialRecyclerViewPopupWindow
 import com.github.zawadz88.materialpopupmenu.internal.PopupMenuAdapter
 
 /**

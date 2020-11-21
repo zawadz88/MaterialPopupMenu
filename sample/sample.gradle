@@ -22,6 +22,7 @@ android {
 
     testOptions {
         animationsDisabled = true
+        unitTests.includeAndroidResources = true
     }
 
     compileOptions {
@@ -38,6 +39,14 @@ android {
         debug {
         }
     }
+    sourceSets {
+        androidTest {
+            java.srcDirs += "src/sharedTest/java"
+        }
+        test {
+            java.srcDirs += "src/sharedTest/java"
+        }
+    }
 }
 
 dependencies {
@@ -47,9 +56,16 @@ dependencies {
     implementation "com.google.android.material:material:$MATERIAL_COMPONENTS_VERSION"
     implementation "androidx.core:core-ktx:$ANDROIDX_CORE_KTX_VERSION"
 
-    androidTestImplementation "androidx.test:core:$ANDROIDX_TEXT_CORE_VERSION"
+    androidTestImplementation "androidx.test:core:$ANDROIDX_TEST_CORE_VERSION"
     androidTestImplementation "androidx.test:runner:$RUNNER_VERSION"
     androidTestImplementation "androidx.test:rules:$RULES_VERSION"
     androidTestImplementation "androidx.test.ext:junit-ktx:$JUNIT_EXT_VERSION"
     androidTestImplementation "androidx.test.espresso:espresso-core:$ESPRESSO_VERSION"
+
+    testImplementation "androidx.test:core:$ANDROIDX_TEST_CORE_VERSION"
+    testImplementation "androidx.test:runner:$RUNNER_VERSION"
+    testImplementation "androidx.test:rules:$RULES_VERSION"
+    testImplementation "androidx.test.ext:junit-ktx:$JUNIT_EXT_VERSION"
+    testImplementation "androidx.test.espresso:espresso-core:$ESPRESSO_VERSION"
+    testImplementation "org.robolectric:robolectric:$ROBOLECTRIC_VERSION"
 }
