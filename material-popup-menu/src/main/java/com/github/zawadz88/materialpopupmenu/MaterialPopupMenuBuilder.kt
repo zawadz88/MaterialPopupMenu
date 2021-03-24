@@ -56,6 +56,11 @@ class MaterialPopupMenuBuilder {
      */
     var dropDownHorizontalOffset: Int? = null
 
+    /**
+     * Set up a custom animation
+     */
+    var customAnimation: PopupAnimation? = null
+
     private val sectionHolderList = arrayListOf<SectionHolder>()
 
     /**
@@ -88,7 +93,8 @@ class MaterialPopupMenuBuilder {
             sections = sections,
             fixedContentWidthInPx = fixedContentWidthInPx,
             dropDownVerticalOffset = dropDownVerticalOffset,
-            dropDownHorizontalOffset = dropDownHorizontalOffset
+            dropDownHorizontalOffset = dropDownHorizontalOffset,
+            customAnimation = customAnimation
         )
     }
 

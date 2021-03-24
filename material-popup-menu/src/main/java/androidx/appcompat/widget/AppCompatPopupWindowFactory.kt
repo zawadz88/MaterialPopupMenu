@@ -1,6 +1,6 @@
 package androidx.appcompat.widget
 
 import android.content.Context
-import android.widget.PopupWindow
+import com.github.zawadz88.materialpopupmenu.PopupAnimation
 
-internal fun createAppCompatPopupWindow(context: Context): PopupWindow = AppCompatPopupWindow(context, null, 0)
+internal fun createAppCompatPopupWindow(context: Context, customAnimation: PopupAnimation?) = MaterialPopupWindow(context, customAnimation)

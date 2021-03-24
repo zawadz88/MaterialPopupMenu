@@ -11,10 +11,12 @@ import android.view.ViewGroup
 import android.view.WindowManager
 import android.widget.FrameLayout
 import android.widget.PopupWindow
+import androidx.appcompat.widget.MaterialPopupWindow
 import androidx.appcompat.widget.createAppCompatPopupWindow
 import androidx.core.widget.PopupWindowCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.github.zawadz88.materialpopupmenu.PopupAnimation
 import com.github.zawadz88.materialpopupmenu.R
 import java.lang.reflect.Method
 
@@ -32,7 +34,8 @@ internal class MaterialRecyclerViewPopupWindow(
         private var dropDownGravity: Int,
         private val fixedContentWidthInPx: Int,
         dropDownVerticalOffset: Int?,
-        dropDownHorizontalOffset: Int?
+        dropDownHorizontalOffset: Int?,
+        private val customAnimation: PopupAnimation?
 ) {
 
     @SuppressLint("DiscouragedPrivateApi")
@@ -91,7 +94,7 @@ internal class MaterialRecyclerViewPopupWindow(
 
     private val tempRect = Rect()
 
-    private val popup: PopupWindow
+    private val popup: MaterialPopupWindow
 
     private val popupMaxWidth: Int
 
@@ -116,7 +119,7 @@ internal class MaterialRecyclerViewPopupWindow(
     private val popupPaddingTop: Int
 
     init {
-        popup = createAppCompatPopupWindow(context)
+        popup = createAppCompatPopupWindow(context, customAnimation)
         popup.inputMethodMode = PopupWindow.INPUT_METHOD_NEEDED
         popup.isFocusable = true
 
@@ -212,7 +215,6 @@ internal class MaterialRecyclerViewPopupWindow(
      */
     internal fun dismiss() {
         popup.dismiss()
-        popup.contentView = null
     }
 
     /**
