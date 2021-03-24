@@ -29,7 +29,8 @@ internal constructor(
     internal val sections: List<PopupMenuSection>,
     internal val fixedContentWidthInPx: Int,
     internal val dropDownVerticalOffset: Int?,
-    internal val dropDownHorizontalOffset: Int?
+    internal val dropDownHorizontalOffset: Int?,
+    internal val customAnimation: PopupAnimation?
 ) {
 
     private var popupWindow: MaterialRecyclerViewPopupWindow? = null
@@ -52,7 +53,8 @@ internal constructor(
             dropDownGravity = dropdownGravity,
             fixedContentWidthInPx = fixedContentWidthInPx,
             dropDownVerticalOffset = dropDownVerticalOffset,
-            dropDownHorizontalOffset = dropDownHorizontalOffset
+            dropDownHorizontalOffset = dropDownHorizontalOffset,
+            customAnimation = customAnimation
         )
         val adapter = PopupMenuAdapter(sections) { popupWindow.dismiss() }
 

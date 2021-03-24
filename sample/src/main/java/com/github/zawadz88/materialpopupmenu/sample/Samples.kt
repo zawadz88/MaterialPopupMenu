@@ -10,386 +10,453 @@ import android.text.SpannableString
 import android.text.style.ForegroundColorSpan
 import android.text.style.RelativeSizeSpan
 import android.view.View
+import android.view.ViewAnimationUtils
 import android.widget.CheckBox
+import android.widget.PopupWindow
 import android.widget.TextView
 import android.widget.Toast
 import androidx.annotation.StringRes
+import androidx.core.animation.doOnCancel
+import androidx.core.animation.doOnEnd
+import androidx.core.animation.doOnStart
 import androidx.core.content.ContextCompat
-import com.github.zawadz88.materialpopupmenu.MaterialPopupMenuBuilder
-import com.github.zawadz88.materialpopupmenu.ViewBoundCallback
-import com.github.zawadz88.materialpopupmenu.popupMenu
-import com.github.zawadz88.materialpopupmenu.popupMenuBuilder
+import com.github.zawadz88.materialpopupmenu.*
+import kotlin.math.sqrt
+
 
 data class PopupMenuSample(@StringRes val label: Int, val popupMenuProvider: (Context, View) -> MaterialPopupMenuBuilder)
 
 @SuppressLint("SetTextI18n", "PrivateResource")
 val SAMPLES: List<PopupMenuSample> = listOf(
-    PopupMenuSample(R.string.single_section_with_icons) { context, _ ->
-        popupMenuBuilder {
-            section {
-                item {
-                    label = "Copy"
-                    icon = R.drawable.abc_ic_menu_copy_mtrl_am_alpha
-                    callback = {
-                        Toast.makeText(context, "Copied!", Toast.LENGTH_SHORT).show()
-                    }
-                }
-                item {
-                    label = "Paste"
-                    icon = R.drawable.abc_ic_menu_paste_mtrl_am_alpha
-                    callback = {
-                        Toast.makeText(context, "Text pasted!", Toast.LENGTH_SHORT).show()
-                    }
-                }
-                item {
-                    label = "Select all"
-                    icon = R.drawable.abc_ic_menu_selectall_mtrl_alpha
-                }
-            }
-        }
-    },
-    PopupMenuSample(R.string.single_section_without_icons) { context, _ ->
-        popupMenuBuilder {
-            section {
-                item {
-                    label = "Copy"
-                    callback = {
-                        Toast.makeText(context, "Copied!", Toast.LENGTH_SHORT).show()
-                    }
-                }
-                item {
-                    label = "Paste"
-                    callback = {
-                        Toast.makeText(context, "Text pasted!", Toast.LENGTH_SHORT).show()
-                    }
-                }
-                item {
-                    label = "Select all"
-                }
-                item {
-                    label = "Stay open when clicked"
-                    dismissOnSelect = false
-                    callback = {
-                        Toast.makeText(context, "Clicked!", Toast.LENGTH_SHORT).show()
-                    }
-                }
-            }
-        }
-    },
-    PopupMenuSample(R.string.two_sections_with_section_titles) { context, _ ->
-        popupMenuBuilder {
-            section {
-                title = "Editing"
-                item {
-                    label = "Copy"
-                    icon = R.drawable.abc_ic_menu_copy_mtrl_am_alpha
-                    callback = {
-                        Toast.makeText(context, "Copied!", Toast.LENGTH_SHORT).show()
-                    }
-                }
-                item {
-                    label = "Paste"
-                    icon = R.drawable.abc_ic_menu_paste_mtrl_am_alpha
-                    callback = {
-                        Toast.makeText(context, "Text pasted!", Toast.LENGTH_SHORT).show()
-                    }
-                }
-            }
-            section {
-                title = "Other"
-                item {
-                    label = "Share"
-                    icon = R.drawable.abc_ic_menu_share_mtrl_alpha
-                    callback = {
-                        shareUrl(context)
-                    }
-                }
-            }
-        }
-    },
-    PopupMenuSample(R.string.two_sections_without_titles) { context, _ ->
-        popupMenuBuilder {
-            section {
-                item {
-                    label = "Copy"
-                    icon = R.drawable.abc_ic_menu_copy_mtrl_am_alpha
-                    callback = {
-                        Toast.makeText(context, "Copied!", Toast.LENGTH_SHORT).show()
-                    }
-                }
-                item {
-                    label = "Paste"
-                    icon = R.drawable.abc_ic_menu_paste_mtrl_am_alpha
-                    callback = {
-                        Toast.makeText(context, "Text pasted!", Toast.LENGTH_SHORT).show()
-                    }
-                }
-            }
-            section {
-                item {
-                    label = "Share"
-                    icon = R.drawable.abc_ic_menu_share_mtrl_alpha
-                    callback = {
-                        shareUrl(context)
-                    }
-                }
-            }
-        }
-    },
-    PopupMenuSample(R.string.custom_colors) { context, _ ->
-        popupMenuBuilder {
-            section {
-                item {
-                    label = "Copy"
-                    labelColor = ContextCompat.getColor(context, R.color.red)
-                    icon = R.drawable.abc_ic_menu_copy_mtrl_am_alpha
-                    iconColor = ContextCompat.getColor(context, R.color.dark_red)
-                    callback = {
-                        Toast.makeText(context, "Copied!", Toast.LENGTH_SHORT).show()
-                    }
-                }
-                item {
-                    label = "Paste"
-                    labelColor = ContextCompat.getColor(context, R.color.red)
-                    icon = R.drawable.abc_ic_menu_paste_mtrl_am_alpha
-                    iconColor = ContextCompat.getColor(context, R.color.dark_red)
-                    callback = {
-                        Toast.makeText(context, "Text pasted!", Toast.LENGTH_SHORT).show()
-                    }
-                }
-            }
-            section {
-                item {
-                    label = "Share"
-                    labelColor = ContextCompat.getColor(context, R.color.green)
-                    icon = R.drawable.abc_ic_menu_share_mtrl_alpha
-                    iconColor = ContextCompat.getColor(context, R.color.dark_green)
-                    callback = {
-                        shareUrl(context)
-                    }
-                }
-            }
-        }
-    },
-    PopupMenuSample(R.string.custom_items) { context, _ ->
-        popupMenuBuilder {
-            section {
-                item {
-                    label = "Copy"
-                    icon = R.drawable.abc_ic_menu_copy_mtrl_am_alpha
-                    callback = {
-                        Toast.makeText(context, "Copied!", Toast.LENGTH_SHORT).show()
-                    }
-                }
-                customItem {
-                    layoutResId = R.layout.view_custom_item_checkable
-                    viewBoundCallback = ViewBoundCallback { view ->
-                        val checkBox: CheckBox = view.findViewById(R.id.customItemCheckbox)
-                        checkBox.isChecked = true
-                        checkBox.setOnCheckedChangeListener { _, isChecked ->
-                            if (isChecked) {
-                                dismissPopup()
-                            }
+        PopupMenuSample(R.string.single_section_with_icons) { context, _ ->
+            popupMenuBuilder {
+                section {
+                    item {
+                        label = "Copy"
+                        icon = R.drawable.abc_ic_menu_copy_mtrl_am_alpha
+                        callback = {
+                            Toast.makeText(context, "Copied!", Toast.LENGTH_SHORT).show()
                         }
                     }
-                    callback = {
-                        Toast.makeText(context, "Disabled!", Toast.LENGTH_SHORT).show()
+                    item {
+                        label = "Paste"
+                        icon = R.drawable.abc_ic_menu_paste_mtrl_am_alpha
+                        callback = {
+                            Toast.makeText(context, "Text pasted!", Toast.LENGTH_SHORT).show()
+                        }
                     }
-                }
-                customItem {
-                    layoutResId = R.layout.view_custom_item_large
-                    viewBoundCallback = { view ->
-                        val textView: TextView = view.findViewById(R.id.customItemTextView)
-                        textView.text = "Some long text that is applied later to see if height calculation indeed is incorrectly calculated due to this binding."
-                    }
-                }
-                item {
-                    label = createMultiLineText(context)
-                    viewBoundCallback = { view ->
-                        val tv = view.findViewById<TextView>(R.id.mpm_popup_menu_item_label)
-                        tv.setSingleLine(false)
-                        tv.maxLines = 2
+                    item {
+                        label = "Select all"
+                        icon = R.drawable.abc_ic_menu_selectall_mtrl_alpha
                     }
                 }
             }
-        }
-    },
-    PopupMenuSample(R.string.custom_offsets) { context, _ ->
-        popupMenuBuilder {
-            style = R.style.Widget_MPM_Menu_CustomOffsets
-            section {
-                item {
-                    label = "Copy"
-                    callback = {
-                        Toast.makeText(context, "Copied!", Toast.LENGTH_SHORT).show()
+        },
+        PopupMenuSample(R.string.single_section_without_icons) { context, _ ->
+            popupMenuBuilder {
+                section {
+                    item {
+                        label = "Copy"
+                        callback = {
+                            Toast.makeText(context, "Copied!", Toast.LENGTH_SHORT).show()
+                        }
                     }
-                }
-                item {
-                    label = "Paste"
-                    callback = {
-                        Toast.makeText(context, "Text pasted!", Toast.LENGTH_SHORT).show()
+                    item {
+                        label = "Paste"
+                        callback = {
+                            Toast.makeText(context, "Text pasted!", Toast.LENGTH_SHORT).show()
+                        }
                     }
-                }
-                item {
-                    label = "Select all"
-                }
-            }
-        }
-    },
-    PopupMenuSample(R.string.dimmed_background) { context, _ ->
-        popupMenuBuilder {
-            style = R.style.Widget_MPM_Menu_Dimmed
-            section {
-                item {
-                    label = "Copy"
-                    callback = {
-                        Toast.makeText(context, "Copied!", Toast.LENGTH_SHORT).show()
+                    item {
+                        label = "Select all"
                     }
-                }
-                item {
-                    label = "Paste"
-                    callback = {
-                        Toast.makeText(context, "Text pasted!", Toast.LENGTH_SHORT).show()
+                    item {
+                        label = "Stay open when clicked"
+                        dismissOnSelect = false
+                        callback = {
+                            Toast.makeText(context, "Clicked!", Toast.LENGTH_SHORT).show()
+                        }
                     }
                 }
             }
-        }
-    },
-    PopupMenuSample(R.string.custom_padding) { context, _ ->
-        popupMenuBuilder {
-            style = R.style.Widget_MPM_Menu_CustomPadding
-            section {
-                item {
-                    label = "Copy"
-                    callback = {
-                        Toast.makeText(context, "Copied!", Toast.LENGTH_SHORT).show()
+        },
+        PopupMenuSample(R.string.two_sections_with_section_titles) { context, _ ->
+            popupMenuBuilder {
+                section {
+                    title = "Editing"
+                    item {
+                        label = "Copy"
+                        icon = R.drawable.abc_ic_menu_copy_mtrl_am_alpha
+                        callback = {
+                            Toast.makeText(context, "Copied!", Toast.LENGTH_SHORT).show()
+                        }
+                    }
+                    item {
+                        label = "Paste"
+                        icon = R.drawable.abc_ic_menu_paste_mtrl_am_alpha
+                        callback = {
+                            Toast.makeText(context, "Text pasted!", Toast.LENGTH_SHORT).show()
+                        }
                     }
                 }
-                item {
-                    label = "Paste"
-                    callback = {
-                        Toast.makeText(context, "Text pasted!", Toast.LENGTH_SHORT).show()
-                    }
-                }
-            }
-        }
-    },
-    PopupMenuSample(R.string.rounded_corners) { context, _ ->
-        popupMenuBuilder {
-            style = R.style.Widget_MPM_Menu_RoundedCorners
-            section {
-                item {
-                    label = "Copy"
-                    icon = R.drawable.abc_ic_menu_copy_mtrl_am_alpha
-                    callback = {
-                        Toast.makeText(context, "Copied!", Toast.LENGTH_SHORT).show()
-                    }
-                }
-                customItem {
-                    layoutResId = R.layout.view_custom_item_checkable
-                    viewBoundCallback = { view ->
-                        val checkBox: CheckBox = view.findViewById(R.id.customItemCheckbox)
-                        checkBox.isChecked = true
-                    }
-                    callback = {
-                        Toast.makeText(context, "Disabled!", Toast.LENGTH_SHORT).show()
-                    }
-                }
-                customItem {
-                    layoutResId = R.layout.view_custom_item_colored
-                }
-            }
-        }
-    }, PopupMenuSample(R.string.anchor_width) { context, anchor ->
-        popupMenuBuilder {
-            fixedContentWidthInPx = anchor.width
-            dropDownHorizontalOffset = 0
-            dropDownVerticalOffset = calculateVerticalOffsetForBottomButton(anchor)
-            section {
-                item {
-                    label = "Copy"
-                    icon = R.drawable.abc_ic_menu_copy_mtrl_am_alpha
-                    callback = {
-                        Toast.makeText(context, "Copied!", Toast.LENGTH_SHORT).show()
-                    }
-                }
-                item {
-                    label = "Paste"
-                    icon = R.drawable.abc_ic_menu_paste_mtrl_am_alpha
-                    callback = {
-                        Toast.makeText(context, "Text pasted!", Toast.LENGTH_SHORT).show()
+                section {
+                    title = "Other"
+                    item {
+                        label = "Share"
+                        icon = R.drawable.abc_ic_menu_share_mtrl_alpha
+                        callback = {
+                            shareUrl(context)
+                        }
                     }
                 }
             }
-        }
-    },
-    PopupMenuSample(R.string.multi_level) { context, anchor ->
-        popupMenuBuilder {
-            section {
-                title = "Editing"
-                item {
-                    label = "Copy"
-                    icon = R.drawable.abc_ic_menu_copy_mtrl_am_alpha
-                    callback = {
-                        Toast.makeText(context, "Copied!", Toast.LENGTH_SHORT).show()
+        },
+        PopupMenuSample(R.string.two_sections_without_titles) { context, _ ->
+            popupMenuBuilder {
+                section {
+                    item {
+                        label = "Copy"
+                        icon = R.drawable.abc_ic_menu_copy_mtrl_am_alpha
+                        callback = {
+                            Toast.makeText(context, "Copied!", Toast.LENGTH_SHORT).show()
+                        }
+                    }
+                    item {
+                        label = "Paste"
+                        icon = R.drawable.abc_ic_menu_paste_mtrl_am_alpha
+                        callback = {
+                            Toast.makeText(context, "Text pasted!", Toast.LENGTH_SHORT).show()
+                        }
                     }
                 }
-                item {
-                    label = "Paste"
-                    iconDrawable = ContextCompat.getDrawable(context, R.drawable.abc_ic_menu_paste_mtrl_am_alpha)
+                section {
+                    item {
+                        label = "Share"
+                        icon = R.drawable.abc_ic_menu_share_mtrl_alpha
+                        callback = {
+                            shareUrl(context)
+                        }
+                    }
                 }
             }
-            section {
-                item {
-                    label = "Share me please"
-                    callback = {
-                        shareUrl(context)
+        },
+        PopupMenuSample(R.string.custom_colors) { context, _ ->
+            popupMenuBuilder {
+                section {
+                    item {
+                        label = "Copy"
+                        labelColor = ContextCompat.getColor(context, R.color.red)
+                        icon = R.drawable.abc_ic_menu_copy_mtrl_am_alpha
+                        iconColor = ContextCompat.getColor(context, R.color.dark_red)
+                        callback = {
+                            Toast.makeText(context, "Copied!", Toast.LENGTH_SHORT).show()
+                        }
+                    }
+                    item {
+                        label = "Paste"
+                        labelColor = ContextCompat.getColor(context, R.color.red)
+                        icon = R.drawable.abc_ic_menu_paste_mtrl_am_alpha
+                        iconColor = ContextCompat.getColor(context, R.color.dark_red)
+                        callback = {
+                            Toast.makeText(context, "Text pasted!", Toast.LENGTH_SHORT).show()
+                        }
                     }
                 }
-                item {
-                    label = "Multi-level"
-                    hasNestedItems = true
-                    callback = {
-                        val nestedPopupMenu = popupMenu {
-                            dropdownGravity = this@popupMenuBuilder.dropdownGravity
-                            section {
-                                title = "Second level"
-                                item {
-                                    label = "Copy"
-                                }
-                                item {
-                                    label = "Paste"
+                section {
+                    item {
+                        label = "Share"
+                        labelColor = ContextCompat.getColor(context, R.color.green)
+                        icon = R.drawable.abc_ic_menu_share_mtrl_alpha
+                        iconColor = ContextCompat.getColor(context, R.color.dark_green)
+                        callback = {
+                            shareUrl(context)
+                        }
+                    }
+                }
+            }
+        },
+        PopupMenuSample(R.string.custom_items) { context, _ ->
+            popupMenuBuilder {
+                section {
+                    item {
+                        label = "Copy"
+                        icon = R.drawable.abc_ic_menu_copy_mtrl_am_alpha
+                        callback = {
+                            Toast.makeText(context, "Copied!", Toast.LENGTH_SHORT).show()
+                        }
+                    }
+                    customItem {
+                        layoutResId = R.layout.view_custom_item_checkable
+                        viewBoundCallback = ViewBoundCallback { view ->
+                            val checkBox: CheckBox = view.findViewById(R.id.customItemCheckbox)
+                            checkBox.isChecked = true
+                            checkBox.setOnCheckedChangeListener { _, isChecked ->
+                                if (isChecked) {
+                                    dismissPopup()
                                 }
                             }
                         }
-
-                        nestedPopupMenu.show(context, anchor)
+                        callback = {
+                            Toast.makeText(context, "Disabled!", Toast.LENGTH_SHORT).show()
+                        }
+                    }
+                    customItem {
+                        layoutResId = R.layout.view_custom_item_large
+                        viewBoundCallback = { view ->
+                            val textView: TextView = view.findViewById(R.id.customItemTextView)
+                            textView.text = "Some long text that is applied later to see if height calculation indeed is incorrectly calculated due to this binding."
+                        }
+                    }
+                    item {
+                        label = createMultiLineText(context)
+                        viewBoundCallback = { view ->
+                            val tv = view.findViewById<TextView>(R.id.mpm_popup_menu_item_label)
+                            tv.setSingleLine(false)
+                            tv.maxLines = 2
+                        }
                     }
                 }
-                item {
-                    label = "Multi-level"
-                    hasNestedItems = true
-                    icon = R.drawable.abc_ic_menu_copy_mtrl_am_alpha
-                    callback = {
-                        val nestedPopupMenu = popupMenu {
-                            dropdownGravity = this@popupMenuBuilder.dropdownGravity
-                            section {
-                                title = "Second level"
-                                item {
-                                    label = "Copy"
-                                }
-                                item {
-                                    label = "Paste"
-                                }
-                            }
+            }
+        },
+        PopupMenuSample(R.string.custom_offsets) { context, _ ->
+            popupMenuBuilder {
+                style = R.style.Widget_MPM_Menu_CustomOffsets
+                section {
+                    item {
+                        label = "Copy"
+                        callback = {
+                            Toast.makeText(context, "Copied!", Toast.LENGTH_SHORT).show()
                         }
-
-                        nestedPopupMenu.show(context, anchor)
                     }
+                    item {
+                        label = "Paste"
+                        callback = {
+                            Toast.makeText(context, "Text pasted!", Toast.LENGTH_SHORT).show()
+                        }
+                    }
+                    item {
+                        label = "Select all"
+                    }
+                }
+            }
+        },
+        PopupMenuSample(R.string.dimmed_background) { context, _ ->
+            popupMenuBuilder {
+                style = R.style.Widget_MPM_Menu_Dimmed
+                section {
+                    item {
+                        label = "Copy"
+                        callback = {
+                            Toast.makeText(context, "Copied!", Toast.LENGTH_SHORT).show()
+                        }
+                    }
+                    item {
+                        label = "Paste"
+                        callback = {
+                            Toast.makeText(context, "Text pasted!", Toast.LENGTH_SHORT).show()
+                        }
+                    }
+                }
+            }
+        },
+        PopupMenuSample(R.string.custom_padding) { context, _ ->
+            popupMenuBuilder {
+                style = R.style.Widget_MPM_Menu_CustomPadding
+                section {
+                    item {
+                        label = "Copy"
+                        callback = {
+                            Toast.makeText(context, "Copied!", Toast.LENGTH_SHORT).show()
+                        }
+                    }
+                    item {
+                        label = "Paste"
+                        callback = {
+                            Toast.makeText(context, "Text pasted!", Toast.LENGTH_SHORT).show()
+                        }
+                    }
+                }
+            }
+        },
+        PopupMenuSample(R.string.rounded_corners) { context, _ ->
+            popupMenuBuilder {
+                style = R.style.Widget_MPM_Menu_RoundedCorners
+                section {
+                    item {
+                        label = "Copy"
+                        icon = R.drawable.abc_ic_menu_copy_mtrl_am_alpha
+                        callback = {
+                            Toast.makeText(context, "Copied!", Toast.LENGTH_SHORT).show()
+                        }
+                    }
+                    customItem {
+                        layoutResId = R.layout.view_custom_item_checkable
+                        viewBoundCallback = { view ->
+                            val checkBox: CheckBox = view.findViewById(R.id.customItemCheckbox)
+                            checkBox.isChecked = true
+                        }
+                        callback = {
+                            Toast.makeText(context, "Disabled!", Toast.LENGTH_SHORT).show()
+                        }
+                    }
+                    customItem {
+                        layoutResId = R.layout.view_custom_item_colored
+                    }
+                }
+            }
+        }, PopupMenuSample(R.string.anchor_width) { context, anchor ->
+    popupMenuBuilder {
+        fixedContentWidthInPx = anchor.width
+        dropDownHorizontalOffset = 0
+        dropDownVerticalOffset = calculateVerticalOffsetForBottomButton(anchor)
+        section {
+            item {
+                label = "Copy"
+                icon = R.drawable.abc_ic_menu_copy_mtrl_am_alpha
+                callback = {
+                    Toast.makeText(context, "Copied!", Toast.LENGTH_SHORT).show()
+                }
+            }
+            item {
+                label = "Paste"
+                icon = R.drawable.abc_ic_menu_paste_mtrl_am_alpha
+                callback = {
+                    Toast.makeText(context, "Text pasted!", Toast.LENGTH_SHORT).show()
                 }
             }
         }
     }
+},
+        PopupMenuSample(R.string.multi_level) { context, anchor ->
+            popupMenuBuilder {
+                section {
+                    title = "Editing"
+                    item {
+                        label = "Copy"
+                        icon = R.drawable.abc_ic_menu_copy_mtrl_am_alpha
+                        callback = {
+                            Toast.makeText(context, "Copied!", Toast.LENGTH_SHORT).show()
+                        }
+                    }
+                    item {
+                        label = "Paste"
+                        iconDrawable = ContextCompat.getDrawable(context, R.drawable.abc_ic_menu_paste_mtrl_am_alpha)
+                    }
+                }
+                section {
+                    item {
+                        label = "Share me please"
+                        callback = {
+                            shareUrl(context)
+                        }
+                    }
+                    item {
+                        label = "Multi-level"
+                        hasNestedItems = true
+                        callback = {
+                            val nestedPopupMenu = popupMenu {
+                                dropdownGravity = this@popupMenuBuilder.dropdownGravity
+                                section {
+                                    title = "Second level"
+                                    item {
+                                        label = "Copy"
+                                    }
+                                    item {
+                                        label = "Paste"
+                                    }
+                                }
+                            }
+
+                            nestedPopupMenu.show(context, anchor)
+                        }
+                    }
+                    item {
+                        label = "Multi-level"
+                        hasNestedItems = true
+                        icon = R.drawable.abc_ic_menu_copy_mtrl_am_alpha
+                        callback = {
+                            val nestedPopupMenu = popupMenu {
+                                dropdownGravity = this@popupMenuBuilder.dropdownGravity
+                                section {
+                                    title = "Second level"
+                                    item {
+                                        label = "Copy"
+                                    }
+                                    item {
+                                        label = "Paste"
+                                    }
+                                }
+                            }
+
+                            nestedPopupMenu.show(context, anchor)
+                        }
+                    }
+                }
+            }
+        },
+        PopupMenuSample(R.string.custom_animation) { context, anchor ->
+
+            popupMenuBuilder {
+                customAnimation = object : PopupAnimation {
+                    var cx: Int = 0
+                    var cy: Int = 0
+                    var w: Int = 0
+                    var h: Int = 0
+                    var finalRadius: Int = 0
+
+                    // this function can be overwritten optionally, it will hide the content view by default
+                    override fun onPrepare(popup: PopupWindow) {
+                        super.onPrepare(popup)
+                        // ...
+                    }
+
+                    override fun onShow(popup: PopupWindow) {
+                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                            cx = (popup.contentView.left + popup.contentView.right) / 2
+                            cy = (popup.contentView.top + popup.contentView.bottom) / 2
+                            w = popup.contentView.width
+                            h = popup.contentView.height
+                            finalRadius = sqrt((w * w + h * h).toDouble()).toInt()
+                            ViewAnimationUtils.createCircularReveal(popup.contentView, cx, cy, 0f, finalRadius.toFloat()).apply {
+                                doOnStart {
+                                    popup.contentView.visibility = View.VISIBLE
+                                }
+                            }.start()
+                        } else {
+                            popup.contentView.visibility = View.VISIBLE
+                        }
+                    }
+
+                    override fun onHide(popup: PopupWindow, onHidden: (() -> Unit)) {
+                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                            ViewAnimationUtils.createCircularReveal(popup.contentView, cx, cy, finalRadius.toFloat(), 0f).apply {
+                                doOnEnd {
+                                    popup.contentView.visibility = View.INVISIBLE
+                                    onHidden()
+                                }
+                                doOnCancel {
+                                    popup.contentView.visibility = View.INVISIBLE
+                                    onHidden()
+                                }
+                            }.start()
+                        } else {
+                            popup.contentView.visibility = View.VISIBLE
+                        }
+                    }
+                }
+
+                section {
+                    title = "Editing"
+                    item {
+                        label = "Copy"
+                        icon = R.drawable.abc_ic_menu_copy_mtrl_am_alpha
+                        callback = {
+                            Toast.makeText(context, "Copied!", Toast.LENGTH_SHORT).show()
+                        }
+                    }
+                }
+            }
+        }
 )
 
 private fun shareUrl(context: Context) {
@@ -404,16 +471,16 @@ private fun createMultiLineText(context: Context): CharSequence {
     val idx = text.indexOf("\n")
     if (idx != -1) {
         spannable.setSpan(
-            RelativeSizeSpan(0.7f),
-            idx,
-            text.length,
-            Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+                RelativeSizeSpan(0.7f),
+                idx,
+                text.length,
+                Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
         )
         spannable.setSpan(
-            ForegroundColorSpan(ContextCompat.getColor(context, R.color.abc_secondary_text_material_light)),
-            idx,
-            text.length,
-            Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+                ForegroundColorSpan(ContextCompat.getColor(context, R.color.abc_secondary_text_material_light)),
+                idx,
+                text.length,
+                Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
         )
     }
     return spannable

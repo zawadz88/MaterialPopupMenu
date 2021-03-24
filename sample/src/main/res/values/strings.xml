@@ -17,6 +17,7 @@
     <string name="custom_padding">Custom padding (fixed popup style used)</string>
     <string name="rounded_corners">Rounded corners (fixed popup style used)</string>
     <string name="multi_level">Multi-level</string>
+    <string name="custom_animation">Custom Animation</string>
     <string name="anchor_width">Same width as anchor View</string>
 
     <string name="choose_theme">Choose Activity theme</string>

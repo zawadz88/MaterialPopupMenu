@@ -1,6 +1,6 @@
 buildscript {
-    ext.KOTLIN_VERSION = '1.3.21'
-    ext.ANDROID_GRADLE_PLUGIN_VERSION = '4.1.0'
+    ext.KOTLIN_VERSION = '1.4.31'
+    ext.ANDROID_GRADLE_PLUGIN_VERSION = '4.1.3'
     ext.DOKKA_VERSION = '0.9.18'
     ext.BINTRAY_VERSION = '1.8.4'
     ext.KORDAMP_VERSION = '0.15.1'
@@ -43,7 +43,7 @@ configure(allprojects) {
         ANDROIDX_RECYCLERVIEW_VERSION       = '1.0.0'
 
         ANDROIDX_CONSTRAINTLAYOUT_VERSION   = '1.1.3'
-        ANDROIDX_CORE_KTX_VERSION           = '1.1.0'
+        ANDROIDX_CORE_KTX_VERSION           = '1.3.2'
         MATERIAL_COMPONENTS_VERSION         = '1.2.1'
 
         JUNIT_VERSION                       = '4.13.1'

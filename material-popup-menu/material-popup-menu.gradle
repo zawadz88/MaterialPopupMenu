@@ -19,13 +19,24 @@ android {
             minifyEnabled false
         }
     }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
 }
 
 dependencies {
     api "androidx.appcompat:appcompat:$ANDROIDX_APPCOMPAT_VERSION"
     api "androidx.recyclerview:recyclerview:$ANDROIDX_RECYCLERVIEW_VERSION"
 
-    api "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$KOTLIN_VERSION"
+    implementation "androidx.core:core-ktx:$ANDROIDX_CORE_KTX_VERSION"
+
+    api "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$KOTLIN_VERSION"
 
     testImplementation "junit:junit:$JUNIT_VERSION"
     testImplementation "org.hamcrest:hamcrest-core:$HAMCREST_VERSION"
